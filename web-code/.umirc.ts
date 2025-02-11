@@ -7,12 +7,18 @@ export default defineConfig({
   initialState: {},
   request: {},
   layout: {
-    title: '@umijs/max',
+    title: '球鞋售卖',
   },
   routes: [
     {
       path: '/',
       redirect: '/home',
+    },
+    {
+      name: '登录',
+      path: '/login',
+      layout: false,
+      component: './Login',
     },
     {
       name: '首页',
@@ -32,4 +38,3 @@ export default defineConfig({
   ],
   npmClient: 'npm',
 });
-

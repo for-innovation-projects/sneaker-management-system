@@ -1,0 +1,82 @@
+.login-container {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-form {
+  background: rgba(255, 255, 255, 80%);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 10%);
+  width: 100%;
+  max-width: 360px;
+  box-sizing: border-box;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.login-form h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.login-form input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-sizing: border-box;
+
+  /* 添加获取焦点时的阴影效果 */
+  transition: box-shadow 0.3s ease;
+
+  /* 平滑过渡效果 */
+}
+
+.login-form input:focus {
+  outline: none;
+
+  /* 移除默认的焦点轮廓 */
+  box-shadow: 0 0 15px rgba(255, 255, 255, 80%);
+
+  /* 增加模糊半径和减少透明度 */
+}
+
+.login-form button {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  background: #5c67f2;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 0.5em 0;
+}
+
+.login-form button:hover {
+  background: #4a54e1;
+}
+
+@keyframes rotate {
+  0% {
+    transform: perspective(400px) rotateZ(20deg) rotateX(-40deg) rotateY(0);
+  }
+
+  100% {
+    transform: perspective(400px) rotateZ(20deg) rotateX(-40deg)
+      rotateY(-360deg);
+  }
+}
+
+#particles-js {
+  width: 100vw;
+  height: calc(100vh - 4px);
+  box-sizing: border-box;
+  background: url('@/assets/images/bg.33ece377.jpg') 0% 0% / cover no-repeat;
+  display: block;
+}
