@@ -12,7 +12,7 @@ export default defineConfig({
   routes: [
     {
       path: '/',
-      redirect: '/home',
+      redirect: '/orderlist',
     },
     {
       name: '登录',
@@ -21,19 +21,14 @@ export default defineConfig({
       component: './Login',
     },
     {
-      name: '首页',
-      path: '/home',
-      component: './Home',
+      name: '订单处理',
+      path: '/orderlist',
+      component: './OrderList',
     },
     {
-      name: '权限演示',
-      path: '/access',
-      component: './Access',
-    },
-    {
-      name: ' CRUD 示例',
-      path: '/table',
-      component: './Table',
+      name: '用户列表',
+      path: '/userlist',
+      component: './UserList',
     },
   ],
   npmClient: 'npm',
