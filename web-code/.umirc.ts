@@ -26,6 +26,11 @@ export default defineConfig({
       component: './OrderList',
     },
     {
+      name: '地址管理',
+      path: '/address',
+      component: './Address',
+    },
+    {
       name: '用户列表',
       path: '/userlist',
       component: './UserList',
