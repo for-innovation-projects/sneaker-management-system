@@ -1,240 +1,154 @@
-import services from '@/services/demo';
-import {
-  ActionType,
-  FooterToolbar,
-  PageContainer,
-  ProDescriptions,
-  ProDescriptionsItemProps,
-  ProTable,
-} from '@ant-design/pro-components';
-import { Button, Divider, Drawer, message } from 'antd';
-import React, { useRef, useState } from 'react';
-import CreateForm from './components/CreateForm';
-import UpdateForm, { FormValueType } from './components/UpdateForm';
+import type { ProColumns } from '@ant-design/pro-components';
+import { ProTable } from '@ant-design/pro-components';
+import { Input, Modal, Popconfirm } from 'antd';
+import { useState } from 'react';
 
-const { addUser, queryUserList, deleteUser, modifyUser } =
-  services.UserController;
+const { TextArea } = Input;
 
-/**
- * 添加节点
- * @param fields
- */
-const handleAdd = async (fields: API.UserInfo) => {
-  const hide = message.loading('正在添加');
-  try {
-    await addUser({ ...fields });
-    hide();
-    message.success('添加成功');
-    return true;
-  } catch (error) {
-    hide();
-    message.error('添加失败请重试！');
-    return false;
-  }
+export type TableListItem = {
+  key: number;
+  orderId: string;
+  name: string;
+  phone: string;
+  status: number;
+  date: number;
 };
+const tableListDataSource: TableListItem[] = [];
 
-/**
- * 更新节点
- * @param fields
- */
-const handleUpdate = async (fields: FormValueType) => {
-  const hide = message.loading('正在配置');
-  try {
-    await modifyUser(
-      {
-        userId: fields.id || '',
-      },
-      {
-        name: fields.name || '',
-        nickName: fields.nickName || '',
-        email: fields.email || '',
-      },
-    );
-    hide();
+for (let i = 0; i < 6; i += 1) {
+  tableListDataSource.push({
+    key: i,
+    orderId: 'xxxx-545478851212',
+    name: '张三' + i,
+    phone: '17349867499',
+    status: i % 6,
+    date: Date.now(),
+  });
+}
 
-    message.success('配置成功');
-    return true;
-  } catch (error) {
-    hide();
-    message.error('配置失败请重试！');
-    return false;
-  }
-};
+export default () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalId, setModalId] = useState('');
+  const [addressInfo, setAddressInfo] = useState('');
 
-/**
- *  删除节点
- * @param selectedRows
- */
-const handleRemove = async (selectedRows: API.UserInfo[]) => {
-  const hide = message.loading('正在删除');
-  if (!selectedRows) return true;
-  try {
-    await deleteUser({
-      userId: selectedRows.find((row) => row.id)?.id || '',
-    });
-    hide();
-    message.success('删除成功，即将刷新');
-    return true;
-  } catch (error) {
-    hide();
-    message.error('删除失败，请重试');
-    return false;
-  }
-};
-
-const TableList: React.FC<unknown> = () => {
-  const [createModalVisible, handleModalVisible] = useState<boolean>(false);
-  const [updateModalVisible, handleUpdateModalVisible] =
-    useState<boolean>(false);
-  const [stepFormValues, setStepFormValues] = useState({});
-  const actionRef = useRef<ActionType>();
-  const [row, setRow] = useState<API.UserInfo>();
-  const [selectedRowsState, setSelectedRows] = useState<API.UserInfo[]>([]);
-  const columns: ProDescriptionsItemProps<API.UserInfo>[] = [
+  const columns: ProColumns<TableListItem>[] = [
     {
       title: '订单号',
-      dataIndex: 'name',
-      formItemProps: {
-        rules: [
-          {
-            required: true,
-            message: '名称为必填项',
-          },
-        ],
-      },
+      dataIndex: 'orderId',
+      ellipsis: true,
+      copyable: true,
     },
     {
       title: '用户姓名',
-      dataIndex: 'nickName',
-      valueType: 'text',
+      dataIndex: 'name',
+      copyable: true,
+    },
+    {
+      title: '用户手机号',
+      dataIndex: 'phone',
+      copyable: true,
     },
     {
       title: '订单状态',
-      dataIndex: 'gender',
-      hideInForm: true,
+      dataIndex: 'status',
+      valueType: 'select',
       valueEnum: {
-        0: { text: '男', status: 'MALE' },
-        1: { text: '女', status: 'FEMALE' },
+        0: { text: '等待报价', status: 'Processing' },
+        1: { text: '等待用户选择发货', status: 'Processing' },
+        2: { text: '等待收货', status: 'Processing' },
+        3: { text: '退货待确认', status: 'Processing' },
+        4: { text: '订单完结', status: 'Success' },
+        5: { text: '未提交', status: 'Error' },
       },
     },
     {
-      title: '创建日期',
-      dataIndex: 'nickName',
-      valueType: 'text',
+      title: '更新时间',
+      dataIndex: 'date',
+      valueType: 'dateTime',
+      search: false,
+    },
+    {
+      title: '创建时间',
+      dataIndex: 'date',
+      valueType: 'dateTime',
+      search: false,
+    },
+    {
+      title: '时间范围',
+      key: 'dateTimeRange',
+      dataIndex: 'dateTimeRange',
+      hideInTable: true,
+      valueType: 'dateTimeRange',
     },
     {
       title: '操作',
-      dataIndex: 'option',
+      width: 200,
+      key: 'option',
       valueType: 'option',
-      render: (_, record) => (
-        <>
-          <a
-            onClick={() => {
-              handleUpdateModalVisible(true);
-              setStepFormValues(record);
-            }}
+      render: (_, item) => {
+        if (item.status === 5) {
+          return [
+            <a disabled key="link2">
+              订单处理
+            </a>,
+            <Popconfirm
+              title="关闭订单"
+              description="关闭后订单将立刻结束"
+              onConfirm={() => {}}
+              onCancel={() => {}}
+              okText="确认"
+              cancelText="取消"
+            >
+              <a disabled key="link3">
+                订单关闭
+              </a>
+            </Popconfirm>,
+            <a key="link">订单导出</a>,
+          ];
+        }
+        return [
+          <a key="link2">订单处理</a>,
+          <Popconfirm
+            title="关闭订单"
+            description="关闭后订单将立刻结束"
+            onConfirm={() => {}}
+            onCancel={() => {}}
+            okText="确认"
+            cancelText="取消"
           >
-            订单处理
-          </a>
-          <Divider type="vertical" />
-          <a href="">订单导出</a>
-        </>
-      ),
+            <a key="link3">订单关闭</a>
+          </Popconfirm>,
+          <a key="link">订单导出</a>,
+        ];
+      },
     },
   ];
-
   return (
-    <PageContainer
-      header={{
-        title: '订单处理',
-      }}
-    >
-      <ProTable<API.UserInfo>
-        headerTitle="查询表格"
-        actionRef={actionRef}
-        rowKey="id"
-        search={{
-          labelWidth: 120,
-        }}
-        request={async (params, sorter, filter) => {
-          const { data, success } = await queryUserList({
-            ...params,
-            // FIXME: remove @ts-ignore
-            // @ts-ignore
-            sorter,
-            filter,
-          });
-          return {
-            data: data?.list || [],
-            success,
-          };
-        }}
+    <>
+      <ProTable<TableListItem>
         columns={columns}
-      />
-      <CreateForm
-        onCancel={() => handleModalVisible(false)}
-        modalVisible={createModalVisible}
-      >
-        <ProTable<API.UserInfo, API.UserInfo>
-          onSubmit={async (value) => {
-            const success = await handleAdd(value);
-            if (success) {
-              handleModalVisible(false);
-              if (actionRef.current) {
-                actionRef.current.reload();
-              }
-            }
-          }}
-          rowKey="id"
-          type="form"
-          columns={columns}
-        />
-      </CreateForm>
-      {stepFormValues && Object.keys(stepFormValues).length ? (
-        <UpdateForm
-          onSubmit={async (value) => {
-            const success = await handleUpdate(value);
-            if (success) {
-              handleUpdateModalVisible(false);
-              setStepFormValues({});
-              if (actionRef.current) {
-                actionRef.current.reload();
-              }
-            }
-          }}
-          onCancel={() => {
-            handleUpdateModalVisible(false);
-            setStepFormValues({});
-          }}
-          updateModalVisible={updateModalVisible}
-          values={stepFormValues}
-        />
-      ) : null}
-
-      <Drawer
-        width={600}
-        open={!!row}
-        onClose={() => {
-          setRow(undefined);
+        request={(params, sorter, filter) => {
+          // 表单搜索项会从 params 传入，传递给后端接口。
+          console.log(params, sorter, filter);
+          return Promise.resolve({
+            data: tableListDataSource,
+            success: true,
+          });
         }}
-        closable={false}
+        rowKey="key"
+        dateFormatter="string"
+        search={{
+          collapsed: false,
+        }}
+      />
+      <Modal
+        title={modalId ? '修改地址' : '创建地址'}
+        open={isModalOpen}
+        onOk={() => {}}
+        onCancel={() => setIsModalOpen(false)}
       >
-        {row?.name && (
-          <ProDescriptions<API.UserInfo>
-            column={2}
-            title={row?.name}
-            request={async () => ({
-              data: row || {},
-            })}
-            params={{
-              id: row?.name,
-            }}
-            columns={columns}
-          />
-        )}
-      </Drawer>
-    </PageContainer>
+        <TextArea value={addressInfo} rows={4} />
+      </Modal>
+    </>
   );
 };
-
-export default TableList;
