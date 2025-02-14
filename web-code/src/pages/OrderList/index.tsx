@@ -1,7 +1,17 @@
+import VerificationCodeFormItem from '@/components/VerificationCodeFormItem';
 import type { ProColumns } from '@ant-design/pro-components';
 import { ProTable } from '@ant-design/pro-components';
-import { Input, Modal, Popconfirm } from 'antd';
-import { useState } from 'react';
+import {
+  Button,
+  Form,
+  Input,
+  InputNumber,
+  Modal,
+  Popconfirm,
+  Popover,
+} from 'antd';
+import { useMemo, useState } from 'react';
+import OrderEdit from './components/OrderEdit';
 
 const { TextArea } = Input;
 
@@ -28,9 +38,51 @@ for (let i = 0; i < 6; i += 1) {
 
 export default () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalId, setModalId] = useState('');
-  const [addressInfo, setAddressInfo] = useState('');
-
+  const [orderId, setOrderId] = useState<number>();
+  const okText = useMemo(() => {
+    if (orderId === 0) {
+      return <>报价完成</>;
+    }
+    if (orderId === 3 || orderId === 2) {
+      return (
+        <Popover
+          title="打钱"
+          trigger="click"
+          content={
+            <Form size="small" name="optionForm" autoComplete="off">
+              <Form.Item
+                label="金额"
+                name="username"
+                rules={[{ required: true, message: '必须输入' }]}
+              >
+                <InputNumber />
+              </Form.Item>
+              <Form.Item
+                label="验证码"
+                name="password"
+                rules={[
+                  {
+                    required: true,
+                    message: '必须输入',
+                  },
+                ]}
+              >
+                <VerificationCodeFormItem />
+              </Form.Item>
+              <Form.Item label={null}>
+                <Button type="primary" htmlType="submit">
+                  打钱
+                </Button>
+              </Form.Item>
+            </Form>
+          }
+        >
+          完成订单（打钱）
+        </Popover>
+      );
+    }
+    return <>确定</>;
+  }, [orderId]);
   const columns: ProColumns<TableListItem>[] = [
     {
       title: '订单号',
@@ -107,7 +159,15 @@ export default () => {
           ];
         }
         return [
-          <a key="link2">订单处理</a>,
+          <a
+            key="link2"
+            onClick={() => {
+              setOrderId(item.key);
+              setIsModalOpen(true);
+            }}
+          >
+            订单处理
+          </a>,
           <Popconfirm
             title="关闭订单"
             description="关闭后订单将立刻结束"
@@ -142,12 +202,14 @@ export default () => {
         }}
       />
       <Modal
-        title={modalId ? '修改地址' : '创建地址'}
+        title={'处理订单'}
         open={isModalOpen}
+        width="80vw"
+        okText={okText}
         onOk={() => {}}
         onCancel={() => setIsModalOpen(false)}
       >
-        <TextArea value={addressInfo} rows={4} />
+        <OrderEdit></OrderEdit>
       </Modal>
     </>
   );
