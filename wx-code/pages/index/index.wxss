@@ -1,1 +1,8 @@
-/* pages/index/index.wxss */
+.page-index {
+  width: 100%;
+}
+.page-index image{
+  width: 100%;
+  height: auto;
+  display: block;
+}
