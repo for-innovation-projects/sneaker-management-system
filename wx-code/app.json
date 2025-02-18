@@ -2,7 +2,9 @@
   "pages": [
     "pages/index/index",
     "pages/order/index",
-    "pages/my/index"
+    "pages/my/index",
+    "pages/my/collection-information/index",
+    "pages/my/withdrawal-record/index"
   ],
   "window": {
     "backgroundTextStyle": "light",
