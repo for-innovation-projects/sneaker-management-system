@@ -1,0 +1,9 @@
+<t-message id="t-message" />
+<view class="message-btn" bind:tap="onWithdraw">提现</view>
+<t-dialog visible="{{visible}}" title="提现" content="请输入提现金额，预计在1-3个工作日内到账。可在提现记录中查看进度。有问题请咨询客服。" confirm-btn="确定" cancel-btn="取消" bind:confirm="confirmDialog" bind:cancel="closeDialog">
+  <view class="dialog-content" slot="content">
+    ¥
+    <t-input value="{{money}}" bind:change="onPhoneInput" clearable borderless="{{true}}" class="dialog-input" placeholder-class="placeholder" type="number" placeholder="输入金额" />
+  </view>
+
+</t-dialog>

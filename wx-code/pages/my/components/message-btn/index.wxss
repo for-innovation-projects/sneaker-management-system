@@ -1,0 +1,33 @@
+.message-btn {
+  font-size: 25rpx;
+  border-radius: 60px;
+  padding: 10rpx 35rpx;
+  border: 1px solid #cccccc;
+}
+
+.placeholder {
+  color: var(--td-text-color-placeholder);
+  line-height: 96rpx;
+  height: 96rpx !important;
+  display: flex;
+  align-items: center;
+}
+
+.dialog-content {
+  display: flex;
+  align-items: center;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  margin-top: 20rpx;
+}
+
+.dialog-input {
+  text-align: left;
+  border-radius: 8rpx;
+  background-color: var(--td-bg-color-page);
+  box-sizing: border-box;
+  border: 1px solid #cccccc;
+  margin-left: 20rpx;
+  line-height: 30rpx;
+  padding: 15rpx 20rpx;
+}
