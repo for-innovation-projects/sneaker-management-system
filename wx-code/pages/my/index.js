@@ -2,13 +2,9 @@ import {
   onShareTimeline,
   onShareAppMessage
 } from '../../utils/share'
-// pages/index.js
 Page({
   onShareTimeline,
   onShareAppMessage,
-  /**
-   * 页面的初始数据
-   */
   data: {
     visibleMessage: false,
     currAuthStep: "3",
@@ -25,22 +21,17 @@ Page({
       visibleMessage: true
     })
   },
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow() {
-    this.getTabBar().init();
-    wx.showShareMenu({
-      withShareTicket: true,
-      menus: ['shareAppMessage', 'shareTimeline']
+  onCollectionInformation() {
+    wx.navigateTo({
+      url: '/pages/my/collection-information/index',
     })
   },
-
+  onWithdrawalRecord() {
+    wx.navigateTo({
+      url: '/pages/my/withdrawal-record/index',
+    })
+  },
+  onShow() {
+    this.getTabBar().init();
+  },
 })
