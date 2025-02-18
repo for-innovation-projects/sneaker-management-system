@@ -1,19 +1,37 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/my/index",
-    "pages/order/order"
+    "pages/order/index",
+    "pages/my/index"
   ],
-  "usingComponents": {
-    "t-button": "tdesign-miniprogram/button/button",
-    "t-icon": "tdesign-miniprogram/icon/icon"
-  },
   "window": {
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#f6f6f6",
     "backgroundColor": "#f6f6f6",
-    "navigationBarTitleText": "TDesign",
+    "navigationBarTitleText": "球鞋",
     "navigationBarTextStyle": "black"
   },
+  "tabBar": {
+    "custom": true,
+    "color": "#666666",
+    "selectedColor": "#FF5F15",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/order/index",
+        "text": "订单"
+      },
+      {
+        "pagePath": "pages/my/index",
+        "text": "我的"
+      }
+    ]
+  },
+  "lazyCodeLoading": "requiredComponents",
   "sitemapLocation": "sitemap.json"
 }
