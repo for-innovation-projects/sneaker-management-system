@@ -1,0 +1,29 @@
+<view class="collection-information">
+  <view class="divider-line" />
+  <form class="form-content">
+    <t-cell-group>
+      <t-cell class="form-cell" t-class-title="t-cell-title" title="姓名">
+        <t-input class="t-input" slot="note" t-class="field-text" borderless data-item="name" maxlength="20" type="text" value="{{formData.name}}" placeholder="您的姓名" bind:change="onInputValue" />
+      </t-cell>
+      <t-cell class="form-cell" t-class-title="t-cell-title" title="收款账号">
+        <t-input slot="note" class="t-input" maxlength="20" t-class="field-text" borderless type="number" value="{{formData.account}}" placeholder="请输入收款账号" bind:change="onInputValue" data-item="account" />
+      </t-cell>
+      <t-cell class="form-cell" t-class-title="t-cell-title" title="手机号">
+        <t-input slot="note" class="t-input" t-class="field-text" borderless type="number" value="{{formData.phone}}" maxlength="11" placeholder="联系您的手机号" bind:change="onInputValue" data-item="phone">
+          <view slot="suffix" style="display: flex; align-items: center">
+            <view class="suffix--line"></view>
+            <view class="verify {{verifyPhone && 'loading'}}" aria-role="button" bind:tap="onSendCode"> {{verifyPhoneText}} </view>
+          </view>
+        </t-input>
+      </t-cell>
+      <t-cell class="form-cell" t-class-title="t-cell-title" title="验证码">
+        <t-input slot="note" class="t-input" t-class="field-text" borderless type="number" maxlength="10" value="{{formData.code}}" placeholder="请输入验证码" bind:change="onInputValue" data-item="code" />
+      </t-cell>
+      <view class="divider-line" />
+    </t-cell-group>
+    <view class="submit">
+      <t-button class="{{submitActive && 'btn-submit-save'}}" shape="round" block disabled="{{!submitActive}}" bind:tap="formSubmit"> 保存 </t-button>
+    </view>
+  </form>
+</view>
+<t-toast id="t-toast" />
