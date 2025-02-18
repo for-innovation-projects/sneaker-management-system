@@ -6,8 +6,8 @@ function getSystemInfo() {
     return systemInfo;
 }
 function compareVersion(v1, v2) {
-    v1 = v1.split('.');
-    v2 = v2.split('.');
+    v1 = v1?.split('.') || [];
+    v2 = v2?.split('.') || [];
     const len = Math.max(v1.length, v2.length);
     while (v1.length < len) {
         v1.push('0');
