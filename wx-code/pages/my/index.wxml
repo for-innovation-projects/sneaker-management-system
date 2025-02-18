@@ -1,2 +1,20 @@
-<!--pages/my/index.wxml-->
-<text>pages/my/index.wxml</text>
+<user-center-card userInfo="{{userInfo}}" currAuthStep="{{currAuthStep}}" isPhoneHide="{{true}}" name-class="custom-name-class" phone-class="custom-phone-class" avatar-class="customer-avatar-class" />
+<view class="content-wrapper">
+  <view class="order-group-wrapper">
+    <view class="order-title">余额</view>
+    <view class="order-content">
+      <view class="order-money"><text>¥</text>10.00</view>
+      <view class="action-btn" bind:tap="onWithdraw">提现</view>
+    </view>
+  </view>
+  <view class="order-group-wrapper no-padding">
+    <t-cell title="收款信息" hover arrow />
+    <t-cell title="提现记录" hover arrow />
+  </view>
+  <view class="order-group-wrapper">
+    <view class="order-title">客服热线</view>
+    <view class="order-content-image">
+      <image src="https://mp-4a5d90f2-d23e-4d23-8b5c-fe1ebb102bde.cdn.bspapp.com/cloudstorage/31739773342.jpg" mode="aspectFill" />
+    </view>
+  </view>
+</view>
