@@ -1,3 +1,8 @@
 {
-    "usingComponents": {}
+  "navigationBarTitleText": "个人中心",
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "t-cell": "tdesign-miniprogram/cell/cell",
+    "user-center-card": "./components/user-center-card/index"
+  }
 }
