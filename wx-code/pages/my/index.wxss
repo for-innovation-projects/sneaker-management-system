@@ -1,1 +1,69 @@
-/* pages/my/index.wxss */
+.content-wrapper {
+  margin-top: 340rpx;
+  position: relative;
+  padding: 0 30rpx;
+}
+
+.main-content {
+  height: 500rpx;
+}
+
+.order-group-wrapper {
+  margin-bottom: 16rpx;
+  background-color: #ffffff;
+  border-radius: 16rpx;
+  padding: var(--td-cell-vertical-padding, 32rpx) var(--td-cell-horizontal-padding, 32rpx);
+  padding-bottom: 10rpx;
+}
+
+.order-group-wrapper.no-padding {
+  padding: 0;
+  overflow: hidden;
+}
+
+.order-group-wrapper .order-title {
+  display: flex;
+  font-size: var(--td-cell-title-font-size, var(--td-font-size-m, 32rpx));
+  color: var(--td-cell-title-color, var(--td-font-gray-1, rgba(0, 0, 0, 0.9)));
+  font-weight: 400;
+}
+
+.order-group-wrapper .order-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 150rpx;
+}
+
+.order-group-wrapper .order-content-image {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.order-group-wrapper .order-content-image image {
+  width: 450rpx;
+  height: 450rpx;
+  margin: 35rpx 0;
+}
+
+.order-group-wrapper .order-content .order-money {
+  font-size: 60rpx;
+  font-size: 500;
+}
+
+.order-group-wrapper .order-content .order-money text {
+  font-size: 45rpx;
+  margin-right: 10rpx;
+}
+
+.order-group-wrapper .order-content .action-btn {
+  font-size: 25rpx;
+  border-radius: 60px;
+  padding: 10rpx 35rpx;
+  border: 1px solid #cccccc;
+}
+
+.order-group-wrapper .order-content .action-btn:active {
+  background-color: rgba(0, 0, 0, 0.1);
+}
