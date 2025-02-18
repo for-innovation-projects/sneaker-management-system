@@ -27,11 +27,12 @@
             "ignore": [],
             "disablePlugins": [],
             "outputPath": ""
-        }
+        },
+        "condition": false
     },
     "compileType": "miniprogram",
     "libVersion": "2.20.2",
-    "appid": "wx39d8836cd1286188",
+    "appid": "touristappid",
     "projectname": "TDesign",
     "simulatorType": "wechat",
     "simulatorPluginLibVersion": {},
