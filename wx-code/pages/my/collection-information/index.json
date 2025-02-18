@@ -2,7 +2,6 @@
   "navigationBarTitleText": "收款信息",
   "navigationBarBackgroundColor": "#ffffff",
   "usingComponents": {
-    "t-textarea": "tdesign-miniprogram/textarea/textarea",
     "t-icon": "tdesign-miniprogram/icon/icon",
     "t-input": "tdesign-miniprogram/input/input",
     "t-button": "tdesign-miniprogram/button/button",
