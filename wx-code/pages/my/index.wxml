@@ -4,7 +4,7 @@
     <view class="order-title">余额</view>
     <view class="order-content">
       <view class="order-money"><text>¥</text>10.00</view>
-      <view class="action-btn" bind:tap="onWithdraw">提现</view>
+      <message-btn />
     </view>
   </view>
   <view class="order-group-wrapper no-padding">
