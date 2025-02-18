@@ -3,21 +3,13 @@ import {
   getWithdrawalShare
 } from '../../../../utils/store'
 Component({
-
-  /**
-   * 组件的属性列表
-   */
-  properties: {
-
-  },
-
   /**
    * 组件的初始数据
    */
   data: {
     visible: false,
     priceError: false,
-    money: 0
+    money: "0"
   },
 
   /**
@@ -49,7 +41,7 @@ Component({
       });
     },
     confirmDialog() {
-      if (!this.data.money) {
+      if (!Number(this.data.money)) {
         Message.warning({
           context: this,
           offset: [90, 32],
@@ -77,7 +69,8 @@ Component({
         });
       } else {
         this.setData({
-          visible: true
+          visible: true,
+          money: "0"
         })
 
       }
