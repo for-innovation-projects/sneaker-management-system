@@ -1,10 +1,7 @@
-import gulpError from './utils/gulpError';
+import updateManager from './common/updateManager';
+
 App({
-    onShow() {
-        if (gulpError !== 'gulpErrorPlaceHolder') {
-            wx.redirectTo({
-                url: `/pages/gulp-error/index?gulpError=${gulpError}`,
-            });
-        }
-    },
+  onShow() {
+    updateManager();
+  },
 });
