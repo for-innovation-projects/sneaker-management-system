@@ -20,7 +20,7 @@
 .t-button {
   --td-button-font-weight: 500;
   --td-button-medium-font-size: 32rpx;
-  --td-button-default-color: #fff;
+  --td-button-default-color: #000000;
   --td-button-default-bg-color: #fa4126;
   --td-button-default-border-color: #fa4126;
   --td-button-default-disabled-color: #fff;
