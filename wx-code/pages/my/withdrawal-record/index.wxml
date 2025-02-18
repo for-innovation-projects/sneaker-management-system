@@ -1,0 +1,5 @@
+<view class="withdrawal-record">
+  <t-steps layout="vertical" readonly theme="dot" current="{{recordList.length}}">
+    <t-step-item icon="wr-logo-wechatpay" wx:for="{{recordList}}" wx:key="index" title="{{item.title}}" status="{{item.status}}" content="{{item.desc}}" />
+  </t-steps>
+</view>
