@@ -8,8 +8,8 @@
     </view>
   </view>
   <view class="order-group-wrapper no-padding">
-    <t-cell title="收款信息" hover arrow />
-    <t-cell title="提现记录" hover arrow />
+    <t-cell title="收款信息" hover arrow bind:tap="onCollectionInformation" />
+    <t-cell title="提现记录" hover arrow bind:tap="onWithdrawalRecord" />
   </view>
   <view class="order-group-wrapper">
     <view class="order-title">客服热线</view>
