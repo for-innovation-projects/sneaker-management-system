@@ -1,6 +1,11 @@
+import {
+  onShareTimeline,
+  onShareAppMessage
+} from '../../utils/share'
 // pages/index.js
 Page({
-
+  onShareTimeline,
+  onShareAppMessage,
   /**
    * 页面的初始数据
    */
@@ -13,6 +18,7 @@ Page({
       phoneNumber: '13438358888',
       gender: 2,
     },
+    remainingSum: "10.00"
   },
   onWithdraw() {
     this.setData({
@@ -36,12 +42,5 @@ Page({
       menus: ['shareAppMessage', 'shareTimeline']
     })
   },
-  onShareTimeline(e) {
-    console.log(e, 1111)
-    return {
-      userName: '小程序原始id',
-      path: 'pages/index/index',
-      title: '标题',
-    }
-  }
+
 })
