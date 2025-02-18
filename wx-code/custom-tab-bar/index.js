@@ -24,6 +24,10 @@ Component({
       this.setData({
         active
       });
+      wx.showShareMenu({
+        withShareTicket: true,
+        menus: ['shareAppMessage', 'shareTimeline']
+      })
     },
   },
 });
