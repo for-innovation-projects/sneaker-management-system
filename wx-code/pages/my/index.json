@@ -3,6 +3,7 @@
   "navigationStyle": "custom",
   "usingComponents": {
     "t-cell": "tdesign-miniprogram/cell/cell",
+    "message-btn": "./components/message-btn/index",
     "user-center-card": "./components/user-center-card/index"
   }
 }
