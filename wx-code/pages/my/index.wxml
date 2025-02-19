@@ -14,7 +14,7 @@
   <view class="order-group-wrapper">
     <view class="order-title">客服热线</view>
     <view class="order-content-image">
-      <image src="https://mp-4a5d90f2-d23e-4d23-8b5c-fe1ebb102bde.cdn.bspapp.com/cloudstorage/31739773342.jpg" mode="aspectFill" />
+      <image src="{{qrCode}}" mode="aspectFill" bind:tap="onQrCodeTab" />
     </view>
   </view>
 </view>
