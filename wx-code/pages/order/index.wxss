@@ -1,1 +1,13 @@
-/* pages/order/index.wxss */
+.tab-content {
+  height: calc(100vh - 272rpx);
+  overflow-y: auto;
+}
+
+.ball {
+  width: 100rpx;
+  height: 100rpx;
+  background-color: aquamarine;
+  position: fixed;
+  left: 0;
+  top: 50px;
+}
