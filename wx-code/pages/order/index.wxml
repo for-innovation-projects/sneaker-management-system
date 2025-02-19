@@ -1,2 +1,12 @@
-<!--pages/order/index.wxml-->
-<text>pages/order/index.wxml</text>
+<t-tabs value="{{value}}" bind:change="onTabsChange">
+  <t-tab-panel wx:for="{{tabsList}}" wx:key="index" label="{{item.label}}" value="{{item.value}}" />
+</t-tabs>
+<swiper current="{{current}}" class="tab-content" bind:change="onChangeSwiper">
+  <swiper-item wx:for="{{tabsList}}" wx:key="index">
+    {{item.value}}
+
+  </swiper-item>
+</swiper>
+<floating-ball>
+拖动
+</floating-ball>
