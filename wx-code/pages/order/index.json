@@ -1,3 +1,9 @@
 {
-    "usingComponents": {}
+  "navigationBarTitleText": "订单",
+  "navigationBarBackgroundColor": "#ffffff",
+  "usingComponents": {
+    "t-tabs": "tdesign-miniprogram/tabs/tabs",
+    "floating-ball": "../../components/floating-ball/index",
+    "t-tab-panel": "tdesign-miniprogram/tab-panel/tab-panel"
+  }
 }
