@@ -1,0 +1,15 @@
+.floating-ball {
+  position: fixed;
+  width: 100rpx;
+  height: 100rpx;
+  right: 30rpx;
+  bottom: 200rpx;
+  background-color: #007AFF;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 12px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}

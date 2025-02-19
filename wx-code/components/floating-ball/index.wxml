@@ -1,0 +1,3 @@
+<view class="floating-ball" style="transform: translate({{x}}px, {{y}}px);" bind:touchstart="onTouchStart" bind:touchmove="onTouchMove" bind:touchend="onTouchEnd">
+  <slot></slot>
+</view>
