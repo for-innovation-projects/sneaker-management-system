@@ -14,7 +14,14 @@ Page({
       phoneNumber: '13438358888',
       gender: 2,
     },
-    remainingSum: "10.00"
+    remainingSum: "10.00",
+    qrCode: 'https://mp-4a5d90f2-d23e-4d23-8b5c-fe1ebb102bde.cdn.bspapp.com/cloudstorage/31739773342.jpg'
+  },
+  onQrCodeTab() {
+    wx.previewImage({
+      urls: [this.data.qrCode],
+      showmenu: true
+    })
   },
   onWithdraw() {
     this.setData({
