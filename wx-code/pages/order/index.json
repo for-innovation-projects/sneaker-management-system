@@ -3,7 +3,9 @@
   "navigationBarBackgroundColor": "#ffffff",
   "usingComponents": {
     "t-tabs": "tdesign-miniprogram/tabs/tabs",
-    "floating-ball": "../../components/floating-ball/index",
-    "t-tab-panel": "tdesign-miniprogram/tab-panel/tab-panel"
+    "t-tab-panel": "tdesign-miniprogram/tab-panel/tab-panel",
+    "t-icon": "tdesign-miniprogram/icon/icon",
+    "shop-item": "./components/shop-item/index",
+    "floating-ball": "../../components/floating-ball/index"
   }
 }
