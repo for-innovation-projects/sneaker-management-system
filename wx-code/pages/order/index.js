@@ -12,7 +12,7 @@ Page({
       label: "当前订单",
       value: 'curOrder'
     }, {
-      label: "审核失败",
+      label: "处理中",
       value: 'fail'
     }, {
       label: "待确认",
