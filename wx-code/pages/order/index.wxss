@@ -3,11 +3,23 @@
   overflow-y: auto;
 }
 
-.ball {
-  width: 100rpx;
-  height: 100rpx;
-  background-color: aquamarine;
-  position: fixed;
-  left: 0;
-  top: 50px;
+.ball-content {
+  display: flex;
+  align-items: center;
+}
+
+.ball-content .ball-action {
+  display: flex;
+  align-items: center;
+}
+
+.ball-content .ball-action+.ball-action {
+  margin-left: 15rpx;
+  border-left: 1px solid #ffffff;
+  padding-left: 15rpx;
+}
+
+.item-content {
+  height: 100%;
+  overflow-y: auto;
 }
