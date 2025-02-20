@@ -3,10 +3,19 @@
 </t-tabs>
 <swiper current="{{current}}" class="tab-content" bind:change="onChangeSwiper">
   <swiper-item wx:for="{{tabsList}}" wx:key="index">
-    {{item.value}}
-
+    <view class="item-content">
+      <shop-item></shop-item>
+      <shop-item></shop-item>
+      <shop-item></shop-item>
+      <shop-item></shop-item>
+    </view>
   </swiper-item>
 </swiper>
 <floating-ball>
-拖动
+  <view class="ball-content">
+    <view class="ball-action">
+      <t-icon style="margin-top: 1rpx;" size="35rpx" name="add" />创建订单
+    </view>
+    <view class="ball-action">批量发货</view>
+  </view>
 </floating-ball>
