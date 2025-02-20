@@ -1,0 +1,9 @@
+{
+  "component": true,
+  "usingComponents": {
+    "t-button": "tdesign-miniprogram/button/button",
+    "t-tag": "tdesign-miniprogram/tag/tag",
+    "t-checkbox": "tdesign-miniprogram/checkbox/checkbox",
+    "t-cell": "tdesign-miniprogram/cell/cell"
+  }
+}

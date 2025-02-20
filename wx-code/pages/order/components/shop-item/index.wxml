@@ -1,0 +1,21 @@
+<!--pages/order/components/shop-item/index..wxml-->
+<view class="shop-item">
+  <view class="shop-cell" bind:tap="onClick">
+    <t-checkbox wx:if="{{selectStatus}}" checked="{{checked}}" class="checkbox" block="{{false}}" />
+    <t-cell title="商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称" align="top" image="https://tdesign.gtimg.com/mobile/demos/avatar1.png" bordered="{{false}}">
+      <view class="desc-content" slot="description">
+        <text class="shop-num">AGCU026</text>
+        <t-tag class="tag" variant="light">39x1</t-tag>
+        <t-tag class="tag" variant="light">38x3</t-tag>
+        <t-tag class="tag" variant="light">36.5x3</t-tag>
+      </view>
+    </t-cell>
+  </view>
+  <view class="bottom-area">
+    <view class="desc">创建时间：2025-02-19 12:15:00</view>
+    <view class="action-area">
+      <t-button theme="danger" class="btn" size="small" bind:tap="onDelete" variant="outline">删除</t-button>
+      <t-button theme="primary" class="btn" size="small" variant="outline">发货</t-button>
+    </view>
+  </view>
+</view>

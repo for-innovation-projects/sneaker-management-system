@@ -1,0 +1,46 @@
+.shop-item {
+  margin-bottom: 25rpx;
+  background-color: #ffffff;
+}
+
+.shop-item .shop-cell {
+  display: flex;
+}
+
+.shop-item .shop-cell .checkbox {
+  padding-top: var(--td-cell-horizontal-padding, 32rpx);
+  position: relative;
+  left: 25rpx;
+  top: 22rpx;
+  z-index: 1;
+}
+
+.shop-item .desc-content {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.shop-item .desc-content .shop-num{
+  margin-top: 10rpx;
+}
+.shop-item .desc-content .tag {
+  margin-left: 15rpx;
+  margin-top: 15rpx;
+}
+
+.shop-item .bottom-area {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 15rpx 20rpx var(--td-cell-horizontal-padding, 32rpx);
+}
+
+.shop-item .bottom-area .desc {
+  font-size: 26rpx;
+  color: var(--td-cell-description-color, var(--td-font-gray-2, rgba(0, 0, 0, 0.6)));
+}
+
+
+.shop-item .bottom-area .action-area .btn {
+  margin-right: 15rpx;
+}
