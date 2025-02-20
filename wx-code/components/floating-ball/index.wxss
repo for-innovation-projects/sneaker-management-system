@@ -1,11 +1,11 @@
 .floating-ball {
   position: fixed;
-  width: 100rpx;
-  height: 100rpx;
+  width: auto;
+  padding: 15rpx 20rpx;
   right: 30rpx;
   bottom: 200rpx;
   background-color: #007AFF;
-  border-radius: 50%;
+  border-radius: 100rpx;
   display: flex;
   justify-content: center;
   align-items: center;
