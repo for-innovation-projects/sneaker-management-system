@@ -5,14 +5,16 @@ Component({
    * 组件的属性列表
    */
   properties: {
-    selectStatus: false
+    selectStatus: false,
+    checked: false,
+    value: ""
   },
 
   /**
    * 组件的初始数据
    */
   data: {
-    checked: false
+
   },
 
   /**
@@ -20,11 +22,14 @@ Component({
    */
   methods: {
     onClick() {
-      this.setData({
-        checked: !this.data.checked
+      if (!this.data.selectStatus) return
+      this.triggerEvent('change', {
+        checked: !this.properties.checked,
+        value: this.properties.value
       })
+
     },
-    onClickShop(){
+    onClickShop() {
       console.log(111)
     },
     onDelete() {
