@@ -1,0 +1,50 @@
+<view class="order-create">
+  <view class="divider-line" />
+  <form class="form-content">
+    <t-cell-group>
+      <t-cell class="form-cell" t-class-title="t-cell-title" title="商品名称">
+        <t-input class="t-input" slot="note" t-class="field-text" borderless data-item="shopName" maxlength="20" type="text" value="{{formData.shopName}}" placeholder="请输入商品名" bind:change="onInputValue" />
+      </t-cell>
+      <t-cell class="form-cell" t-class-title="t-cell-title" title="货号">
+        <t-input slot="note" class="t-input" maxlength="20" t-class="field-text" borderless type="number" value="{{formData.shopNo}}" placeholder="请输入货号" bind:change="onInputValue" data-item="shopNo" />
+      </t-cell>
+      <t-cell class="form-cell" t-class-title="t-cell-title" title="尺码/数量">
+        <view style="flex: 1;gap: 10rpx;display: flex;flex-wrap: wrap;" slot="note">
+          <t-tag wx:for="{{formData.sizeAndNumber}}" wx:key="index" closable class="form-tag" data-index="{{index}}" bind:close="handleCloseTag">{{item.size}}/{{item.number}}</t-tag>
+          <t-tag bind:tap="onAddSizeAndNumber" class="form-tag" icon="add" variant="outline" theme="primary">添加</t-tag>
+        </view>
+      </t-cell>
+      <view class="divider-line" />
+      <t-cell class="form-cell" t-class-title="t-cell-title" title="补充信息">
+      </t-cell>
+      <view class="form-upload">
+        <t-upload disabled media-type="{{['video','image']}}" files="{{formData.originFiles}}" gridConfig="{{gridConfig}}" bind:success="handleSuccess" bind:remove="handleRemove">
+        </t-upload>
+      </view>
+    </t-cell-group>
+    <view class="submit">
+      <t-button class="{{submitActive && 'btn-submit-save'}}" shape="round" block disabled="{{!submitActive}}" bind:tap="formSubmit"> 创建 </t-button>
+    </view>
+  </form>
+  <t-popup close-on-overlay-click="{{true}}" visible="{{addSizeVisible}}" usingCustomNavbar bind:visible-change="onVisibleChange" placement="bottom">
+    <view class="size-add-content">
+      <form class="form-content">
+        <t-cell-group>
+          <t-cell class="form-cell" t-class-title="t-cell-title" title="尺码">
+            <t-input class="t-input" slot="note" t-class="field-text" borderless data-item="size" type="number" value="{{sizeInfo.size}}" placeholder="请输入尺码" bind:change="onSizeInputValue" />
+          </t-cell>
+          <t-cell class="form-cell" t-class-title="t-cell-title" title="数量">
+            <view style="flex: 1;" slot="note">
+              <t-stepper data-item="number" bind:change="onSizeInputValue" value="{{sizeInfo.number}}" theme="filled" min="1" max="999" />
+            </view>
+          </t-cell>
+        </t-cell-group>
+        <view class="submit">
+          <t-button class="btn-submit-save" shape="round" block bind:tap="onFormSubmitSizeInfo"> 确定 </t-button>
+        </view>
+      </form>
+    </view>
+  </t-popup>
+
+</view>
+<t-toast id="t-toast" />
