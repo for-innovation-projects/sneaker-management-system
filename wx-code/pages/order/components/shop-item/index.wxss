@@ -33,6 +33,8 @@
   align-items: center;
   justify-content: space-between;
   padding: 0 15rpx 20rpx var(--td-cell-horizontal-padding, 32rpx);
+  position: relative;
+  z-index: 51;
 }
 
 .shop-item .bottom-area .desc {
