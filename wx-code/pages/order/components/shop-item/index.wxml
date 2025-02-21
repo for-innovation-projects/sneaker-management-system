@@ -13,7 +13,7 @@
   </view>
   <view class="bottom-area">
     <view class="desc">创建时间：2025-02-19 12:15:00</view>
-    <view class="action-area">
+    <view class="action-area" wx:if="{{status === ORDER_STATUS.beConfirmed}}">
       <t-button theme="danger" class="btn" size="small" bind:tap="onDelete" variant="outline">删除</t-button>
       <t-button theme="primary" class="btn" size="small" variant="outline">发货</t-button>
     </view>
