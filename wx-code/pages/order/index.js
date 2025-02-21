@@ -2,17 +2,21 @@ import {
   onShareTimeline,
   onShareAppMessage
 } from '../../utils/share'
+import {
+  ORDER_STATUS
+} from '../../common/index'
 Page({
   onShareTimeline,
   onShareAppMessage,
   data: {
+    ORDER_STATUS,
     value: 'curOrder',
     current: 0,
     tabsList: [{
       label: "当前订单",
       value: 'curOrder'
     }, {
-      label: "处理中",
+      label: "审核中",
       value: 'fail'
     }, {
       label: "待确认",
@@ -45,6 +49,11 @@ Page({
   onBatchSend() {
     wx.navigateTo({
       url: '/pages/order/batch-send/index',
+    })
+  },
+  onCreateOrder() {
+    wx.navigateTo({
+      url: '/pages/order/create/index',
     })
   }
 })
