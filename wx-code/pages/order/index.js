@@ -42,15 +42,9 @@ Page({
       current: e.detail.current
     })
   },
-  handleClick(e) {
-    console.log('handleClick: ', e);
-  },
-
-  handleDragStart(e) {
-    console.log('handleDragStart: ', e);
-  },
-
-  handleDragEnd(e) {
-    console.log('handleDragEnd: ', e);
-  },
+  onBatchSend() {
+    wx.navigateTo({
+      url: '/pages/order/batch-send/index',
+    })
+  }
 })
