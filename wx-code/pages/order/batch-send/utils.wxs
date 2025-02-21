@@ -1,0 +1,22 @@
+function hasChecked(list, key) {
+  for (var i = 0; i < list.length; i++) {
+    if (list[i] === key) {
+      return true;
+    }
+  }
+  return false;
+}
+
+function checkedAll(shopList, checkedList) {
+  for (var i = 0; i < shopList.length; i++) {
+    var value = shopList[i].value;
+    if (!hasChecked(checkedList, value)) {
+      return false;
+    }
+  }
+  return true;
+}
+module.exports = {
+  hasChecked: hasChecked,
+  checkedAll: checkedAll
+};
