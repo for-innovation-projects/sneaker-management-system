@@ -2,7 +2,7 @@
 <view class="batch-send">
   <shop-item wx:for="{{shopList}}" wx:key="{{item.value}}" checked="{{utils.hasChecked(checkedList,item.value)}}" selectStatus="{{true}}" value="{{item.value}}" bind:change="onChange"></shop-item>
   <view class="bottom-action">
-    <t-checkbox checked="{{utils.checkedAll(shopList,checkedList)}}" borderless="{{true}}" label="已选{{number}}个订单" class="checkbox" bind:change="onChangeAll" block="{{false}}" />
-    <t-button content="确认发货" style="margin:0 25rpx 0 0;color: #fff;"></t-button>
+    <t-checkbox checked="{{utils.checkedAll(shopList,checkedList)}}" borderless="{{true}}" label="已选{{checkedList.length}}个商品" class="checkbox" bind:change="onChangeAll" block="{{false}}" />
+    <t-button content="去审核" style="margin:0 25rpx 0 0;color: #fff;"></t-button>
   </view>
 </view>
