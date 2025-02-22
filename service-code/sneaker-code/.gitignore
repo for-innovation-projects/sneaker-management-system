@@ -1,0 +1,7 @@
+.idea
+*.log*
+static
+logs
+__pycache__
+public.pem
+private.pem
