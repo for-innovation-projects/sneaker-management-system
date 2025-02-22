@@ -14,7 +14,7 @@ import re
 from datetime import datetime
 from typing import List
 
-from sqlalchemy import String, Integer, SmallInteger, ForeignKey, func, text, Boolean
+from sqlalchemy import String, Integer, SmallInteger, ForeignKey, func, text, Boolean, DECIMAL
 from sqlalchemy.orm import DeclarativeBase, mapped_column, Mapped, declared_attr, relationship
 from typing_extensions import Annotated
 from utils.utils import id_worker
@@ -62,13 +62,110 @@ class CommonMixin:
         mapped_column(server_default=func.now(), onupdate=func.now(), comment="更新时间")
 
 
+### SNEAKER TABLE START ###
+# 小程序用户表
+class WechatUser(Base, CommonMixin):
+    id: Mapped[idPk]
+    openid: Mapped[str] = mapped_column(String(30), unique=True, comment="openid")
+    name: Mapped[str] = mapped_column(String(100), comment="用户姓名")
+    id_code: Mapped[str] = mapped_column(String(20), comment="身份证号")
+    balance: Mapped[DECIMAL(10, 2)] = mapped_column(DECIMAL(10, 2), comment="余额")
+    receive_name: Mapped[str] = mapped_column(String(100), comment="用户姓名")
+    # 目前只支持 alipay
+    receive_code: Mapped[str] = mapped_column(String(30), comment="收款账号")
+
+
+# 产品信息表 级联 产品表
+class ProductInfo(Base):
+    id: Mapped[idPk]
+    product_id: Mapped[int] = mapped_column(ForeignKey('product.id'), nullable=False)
+    size: Mapped[str] = mapped_column(String(64), comment="产品尺寸")
+    number: Mapped[int] = mapped_column(Integer, comment="产品数量")
+    # 正常 取消 退货
+    status: Mapped[int] = mapped_column(Integer, comment="商品状态")
+    # 单价
+    price: Mapped[DECIMAL(10, 2)] = mapped_column(DECIMAL(10, 2), comment="单价")
+    description: Mapped[str] = mapped_column(String(255), comment="报价描述")
+    # 最终单价
+    finally_price: Mapped[DECIMAL(10, 2)] = mapped_column(DECIMAL(10, 2), comment="最终单价")
+    # 实物不符合原因
+    reason: Mapped[str] = mapped_column(String(255), comment="实物不符合原因")
+
+    # 与 Product 关联
+    product = relationship("Product", back_populates="product_infos")
+
+
+# 产品链接表 级联 产品表
+class ProductUrl(Base):
+    id: Mapped[idPk]
+    product_id: Mapped[int] = mapped_column(ForeignKey('product.id'), nullable=False)
+    url: Mapped[str] = mapped_column(String(512), comment="图片链接")
+
+    # 与 Product 关联
+    product = relationship("Product", back_populates="product_urls")
+
+
+# 产品表
 class Product(Base, CommonMixin):
     id: Mapped[idPk]
+    user_id: Mapped[int] = mapped_column(ForeignKey("wechat_user.id"), comment="用户id")
     product_name: Mapped[str] = mapped_column(String(64), comment="产品名称")
-    product_url: Mapped[str | None] = mapped_column(String(200), comment="图片地址")
-    award: Mapped[bool] = mapped_column(Boolean, comment="是否中奖")
-    room_id: Mapped[int] = mapped_column(ForeignKey("room.id"), comment="直播间id")
-    # __tablename__ = 'product'
+    product_code: Mapped[str] = mapped_column(String(64), comment="货号")
+    product_infos: Mapped[List[ProductInfo]] = relationship("ProductInfo", back_populates="product", cascade="all, delete-orphan")
+    product_urls: Mapped[List[ProductUrl]] = relationship("ProductUrl", back_populates="product", cascade="all, delete-orphan")
+
+
+# 订单表
+class Order(Base, CommonMixin):
+    id: Mapped[idPk]
+    user_id: Mapped[int] = mapped_column(ForeignKey("wechat_user.id"), comment="用户id")
+    status: Mapped[int] = mapped_column(Integer, comment="订单状态")
+    delivery_site: Mapped[str] = mapped_column(String(30), comment="快递厂商")
+    tracking_code: Mapped[str] = mapped_column(String(30), comment="快递单号")
+    address_id: Mapped[int] = mapped_column(Integer, comment="地址id")
+    products: Mapped[List[Product]] = relationship("Product", back_populates="order", cascade="all, delete-orphan")
+    # 最终总价
+    finally_cost: Mapped[DECIMAL(10, 2)] = mapped_column(DECIMAL(10, 2), comment="最终总价")
+
+
+# 小程序banner
+class Banner(Base, CommonMixin):
+    id: Mapped[idPk]
+    location: Mapped[str] = mapped_column(String(30), comment="位置")
+    url: Mapped[str] = mapped_column(String(512), comment="图片链接")
+
+
+# 提现记录
+class Withdrawal(Base, CommonMixin):
+    id: Mapped[idPk]
+    user_id: Mapped[int] = mapped_column(ForeignKey("wechat_user.id"), comment="用户id")
+    # 提现金额
+    withdrawal_money: Mapped[DECIMAL(10, 2)] = mapped_column(DECIMAL(10, 2), comment="提现金额")
+    # 提现前余额
+    before_balance: Mapped[DECIMAL(10, 2)] = mapped_column(DECIMAL(10, 2), comment="提现前金额")
+    # 提现后余额
+    after_balance: Mapped[DECIMAL(10, 2)] = mapped_column(DECIMAL(10, 2), comment="提现后金额")
+    status: Mapped[int] = mapped_column(Integer, comment="提现状态")
+    reason: Mapped[str] = mapped_column(String(512), comment="商家备注")
+
+
+# 退货单
+class ReturnGoods(Base, CommonMixin):
+    id: Mapped[idPk]
+    order_id: Mapped[int] = mapped_column(ForeignKey("order.id"), comment="订单id")
+    products: Mapped[List[Product]] = relationship("Product", back_populates="order", cascade="all, delete-orphan")
+    name: Mapped[str] = mapped_column(String(512), comment="姓名")
+    phone: Mapped[str] = mapped_column(String(512), comment="手机号")
+    detail: Mapped[str] = mapped_column(String(512), comment="地址信息")
+
+
+# 商家地址
+class Address(Base, CommonMixin):
+    id: Mapped[idPk]
+    name: Mapped[str] = mapped_column(String(512), comment="姓名")
+    phone: Mapped[str] = mapped_column(String(512), comment="手机号")
+    detail: Mapped[str] = mapped_column(String(512), comment="地址信息")
+### SNEAKER  TABLE  END ###
 
 
 class Room(Base, CommonMixin):
