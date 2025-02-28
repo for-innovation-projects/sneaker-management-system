@@ -34,13 +34,14 @@ Page({
     } else if (!innerPhoneReg.test(phone)) {
       text = '请填写正确的手机号'
     }
-    wx.switchTab({
-      url: '/pages/index/index',
-    })
     if (text) {
       wx.showToast({
         title: text,
         icon: "none"
+      })
+    } else {
+      wx.switchTab({
+        url: '/pages/index/index',
       })
     }
   },
