@@ -7,9 +7,11 @@ Page({
    */
   data: {
     submitActive: false,
+    egImageList: ["https://tdesign.gtimg.com/mobile/demos/image1.jpeg", "https://tdesign.gtimg.com/mobile/demos/image1.jpeg"],
     formData: {
       shopName: "",
       shopNo: "",
+      desc: "",
       sizeAndNumber: [],
       originFiles: []
     },
@@ -197,6 +199,14 @@ Page({
           })
         }
       }
+    })
+  },
+  onPreview(e) {
+    const {
+      item
+    } = e.target.dataset
+    wx.previewImage({
+      urls: [item],
     })
   }
 })
