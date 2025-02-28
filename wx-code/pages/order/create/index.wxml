@@ -2,8 +2,8 @@
   <view class="divider-line" />
   <form class="form-content">
     <t-cell-group>
-      <t-cell class="form-cell" t-class-title="t-cell-title" title="商品名称">
-        <t-input class="t-input" slot="note" t-class="field-text" borderless data-item="shopName" maxlength="20" type="text" value="{{formData.shopName}}" placeholder="请输入商品名" bind:change="onInputValue" />
+      <t-cell class="form-cell" t-class-title="t-cell-title" title="品牌名称">
+        <t-input class="t-input" slot="note" t-class="field-text" borderless data-item="shopName" maxlength="20" type="text" value="{{formData.shopName}}" placeholder="请输入品牌名称" bind:change="onInputValue" />
       </t-cell>
       <t-cell class="form-cell" t-class-title="t-cell-title" title="货号">
         <t-input slot="note" class="t-input" maxlength="20" t-class="field-text" borderless type="number" value="{{formData.shopNo}}" placeholder="请输入货号" bind:change="onInputValue" data-item="shopNo" />
@@ -15,10 +15,21 @@
         </view>
       </t-cell>
       <view class="divider-line" />
+      <t-cell class="form-cell" t-class-title="t-cell-title" title="瑕疵描述" bordered="{{false}}">
+      </t-cell>
+      <view class="form-upload">
+        <t-textarea value="{{formData.desc}}" style="height: 240rpx;" placeholder="请输入瑕疵描述" t-class="external-class" maxlength="500" disableDefaultPadding="{{true}}" indicator bind:change="onInputValue" data-item="desc" />
+      </view>
+      <view class="divider-line" />
+      <t-cell bordered="{{false}}" class="form-cell" t-class-title="t-cell-title" title="示例图片">
+      </t-cell>
+      <view class="form-upload image-eg">
+        <t-image wx:for="{{egImageList}}" src="{{item}}" mode="aspectFill" width="83" height="83" bind:tap="onPreview" data-item="{{item}}" />
+      </view>
       <t-cell class="form-cell" t-class-title="t-cell-title" title="补充信息">
       </t-cell>
       <view class="form-upload">
-        <t-upload disabled media-type="{{['video','image']}}" files="{{formData.originFiles}}" gridConfig="{{gridConfig}}" bind:success="handleSuccess" bind:remove="handleRemove">
+        <t-upload media-type="{{['video','image']}}" files="{{formData.originFiles}}" gridConfig="{{gridConfig}}" bind:success="handleSuccess" bind:remove="handleRemove">
         </t-upload>
       </view>
     </t-cell-group>
@@ -31,7 +42,7 @@
       <form class="form-content">
         <t-cell-group>
           <t-cell class="form-cell" t-class-title="t-cell-title" title="尺码">
-            <t-input class="t-input" slot="note" t-class="field-text" borderless data-item="size" type="number" value="{{sizeInfo.size}}" placeholder="请输入尺码" bind:change="onSizeInputValue" />
+            <t-input class="t-input" slot="note" t-class="field-text" borderless data-item="size" type="digit" value="{{sizeInfo.size}}" placeholder="请输入尺码" bind:change="onSizeInputValue" />
           </t-cell>
           <t-cell class="form-cell" t-class-title="t-cell-title" title="数量">
             <view style="flex: 1;" slot="note">
