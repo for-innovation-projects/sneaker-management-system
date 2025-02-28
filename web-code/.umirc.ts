@@ -35,6 +35,11 @@ export default defineConfig({
       path: '/userlist',
       component: './UserList',
     },
+    {
+      name: '提现审核',
+      path: '/withdrawalAudit',
+      component: './WithdrawalAudit',
+    },
   ],
   npmClient: 'npm',
 });
