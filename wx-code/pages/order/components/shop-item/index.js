@@ -26,7 +26,12 @@ Component({
    */
   methods: {
     onClick() {
-      if (!this.data.selectStatus) return
+      if (!this.data.selectStatus) {
+        wx.navigateTo({
+          url: '/pages/order/create/index',
+        })
+        return
+      }
       this.triggerEvent('change', {
         checked: !this.properties.checked,
         value: this.properties.value
