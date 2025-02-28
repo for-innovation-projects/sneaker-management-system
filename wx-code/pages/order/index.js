@@ -17,13 +17,13 @@ Page({
       value: 'curOrder'
     }, {
       label: "审核中",
-      value: 'fail'
+      value: 'process'
     }, {
       label: "待确认",
-      value: 'toBeConfirmed'
+      value: 'beConfirmed'
     }, {
       label: "退货订单",
-      value: 'returnGoods'
+      value: 'returnGood'
     }, {
       label: "已完成",
       value: 'finish'
