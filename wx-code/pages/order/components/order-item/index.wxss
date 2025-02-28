@@ -1,0 +1,4 @@
+/* pages/order/components/order-item/index.wxss */
+.order-item{
+  margin-bottom: 25rpx;
+}
