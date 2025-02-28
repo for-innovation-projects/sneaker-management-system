@@ -1,4 +1,4 @@
-function hasChecked(list, key) {
+function includesList(list, key) {
   for (var i = 0; i < list.length; i++) {
     if (list[i] === key) {
       return true;
@@ -10,13 +10,24 @@ function hasChecked(list, key) {
 function checkedAll(shopList, checkedList) {
   for (var i = 0; i < shopList.length; i++) {
     var value = shopList[i].value;
-    if (!hasChecked(checkedList, value)) {
+    if (!includesList(checkedList, value)) {
       return false;
     }
   }
   return true;
 }
+
+function showSelect(ORDER_STATUS, status) {
+  var falseList = [
+    ORDER_STATUS.process,
+    ORDER_STATUS.finish,
+    ORDER_STATUS.returnGood
+  ]
+  return !includesList(falseList, status)
+}
+
 module.exports = {
-  hasChecked: hasChecked,
-  checkedAll: checkedAll
+  includesList: includesList,
+  checkedAll: checkedAll,
+  showSelect: showSelect
 };
