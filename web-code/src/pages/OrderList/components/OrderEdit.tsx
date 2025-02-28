@@ -1,30 +1,25 @@
 import type { ProColumns } from '@ant-design/pro-components';
 import { ProTable } from '@ant-design/pro-components';
-import {
-  Button,
-  Card,
-  Form,
-  Input,
-  InputNumber,
-  Popover,
-  Space,
-  Tag,
-} from 'antd';
+import { Image, Modal, Space, Typography } from 'antd';
 import { useState } from 'react';
+import ExpandedRowRender from './ExpandedRowRender';
+
+export interface TableListItemInfo {
+  size: string;
+  number: number;
+  desc: string;
+  money: string;
+  status: number;
+  sure: boolean;
+}
 
 export type TableListItem = {
   key: number;
   shopName: string;
   noNumber: string;
-  info?: {
-    size: string;
-    number: number;
-    desc: string;
-    money: string;
-    status: number;
-    sure: boolean;
-  }[];
+  info?: TableListItemInfo[];
   imageList: string[];
+  desc?: string;
   date: number;
 };
 const tableListDataSource: TableListItem[] = [];
@@ -36,7 +31,7 @@ for (let i = 0; i < 4; i += 1) {
   }
   tableListDataSource.push({
     key: i,
-    shopName: '商品A' + i,
+    shopName: '品牌A' + i,
     noNumber: 'D-aaxx-ss' + i,
     info: arr.map((_, j) => {
       return {
@@ -58,7 +53,7 @@ export default () => {
 
   const columns: ProColumns<TableListItem>[] = [
     {
-      title: '商品名',
+      title: '品牌名',
       dataIndex: 'shopName',
       ellipsis: true,
       copyable: true,
@@ -68,124 +63,6 @@ export default () => {
       dataIndex: 'noNumber',
       ellipsis: true,
       copyable: true,
-    },
-    {
-      title: '商品信息',
-      dataIndex: 'info',
-      width: 260,
-      search: false,
-      render(_, record) {
-        return record.info?.map((item, index) => {
-          return (
-            <Space direction="vertical" size="small">
-              <Card
-                size="small"
-                title={item.status === 2 ? <Tag color="red">退货</Tag> : ''}
-                extra={
-                  item.status === 2 ? (
-                    <Button size="small" type="primary" disabled={item.sure}>
-                      确认退货
-                    </Button>
-                  ) : (
-                    ''
-                  )
-                }
-                style={{ width: '250px' }}
-                key={index}
-                actions={[
-                  <Popover
-                    content={
-                      <Form size="small" name="optionForm" autoComplete="off">
-                        <Form.Item
-                          label="单价（用户不会看到）"
-                          name="username"
-                          rules={[{ required: true, message: '必须输入' }]}
-                        >
-                          <InputNumber />
-                        </Form.Item>
-                        <Form.Item
-                          label="报价描述"
-                          name="password"
-                          rules={[
-                            {
-                              required: true,
-                              message: '必须输入',
-                            },
-                          ]}
-                        >
-                          <Input />
-                        </Form.Item>
-                        <Form.Item label={null}>
-                          <Button type="primary" htmlType="submit">
-                            变更
-                          </Button>
-                        </Form.Item>
-                      </Form>
-                    }
-                    title="修改报价"
-                    trigger="click"
-                  >
-                    <Button
-                      disabled={item.status === 2}
-                      size="small"
-                      type="link"
-                    >
-                      修改报价
-                    </Button>
-                  </Popover>,
-                  <Popover
-                    content={
-                      <Form size="small" name="optionForm" autoComplete="off">
-                        <Form.Item
-                          label="单价（用户不会看到）"
-                          name="username"
-                          rules={[{ required: true, message: '必须输入' }]}
-                        >
-                          <InputNumber />
-                        </Form.Item>
-                        <Form.Item
-                          label="报价描述"
-                          name="password"
-                          rules={[
-                            {
-                              required: true,
-                              message: '必须输入',
-                            },
-                          ]}
-                        >
-                          <Input />
-                        </Form.Item>
-                        <Form.Item label={null}>
-                          <Button type="primary" htmlType="submit">
-                            变更
-                          </Button>
-                        </Form.Item>
-                      </Form>
-                    }
-                    title="实物不符"
-                    trigger="click"
-                  >
-                    <Button
-                      disabled={item.status === 2}
-                      size="small"
-                      type="link"
-                    >
-                      实物不符
-                    </Button>
-                  </Popover>,
-                ]}
-              >
-                <Space direction="vertical" size="small" wrap>
-                  <Tag>尺码： {item.size}</Tag>
-                  <Tag>数量： {item.number}</Tag>
-                  <Tag>单价（用户不会看到）： {item.money}</Tag>
-                  <Tag>报价描述： {item.desc}</Tag>
-                </Space>
-              </Card>
-            </Space>
-          );
-        });
-      },
     },
     {
       title: '更新时间',
@@ -213,6 +90,9 @@ export default () => {
       },
     },
   ];
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
   return (
     <>
       <ProTable<TableListItem>
@@ -238,7 +118,38 @@ export default () => {
         search={{
           collapsed: false,
         }}
+        expandable={{ expandedRowRender: ExpandedRowRender }}
       />
+      <Modal
+        title="瑕疵和图片"
+        width="60vw"
+        open={isModalOpen}
+        onOk={closeModal}
+        onCancel={closeModal}
+        footer={null}
+      >
+        <Space direction="vertical" size="middle" style={{ display: 'flex' }}>
+          <Typography.Paragraph>
+            {'缺陷1xxx缺陷2xxx'.repeat(
+              20,
+            )}
+          </Typography.Paragraph>
+          <Space wrap>
+            <Image
+              width={200}
+              src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+            />
+            <Image
+              width={200}
+              src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+            />
+            <Image
+              width={200}
+              src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+            />
+          </Space>
+        </Space>
+      </Modal>
     </>
   );
 };
