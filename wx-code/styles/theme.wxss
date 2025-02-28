@@ -35,7 +35,7 @@
 }
 
 .t-checkbox {
-  --td-checkbox-icon-checked-color: #fa4126;
+  --td-checkbox-icon-checked-color: rgba(2, 122, 255, 1);
 }
 
 .dialog__button-confirm {
