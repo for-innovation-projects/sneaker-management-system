@@ -10,6 +10,8 @@
     "t-tag": "tdesign-miniprogram/tag/tag",
     "t-popup": "tdesign-miniprogram/popup/popup",
     "t-stepper": "tdesign-miniprogram/stepper/stepper",
+    "t-textarea": "tdesign-miniprogram/textarea/textarea",
+    "t-image": "tdesign-miniprogram/image/image",
     "t-upload": "tdesign-miniprogram/upload/upload"
   }
 }
