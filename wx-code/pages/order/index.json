@@ -6,6 +6,7 @@
     "t-tab-panel": "tdesign-miniprogram/tab-panel/tab-panel",
     "t-icon": "tdesign-miniprogram/icon/icon",
     "shop-item": "./components/shop-item/index",
+    "order-item": "./components/order-item/index",
     "floating-ball": "../../components/floating-ball/index"
   }
 }
