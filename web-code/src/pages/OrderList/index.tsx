@@ -134,15 +134,15 @@ export default () => {
     },
     {
       title: '操作',
-      width: 200,
+      width: 230,
       key: 'option',
       valueType: 'option',
       render: (_, item) => {
         if (item.status === 5) {
           return [
-            <a disabled key="link2">
+            <Button disabled style={{ padding: 0 }} type="link" key="link2">
               订单处理
-            </a>,
+            </Button>,
             <Popconfirm
               title="关闭订单"
               description="关闭后订单将立刻结束"
@@ -151,23 +151,27 @@ export default () => {
               okText="确认"
               cancelText="取消"
             >
-              <a disabled key="link3">
+              <Button disabled style={{ padding: 0 }} type="link" key="link3">
                 订单关闭
-              </a>
+              </Button>
             </Popconfirm>,
-            <a key="link">订单导出</a>,
+            <Button style={{ padding: 0 }} type="link" key="link">
+              订单导出
+            </Button>,
           ];
         }
         return [
-          <a
+          <Button
+            style={{ padding: 0 }}
             key="link2"
+            type="link"
             onClick={() => {
               setOrderId(item.key);
               setIsModalOpen(true);
             }}
           >
             订单处理
-          </a>,
+          </Button>,
           <Popconfirm
             title="关闭订单"
             description="关闭后订单将立刻结束"
@@ -176,9 +180,13 @@ export default () => {
             okText="确认"
             cancelText="取消"
           >
-            <a key="link3">订单关闭</a>
+            <Button style={{ padding: 0 }} type="link" key="link3">
+              订单关闭
+            </Button>
           </Popconfirm>,
-          <a key="link">订单导出</a>,
+          <Button style={{ padding: 0 }} type="link" key="link">
+            订单导出
+          </Button>,
         ];
       },
     },
@@ -209,7 +217,9 @@ export default () => {
         onOk={() => {}}
         onCancel={() => setIsModalOpen(false)}
       >
-        <OrderEdit></OrderEdit>
+        <>
+          <OrderEdit></OrderEdit>
+        </>
       </Modal>
     </>
   );
