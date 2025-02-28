@@ -1,10 +1,14 @@
 // pages/order/batch-send/index.js
+import {
+  ORDER_STATUS
+} from "../../../common/index"
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
+    ORDER_STATUS,
     shopList: [{
       value: "aa"
     }, {
@@ -16,7 +20,14 @@ Page({
     }, {
       value: "aa4"
     }],
-    checkedList: []
+    checkedList: [],
+    status: ""
+  },
+  onLoad(query) {
+    this.setData({
+      status: query.orderStatus || ""
+    })
+    console.log(query)
   },
   onChange(e) {
     const {
