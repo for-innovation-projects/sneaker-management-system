@@ -1,0 +1,151 @@
+page {
+  height: 100%;
+  overflow: hidden;
+}
+
+.container {
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  padding-top: 140rpx;
+}
+
+.wave-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(180deg, #4BB5FF 0%, #6C9DFF 100%);
+}
+
+.wave-background::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 400rpx;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%23ffffff" fill-opacity="0.1" d="M0,96L48,112C96,128,192,160,288,186.7C384,213,480,235,576,224C672,213,768,171,864,149.3C960,128,1056,128,1152,149.3C1248,171,1344,213,1392,234.7L1440,256L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z"></path></svg>');
+  background-size: cover;
+  z-index: 0;
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  padding: 0 32rpx;
+  box-sizing: border-box;
+}
+
+.header {
+  padding-top: 80rpx;
+  text-align: center;
+  margin-bottom: 60rpx;
+}
+
+.title {
+  font-size: 48rpx;
+  color: #FFFFFF;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 10rpx;
+}
+
+.subtitle {
+  font-size: 28rpx;
+  color: rgba(255, 255, 255, 0.8);
+  display: block;
+}
+
+.form {
+  background: #FFFFFF;
+  border-radius: 12rpx;
+  padding: 40rpx 30rpx;
+  margin-bottom: 30rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.1);
+}
+
+.t-input {
+  margin-bottom: 24rpx;
+  border-bottom: 1rpx solid #E6E6E6;
+}
+
+.t-input__wrap {
+  background-color: transparent;
+  margin-left: 15rpx;
+}
+
+.t-input__wrap--focused {
+  background-color: transparent;
+  border-bottom: 2rpx solid #0052d9;
+}
+
+.t-input__icon--prefix {
+  color: #999;
+}
+
+.verification-code {
+  display: flex;
+  align-items: center;
+  margin-bottom: 24rpx;
+}
+
+.verification-code .t-input {
+  flex: 1;
+  margin-bottom: 0;
+  margin-right: 16rpx;
+}
+
+.verification-code .t-button {
+  flex-shrink: 0;
+  width: 200rpx;
+}
+
+.t-button {
+  margin-top: 48rpx;
+}
+
+.t-button--primary {
+  background-color: #0052d9;
+}
+
+.links {
+  text-align: center;
+  font-size: 24rpx;
+  color: #999999;
+  margin-top: 24rpx;
+}
+
+.link {
+  color: #0052d9;
+  display: inline-block;
+}
+
+.agreement {
+  text-align: center;
+  font-size: 24rpx;
+  color: #FFFFFF;
+  margin-top: 30rpx;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.custom-checkbox {
+  --td-checkbox-icon-checked-color: white;
+  background-color: transparent !important;
+  display: flex;
+  align-items: center;
+}
+
+.t-checkbox__title {
+  color: #FFFFFF !important;
+}
+
+.agreement-link {
+  color: #FFFFFF;
+  text-decoration: underline;
+  text-align: center;
+  display: block;
+}

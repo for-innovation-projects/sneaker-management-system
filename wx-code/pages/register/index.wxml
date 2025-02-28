@@ -1,0 +1,34 @@
+<view class="container">
+  <view class="wave-background"></view>
+  <view class="content">
+    <view class="header">
+      <text class="title">用户注册</text>
+      <text class="subtitle">Join Thousands of mall</text>
+    </view>
+
+    <view class="form">
+      <t-input placeholder="输入姓名" prefixIcon="user" clearable />
+      <t-input placeholder="输入手机号" prefixIcon="mobile" type="number" clearable />
+      <t-input placeholder="输入身份证号" prefixIcon="id-card" clearable />
+      <view class="verification-code">
+        <t-input placeholder="输入验证码" prefixIcon="verified" clearable />
+        <t-button size="small" variant="outline" bindtap="handleSendCode" disabled="{{isCounting}}">
+          {{countDown ? countDown + 's后重新发送' : '发送验证码'}}
+        </t-button>
+      </view>
+
+      <t-button theme="primary" block size="large" bindtap="handleRegister">注册</t-button>
+
+      <view class="links">
+        <text class="link" bindtap="handleLogin">已有账号？立即登录</text>
+      </view>
+    </view>
+
+    <view class="agreement">
+      <t-checkbox bind:change="onAgreeChange" borderless="{{true}}" class="custom-checkbox">
+        我已阅读并同意
+      </t-checkbox>
+      <text class="agreement-link" bindtap="handleViewAgreement">《用户协议》</text>
+    </view>
+  </view>
+</view>
