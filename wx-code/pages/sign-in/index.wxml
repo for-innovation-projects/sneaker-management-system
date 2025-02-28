@@ -1,0 +1,18 @@
+<view class="container">
+  <view class="wave-background"></view>
+  <view class="content">
+    <view class="header">
+      <text class="title">球鞋</text>
+      <text class="subtitle">互相合作</text>
+    </view>
+    <view class="form">
+      <t-input value="{{formData.phone}}" placeholder="输入手机号" prefixIcon="user" type="number" data-item="phone" clearable bind:change="onInputValue" />
+      <t-input value="{{formData.code}}" placeholder="输入验证码" prefixIcon="verified" type="number" data-item="code" clearable bind:change="onInputValue" />
+      <t-button theme="primary" block size="large" bindtap="handleLogin">登录</t-button>
+
+      <view class="links">
+        <text class="link" bindtap="handleRegister">注册账号</text>
+      </view>
+    </view>
+  </view>
+</view>
