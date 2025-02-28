@@ -48,7 +48,7 @@ Page({
   },
   onBatchSend() {
     wx.navigateTo({
-      url: '/pages/order/batch-send/index',
+      url: '/pages/order/batch-send/index?orderStatus='+ORDER_STATUS.curOrder,
     })
   },
   onCreateOrder() {
