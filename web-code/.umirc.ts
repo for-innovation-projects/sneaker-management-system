@@ -1,10 +1,29 @@
 import { defineConfig } from '@umijs/max';
-
+import path from 'path';
+import ProxyMockPlugin from 'webpack-proxy-mock-plugin'
 export default defineConfig({
   antd: {},
   access: {},
   model: {},
   initialState: {},
+  chainWebpack(config) {
+    config.devServer.proxy([
+      {
+        context: ['/api'],
+        target: 'http://localhost:8080',
+        changeOrigin: true,
+        pathRewrite: { '^/api': '' },
+      },
+    ]);
+    // 添加插件
+    config.plugin('ProxyMockPlugin').use(ProxyMockPlugin, [
+      {
+        port: 3001,
+        generatedCodeFileUrl: path.join(__dirname, './mockInfo/request-apis'),
+        mockDataFileUrl: path.join(__dirname, './mockInfo/mock'),
+      },
+    ]);
+  },
   request: {},
   layout: {
     title: '球鞋售卖',
