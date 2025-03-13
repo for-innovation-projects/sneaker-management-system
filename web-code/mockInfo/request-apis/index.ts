@@ -1,8 +1,8 @@
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 const request = axios.create({
   baseURL: '',
 });
-const a = ()=>{
-  return request({})
-}
-export default request;
+const customFetch = <T>(config: AxiosRequestConfig): Promise<T> => {
+  return request(config) as any;
+};
+export default customFetch;
