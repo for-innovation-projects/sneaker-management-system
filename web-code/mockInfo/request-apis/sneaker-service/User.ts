@@ -1,11 +1,10 @@
-import request from "../index";
+import request from '../index';
 export function wechat_login_api_wechatuser_login_post({
   data,
 }: { data?: IApi.UserWechatLoginApiWechatuserLoginPostBody } = {}) {
   return request<IApi.UserWechatLoginApiWechatuserLoginPostResponses>({
     url: `/api/wechatuser/login`,
-    method: "post",
-
+    method: 'post',
     data: data || {},
   });
 }
@@ -17,8 +16,7 @@ export function wechat_authentication_api_wechatuser_authentication_post({
   return request<IApi.UserWechatAuthenticationApiWechatuserAuthenticationPostResponses>(
     {
       url: `/api/wechatuser/authentication`,
-      method: "post",
-
+      method: 'post',
       data: data || {},
     },
   );
@@ -29,8 +27,7 @@ export function wechat_authentication_api_wechatuser_receive_post({
   return request<IApi.UserWechatAuthenticationApiWechatuserReceivePostResponses>(
     {
       url: `/api/wechatuser/receive`,
-      method: "post",
-
+      method: 'post',
       data: data || {},
     },
   );
@@ -41,7 +38,7 @@ export function wechat_authentication_api_wechatuser_receive_patch({
   return request<IApi.UserWechatAuthenticationApiWechatuserReceivePatchResponses>(
     {
       url: `/api/wechatuser/receive`,
-      method: "patch",
+      method: 'patch',
 
       data: data || {},
     },
@@ -55,7 +52,7 @@ export function wechat_authentication_api_wechatuser_information_get({
   return request<IApi.UserWechatAuthenticationApiWechatuserInformationGetResponses>(
     {
       url: `/api/wechatuser/information`,
-      method: "get",
+      method: 'get',
 
       data: data || {},
     },
@@ -69,7 +66,7 @@ export function send_verification_code_api_wechatuser_send_verification_code_pos
   return request<IApi.UserSendVerificationCodeApiWechatuserSendVerificationCodePostResponses>(
     {
       url: `/api/wechatuser/send-verification-code`,
-      method: "post",
+      method: 'post',
 
       data: data || {},
     },
@@ -78,10 +75,9 @@ export function send_verification_code_api_wechatuser_send_verification_code_pos
 export function verify_code_api_wechatuser_verify_code_post({
   data,
 }: { data?: IApi.UserVerifyCodeApiWechatuserVerifyCodePostBody } = {}) {
-  return request<IApi.UserVerifyCodeApiWechatuserVerifyCodePostResponses>({
+  return request<IApi.ResponseVerifyCodeApiWechatuserVerifyCodePost>({
     url: `/api/wechatuser/verify-code`,
-    method: "post",
-
+    method: 'post',
     data: data || {},
   });
 }
