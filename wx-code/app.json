@@ -1,43 +1,43 @@
 {
-    "pages": [
-        "pages/sign-in/index",
-        "pages/index/index",
-        "pages/order/index",
-        "pages/my/index",
-        "pages/my/collection-information/index",
-        "pages/my/withdrawal-record/index",
-        "pages/order/create/index",
-        "pages/order/batch-send/index",
-        "pages/register/index"
-    ],
-    "window": {
-        "backgroundTextStyle": "light",
-        "navigationBarBackgroundColor": "#f6f6f6",
-        "backgroundColor": "#f6f6f6",
-        "navigationBarTitleText": "球鞋",
-        "navigationBarTextStyle": "black"
-    },
-    "tabBar": {
-        "custom": true,
-        "color": "#666666",
-        "selectedColor": "#FF5F15",
-        "backgroundColor": "#ffffff",
-        "borderStyle": "black",
-        "list": [
-            {
-                "pagePath": "pages/index/index",
-                "text": "首页"
-            },
-            {
-                "pagePath": "pages/order/index",
-                "text": "订单"
-            },
-            {
-                "pagePath": "pages/my/index",
-                "text": "我的"
-            }
-        ]
-    },
-    "lazyCodeLoading": "requiredComponents",
-    "sitemapLocation": "sitemap.json"
+  "pages": [
+    "pages/index/index",
+    "pages/order/index",
+    "pages/my/index",
+    "pages/my/collection-information/index",
+    "pages/my/withdrawal-record/index",
+    "pages/order/create/index",
+    "pages/order/batch-send/index",
+    "pages/sign-in/index",
+    "pages/register/index"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#f6f6f6",
+    "backgroundColor": "#f6f6f6",
+    "navigationBarTitleText": "球鞋",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "custom": true,
+    "color": "#666666",
+    "selectedColor": "#FF5F15",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/order/index",
+        "text": "订单"
+      },
+      {
+        "pagePath": "pages/my/index",
+        "text": "我的"
+      }
+    ]
+  },
+  "lazyCodeLoading": "requiredComponents",
+  "sitemapLocation": "sitemap.json"
 }
