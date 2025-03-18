@@ -1,7 +1,8 @@
-const key = 'withdrawalShare'
+const sharekey = 'withdrawalShare';
+const loginKey = 'openIdKeyStorage'
 export function getWithdrawalShare() {
   const currentTime = Date.now();
-  const lastTime = wx.getStorageSync(key);
+  const lastTime = wx.getStorageSync(sharekey);
   if (!lastTime) {
     return false;
   }
@@ -13,5 +14,16 @@ export function getWithdrawalShare() {
 }
 export function setWithdrawalShare() {
   const currentTime = Date.now();
-  wx.setStorageSync(key, currentTime);
+  wx.setStorageSync(sharekey, currentTime);
+}
+export function setOpenId(info) {
+  wx.setStorageSync(loginKey, JSON.stringify(info));
+}
+export function getOpenId() {
+  try {
+    const result = wx.getStorageSync(loginKey);
+    return JSON.parse(result)
+  } catch (error) {
+    return null
+  }
 }
