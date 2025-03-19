@@ -1,19 +1,46 @@
 // pages/register/register.js
 import {
-  countDown
-} from '../../utils/index'
+  setOpenId
+} from "../../utils/store"
+import {
+  verify_code_api_wechatuser_registry_post
+} from "../../request/sneaker-service/User"
 Page({
   data: {
-    name: "",
-    phone: "",
-    idCard: "",
-    verificationCode: "",
+    formData: {
+      name: "",
+      phone: "",
+      idCard: "",
+      code: ""
+    },
     isAgreed: false,
-    isCounting: false,
-    countDown: 0,
   },
   sendTimeDestroy: null,
-  handleRegister() {
+  onInputValue(e) {
+    const {
+      item
+    } = e.currentTarget.dataset;
+    const {
+      value = ''
+    } = e.detail;
+    this.setData({
+      [`formData.${item}`]: value,
+    });
+  },
+  async handleRegister() {
+    const {
+      name,
+      phone,
+      idCard,
+      code
+    } = this.data.formData
+    if (!name || !phone || !idCard || !code) {
+      wx.showToast({
+        title: "请输入以上所以信息",
+        icon: "none",
+      })
+      return
+    }
     if (!this.data.isAgreed) {
       wx.showToast({
         title: "请先同意用户协议",
@@ -21,39 +48,32 @@ Page({
       })
       return
     }
-
-    // 这里添加注册逻辑
-    wx.showToast({
-      title: "注册功能开发中",
-      icon: "none",
+    wx.login({
+      success: async (res) => {
+        const registryRes = await verify_code_api_wechatuser_registry_post({
+          data: {
+            "code": res.code,
+            "name": name,
+            "phone": phone,
+            "id_code": idCard,
+            "verify_code": code
+          }
+        })
+        if (registryRes.data.code === 1) {
+          setOpenId(registryRes.data.data);
+          wx.switchTab({
+            url: '/pages/index/index',
+          })
+        }
+      },
     })
+
   },
 
-  handleSendCode() {
-    if (this.data.isCounting) return
-    this.setData({
-      isCounting: true,
-      countDown: 60,
-    })
-    this.sendTimeDestroy = countDown(60 * 1000, (resTime) => {
-      if (resTime <= 0) {
-        this.sendTimeDestroy = null
-        this.setData({
-          isCounting: false,
-          countDown: 0
-        })
-      } else {
-        this.setData({
-          countDown: Math.round(resTime / 1000)
-        })
-      }
-    })
-  },
+
 
   handleLogin() {
-    wx.navigateTo({
-      url: "/pages/login/login",
-    })
+    wx.navigateBack()
   },
 
   onAgreeChange(e) {

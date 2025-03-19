@@ -66,3 +66,12 @@ export function verify_code_api_wechatuser_verify_code_post({
     data: data || {},
   });
 }
+export function verify_code_api_wechatuser_registry_post({
+  data,
+}) {
+  return request({
+    url: `/api/wechatuser/registry`,
+    method: 'post',
+    data: data || {},
+  });
+}

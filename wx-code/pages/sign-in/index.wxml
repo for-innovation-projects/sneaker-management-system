@@ -7,7 +7,8 @@
     </view>
     <view class="form">
       <t-input value="{{formData.phone}}" placeholder="输入手机号" prefixIcon="user" type="number" data-item="phone" clearable bind:change="onInputValue" />
-      <t-input value="{{formData.code}}" placeholder="输入验证码" prefixIcon="verified" type="number" data-item="code" clearable bind:change="onInputValue" />
+      <verification-code phone="{{formData.phone}}" bind:change="onInputValue" value="{{formData.code}}" data-item="code"></verification-code>
+
       <t-button theme="primary" block size="large" bindtap="handleLogin">登录</t-button>
 
       <view class="links">

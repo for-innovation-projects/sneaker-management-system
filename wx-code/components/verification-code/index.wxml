@@ -1,0 +1,6 @@
+<view class="verification-code">
+  <t-input value="{{value}}" placeholder="输入验证码" prefixIcon="verified" bind:change="onInputValue" />
+  <t-button size="small" variant="outline" bindtap="handleSendCode" disabled="{{isCounting}}">
+    {{countDown ? countDown + 's后重新发送' : '发送验证码'}}
+  </t-button>
+</view>

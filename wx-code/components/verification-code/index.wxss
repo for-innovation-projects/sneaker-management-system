@@ -1,0 +1,16 @@
+.verification-code {
+  display: flex;
+  align-items: center;
+  margin-bottom: 24rpx;
+}
+
+.verification-code .t-input {
+  flex: 1;
+  margin-bottom: 0;
+  margin-right: 16rpx;
+}
+
+.verification-code .t-button {
+  flex-shrink: 0;
+  width: 200rpx;
+}

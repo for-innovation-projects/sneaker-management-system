@@ -6,7 +6,7 @@ export const request = (params = {}) => {
   } = params
   return new Promise((resolve, reject) => {
     wx.request({
-      url,
+      url: "http://kmexhj.natappfree.cc" + url,
       data,
       method,
       success(res) {

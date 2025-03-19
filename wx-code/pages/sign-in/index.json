@@ -4,6 +4,7 @@
   "usingComponents": {
     "t-button": "tdesign-miniprogram/button/button",
     "t-input": "tdesign-miniprogram/input/input",
+    "verification-code": "../../components/verification-code/index",
     "t-icon": "tdesign-miniprogram/icon/icon"
   }
 }

@@ -7,15 +7,10 @@
     </view>
 
     <view class="form">
-      <t-input placeholder="输入姓名" prefixIcon="user" clearable />
-      <t-input placeholder="输入手机号" prefixIcon="mobile" type="number" clearable />
-      <t-input placeholder="输入身份证号" prefixIcon="id-card" clearable />
-      <view class="verification-code">
-        <t-input placeholder="输入验证码" prefixIcon="verified" clearable />
-        <t-button size="small" variant="outline" bindtap="handleSendCode" disabled="{{isCounting}}">
-          {{countDown ? countDown + 's后重新发送' : '发送验证码'}}
-        </t-button>
-      </view>
+      <t-input bind:change="onInputValue" value="{{formData.name}}" data-item="name" placeholder="输入姓名" prefixIcon="user" />
+      <t-input bind:change="onInputValue" value="{{formData.phone}}" data-item="phone" placeholder="输入手机号" prefixIcon="mobile" type="number" />
+      <t-input bind:change="onInputValue" value="{{formData.idCard}}" data-item="idCard" placeholder="输入身份证号" prefixIcon="id-card" />
+      <verification-code phone="{{formData.phone}}" bind:change="onInputValue" value="{{formData.code}}" data-item="code"></verification-code>
 
       <t-button theme="primary" block size="large" bindtap="handleRegister">注册</t-button>
 

@@ -53,10 +53,18 @@ Page({
         success: async (res) => {
           try {
             const result = await wechat_login_api_wechatuser_login_post({
-              code: res.code
+              data: {
+                code: res.code,
+                phone: phone,
+                verify_code: code
+              }
             })
-            setOpenId(result.data);
-            
+            if (result.data.code === 1) {
+              setOpenId(result.data.data);
+              wx.switchTab({
+                url: '/pages/index/index',
+              })
+            }
           } catch (error) {
             wx.showToast({
               title: "网络异常",
