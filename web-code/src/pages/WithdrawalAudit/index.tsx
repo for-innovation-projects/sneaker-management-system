@@ -1,5 +1,6 @@
 import type { ProColumns } from '@ant-design/pro-components';
 import { ProTable } from '@ant-design/pro-components';
+import { Popconfirm } from 'antd';
 
 export type TableListItem = {
   key: number;
@@ -73,7 +74,16 @@ export default () => {
       width: 180,
       key: 'option',
       valueType: 'option',
-      render: (_, item) => [<a key="link">删除</a>],
+      render: (_, item) => [
+        <Popconfirm
+          title="确认是否已到账"
+          description="确认后用户会短信收到通知"
+          okText="确定"
+          cancelText="取消"
+        >
+          <a key="link">打款</a>
+        </Popconfirm>,
+      ],
     },
   ];
   return (
