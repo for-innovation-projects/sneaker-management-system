@@ -1,6 +1,6 @@
 import { defineConfig } from '@umijs/max';
 import path from 'path';
-import ProxyMockPlugin from 'webpack-proxy-mock-plugin'
+import ProxyMockPlugin from 'webpack-proxy-mock-plugin';
 export default defineConfig({
   antd: {},
   access: {},
@@ -19,7 +19,7 @@ export default defineConfig({
     config.plugin('ProxyMockPlugin').use(ProxyMockPlugin, [
       {
         port: 3001,
-        generatedCodeFileUrl: path.join(__dirname, './mockInfo/request-apis'),
+        generatedCodeFileUrl: path.join(__dirname, './src/request-apis'),
         mockDataFileUrl: path.join(__dirname, './mockInfo/mock'),
       },
     ]);
