@@ -40,6 +40,11 @@ export default defineConfig({
       component: './Login',
     },
     {
+      name: '小程序配置',
+      path: '/MiniConfig',
+      component: './MiniConfig',
+    },
+    {
       name: '订单处理',
       path: '/orderlist',
       component: './OrderList',
