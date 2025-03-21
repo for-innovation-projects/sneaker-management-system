@@ -1,18 +1,68 @@
+import { login_for_access_token_api_wechatuser_pc_login_post } from '@/request-apis/sneaker-service/User';
+import { setJWT } from '@/utils/storage';
+import { history } from '@umijs/max';
+import { message } from 'antd';
+import React, { useEffect, useState } from 'react';
 import './index.less';
-import React, { useEffect } from 'react'
-import './particles.min.js'
+import { initBackground } from './init';
+import './particles.min.js';
+let loading = false;
 const HomePage: React.FC = () => {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   useEffect(() => {
-    // @ts-ignore
-    particlesJS("particles-js", { "particles": { "number": { "value": 50, "density": { "enable": true, "value_area": 800 } }, "color": { "value": "#ffffff" }, "opacity": { "value": 0.2, "random": false, "anim": { "enable": false, "speed": 1, "opacity_min": 0.1, "sync": false } }, "size": { "value": 3, "random": true, "anim": { "enable": false, "speed": 40, "size_min": 0.1, "sync": false } }, "line_linked": { "enable": true, "distance": 150, "color": "#ffffff", "opacity": 0.4, "width": 1 }, "move": { "enable": true, "speed": 6, "direction": "none", "random": false, "straight": false, "out_mode": "out", "bounce": false, "attract": { "enable": false, "rotateX": 600, "rotateY": 1200 } } }, "interactivity": { "detect_on": "canvas", "events": { "onhover": { "enable": true, "mode": "grab" }, "onclick": { "enable": true, "mode": "push" }, "resize": true }, "modes": { "grab": { "distance": 140, "line_linked": { "opacity": 1 } }, "bubble": { "distance": 400, "size": 40, "duration": 2, "opacity": 8, "speed": 3 }, "repulse": { "distance": 200, "duration": 0.4 }, "push": { "particles_nb": 4 }, "remove": { "particles_nb": 2 } } }, "retina_detect": true });
-  }, [])
+    initBackground();
+  }, []);
+  const onSubmit = (e: any) => {
+    e.preventDefault();
+    if (!username || !password) {
+      message.error('请输入用户名或密码');
+      return;
+    }
+    if (loading) {
+      message.warning('登录中请耐心等待');
+      return;
+    }
+    loading = true;
+    login_for_access_token_api_wechatuser_pc_login_post({
+      data: {
+        username,
+        password,
+      },
+    })
+      .then((res) => {
+        if (res.code === 1) {
+          setJWT(res.data?.access_token || '');
+          history.push('/MiniConfig');
+        } else {
+          message.error(res.msg);
+        }
+      })
+      .finally(() => {
+        loading = false;
+      });
+  };
   return (
     <div id="particles-js">
       <form className="login-form">
         <h2>会员登录</h2>
-        <input type="text" placeholder="用户名" required />
-        <input type="password" placeholder="密码" required />
-        <button type="submit" >登录</button>
+        <input
+          type="text"
+          placeholder="用户名"
+          required
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <input
+          type="password"
+          placeholder="密码"
+          required
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <button type="submit" onClick={onSubmit}>
+          登录
+        </button>
       </form>
     </div>
   );
