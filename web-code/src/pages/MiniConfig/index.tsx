@@ -1,6 +1,7 @@
+import { upload_file_api_banner_pc_upload_post } from '@/request-apis/customUpload';
 import { PlusOutlined } from '@ant-design/icons';
 import type { GetProp, UploadFile, UploadProps } from 'antd';
-import { Button, Card, Image, Upload } from 'antd';
+import { Button, Card, Image, message, Upload } from 'antd';
 import React, { useState } from 'react';
 
 type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
@@ -64,35 +65,63 @@ const MiniConfig: React.FC = () => {
     setPreviewOpen(true);
   };
 
-  const handleChange: UploadProps['onChange'] = ({ fileList: newFileList }) =>
+  const handleChange: UploadProps['onChange'] = ({ fileList: newFileList }) => {
     setFileList(newFileList);
+  };
+  const saveAction = () => {
+    const isError = fileList.some((item) => item.status === 'error');
+    if (isError) {
+      message.error('有上传失败的图片，请删除重新上传');
+      return;
+    }
+    const isUploading = fileList.some((item) => item.status === 'uploading');
+    if (isUploading) {
+      message.error('有上传中的图片，请等待上传完成');
+      return;
+    }
+  };
 
-  const uploadButton = (
-    <button style={{ border: 0, background: 'none' }} type="button">
-      <PlusOutlined />
-      <div style={{ marginTop: 8 }}>Upload</div>
-    </button>
-  );
   return (
     <Card
       title="首页图片配置"
       extra={
-        <Button color="default" variant="solid">
+        <Button color="default" variant="solid" onClick={saveAction}>
           保存
         </Button>
       }
     >
       <Upload
         action="*"
+        accept=".png,.jpg,.jpeg"
         customRequest={(options) => {
           console.log(options, 'xxx');
+          // options.onProgress()
+          const data = new FormData();
+          data.append('file', options.file);
+          upload_file_api_banner_pc_upload_post(data, {
+            onUploadProgress(progressEvent: any) {
+              const percent = Math.round(
+                (progressEvent.loaded * 100) / progressEvent.total,
+              );
+              options.onProgress?.({ percent });
+            },
+          })
+            .then((res) => {
+              console.log(res);
+            })
+            .catch((err) => {
+              options.onError?.(err);
+            });
         }}
         listType="picture-card"
         fileList={fileList}
         onPreview={handlePreview}
         onChange={handleChange}
       >
-        {fileList.length >= 8 ? null : uploadButton}
+        <button style={{ border: 0, background: 'none' }} type="button">
+          <PlusOutlined />
+          <div style={{ marginTop: 8 }}>Upload</div>
+        </button>
       </Upload>
       {previewImage && (
         <Image
