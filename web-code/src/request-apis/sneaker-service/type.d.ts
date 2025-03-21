@@ -3,7 +3,7 @@
 namespace IApi {
   export type File = string;
 
-  export interface BodyUploadFileApiUpload_Post {
+  export interface BodyUploadFileApiBannerPcUploadPost {
     file: File;
   }
 
@@ -129,6 +129,7 @@ namespace IApi {
   }
 
   export type Code = number;
+  export type Data = unknown[];
   export type Total = number;
   export type Msg = string;
 
@@ -153,54 +154,14 @@ namespace IApi {
    * 结果数据模型
    */
   export interface ResultSchemaUserLoginResponse {
-    code: number;
-    data?: UserLoginResponse;
+    code: Code;
+    data?: Data;
     total?: Total;
     msg?: Msg;
   }
   export interface UserLoginResponse {
     access_token: AccessToken;
     token_type: TokenType;
-  }
-
-  export type Code = number;
-  export type Data = UserOut | UserOut[];
-  export type CreateTime = string;
-  export type UpdateTime = string;
-  export type Name = string;
-  export type Avatar = string;
-  export type Sex = number;
-  export type Phone = string;
-  export type Id = number;
-  export type Version = number;
-  export type IsDeleted = number;
-  export type RoleName = string;
-  export type Total = number;
-  export type Msg = string;
-
-  /**
-   * 结果数据模型
-   */
-  export interface ResultSchemaUserOut {
-    code: Code;
-    data?: Data;
-    total?: Total;
-    msg?: Msg;
-  }
-  /**
-   * 查询数据的数据模型
-   */
-  export interface UserOut {
-    create_time?: CreateTime;
-    update_time?: UpdateTime;
-    name: Name;
-    avatar?: Avatar;
-    sex?: Sex;
-    phone?: Phone;
-    id: Id;
-    version: Version;
-    is_deleted: IsDeleted;
-    role_name?: RoleName;
   }
 
   export type Code = number;
@@ -318,20 +279,6 @@ namespace IApi {
   export type AccessToken = string;
   export type TokenType = string;
 
-  export type CreateTime = string;
-  export type UpdateTime = string;
-  export type Name = string;
-  export type Avatar = string;
-  export type Sex = number;
-  export type Phone = string;
-  export type Id = number;
-  export type Version = number;
-  export type IsDeleted = number;
-  export type RoleName = string;
-
-  /**
-   * 查询数据的数据模型
-   */
   export type Location = (string | number)[];
   export type Message = string;
   export type ErrorType = string;
@@ -596,19 +543,9 @@ namespace IApi {
   /**
    * 结果数据模型
    */
-  export type UploadUploadFileApiUpload_PostResponses = ResultSchemaUserOut;
+  export type UploadUploadFileApiBannerPcUploadPostResponses = ResultSchema;
   export type Code = number;
-  export type Data = UserOut | UserOut[];
-  export type CreateTime = string;
-  export type UpdateTime = string;
-  export type Name = string;
-  export type Avatar = string;
-  export type Sex = number;
-  export type Phone = string;
-  export type Id = number;
-  export type Version = number;
-  export type IsDeleted = number;
-  export type RoleName = string;
+  export type Data = unknown[];
   export type Total = number;
   export type Msg = string;
 
