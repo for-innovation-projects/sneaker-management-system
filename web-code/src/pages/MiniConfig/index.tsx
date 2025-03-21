@@ -1,6 +1,6 @@
 import { PlusOutlined } from '@ant-design/icons';
 import type { GetProp, UploadFile, UploadProps } from 'antd';
-import { Card, Image, Upload } from 'antd';
+import { Button, Card, Image, Upload } from 'antd';
 import React, { useState } from 'react';
 
 type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
@@ -74,9 +74,19 @@ const MiniConfig: React.FC = () => {
     </button>
   );
   return (
-    <Card title="首页图片配置">
+    <Card
+      title="首页图片配置"
+      extra={
+        <Button color="default" variant="solid">
+          保存
+        </Button>
+      }
+    >
       <Upload
-        action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
+        action="*"
+        customRequest={(options) => {
+          console.log(options, 'xxx');
+        }}
         listType="picture-card"
         fileList={fileList}
         onPreview={handlePreview}
