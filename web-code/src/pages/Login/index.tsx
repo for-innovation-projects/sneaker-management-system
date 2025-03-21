@@ -4,17 +4,17 @@ import { history } from '@umijs/max';
 import { message } from 'antd';
 import React, { useEffect, useState } from 'react';
 import './index.less';
-import { initBackground } from './init';
 import './particles.min.js';
+import { initBackground } from './init'
 let loading = false;
 const HomePage: React.FC = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   useEffect(() => {
     initBackground();
+    
   }, []);
   const onSubmit = (e: any) => {
-    e.preventDefault();
     if (!username || !password) {
       message.error('请输入用户名或密码');
       return;
@@ -30,7 +30,7 @@ const HomePage: React.FC = () => {
         password,
       },
     })
-      .then((res) => {
+      .then((res: any) => {
         if (res.code === 1) {
           setJWT(res.data?.access_token || '');
           history.push('/MiniConfig');
@@ -44,7 +44,7 @@ const HomePage: React.FC = () => {
   };
   return (
     <div id="particles-js">
-      <form className="login-form">
+      <div className="login-form">
         <h2>会员登录</h2>
         <input
           type="text"
@@ -60,10 +60,8 @@ const HomePage: React.FC = () => {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button type="submit" onClick={onSubmit}>
-          登录
-        </button>
-      </form>
+        <button onClick={onSubmit}>登录</button>
+      </div>
     </div>
   );
 };
