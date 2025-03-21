@@ -1,6 +1,0 @@
-{
-  "filterUrl": [
-    "/**"
-  ],
-  "importStr": "import request from '../index';"
-}
