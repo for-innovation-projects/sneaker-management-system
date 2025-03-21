@@ -1,11 +1,11 @@
 import { getJWT } from '@/utils/storage';
 import axios, { AxiosRequestConfig } from 'axios';
 const request = axios.create({
-  baseURL: '',
+  baseURL: 'http://28ag3r.natappfree.cc',
 });
 request.interceptors.request.use(
   function (config) {
-    if (['/1'].includes(config.url!)) {
+    if (['/api/wechatuser/pc/login'].includes(config.url!)) {
       return config;
     }
     const token = getJWT();
@@ -19,7 +19,7 @@ request.interceptors.request.use(
 );
 request.interceptors.response.use(
   function (response) {
-    return response; // 必须返回 config 对象
+    return response.data; // 必须返回 config 对象
   },
   function (error) {
     // 对请求错误做些什么
