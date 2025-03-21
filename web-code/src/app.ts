@@ -9,10 +9,9 @@ export async function getInitialState(): Promise<{ name: string }> {
   // 获取当前路由信息
   const currentRoute = history.location;
   const token = getJWT();
-  if (!token) {
+  if (!token && currentRoute.pathname !== '/login') {
     history.replace('/login');
   }
-  console.log('当前路由:', currentRoute.pathname);
   // 输出示例：
   return { name: 'admin' };
 }
