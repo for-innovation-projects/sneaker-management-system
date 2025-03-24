@@ -1,6 +1,7 @@
 {
   "filterUrl": [
-    "/api/wechatuser/pc/**"
+    "/api/wechatuser/pc/**",
+    "/api/wechatbanner/pc/"
   ],
   "importStr": "import request from '../index';"
 }
