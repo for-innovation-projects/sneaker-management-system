@@ -66,8 +66,6 @@ export default () => {
                 if (res.code === 1) {
                   message.success('删除成功');
                   actionRef.current?.reload();
-                } else {
-                  message.error(res.msg);
                 }
               })
               .catch(() => {
@@ -107,7 +105,6 @@ export default () => {
                     success: true,
                   });
                 } else {
-                  message.error(res.msg);
                   resolve({
                     success: false,
                   });
@@ -166,8 +163,6 @@ export default () => {
                 if (res.code === 1) {
                   message.success('成功');
                   actionRef.current?.reload();
-                } else {
-                  message.error(res.msg);
                 }
               })
               .catch(() => {
