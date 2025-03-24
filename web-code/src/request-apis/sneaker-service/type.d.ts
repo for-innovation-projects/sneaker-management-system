@@ -1,6 +1,42 @@
 /* 代码为自动生成、请勿手动修改 */
 
 namespace IApi {
+  export type Name = string;
+  export type Phone = string;
+  export type Address = string;
+
+  export interface AddressBase {
+    name: Name;
+    phone: Phone;
+    address: Address;
+  }
+
+  export type Name = string;
+  export type Phone = string;
+  export type Address = string;
+  export type Id = number;
+  export type UpdateTime = string;
+
+  export interface AddressOut {
+    name: Name;
+    phone: Phone;
+    address: Address;
+    id: Id;
+    update_time?: UpdateTime;
+  }
+
+  export type Name = string;
+  export type Phone = string;
+  export type Address = string;
+  export type Id = string;
+
+  export interface AddressUpdate {
+    name: Name;
+    phone: Phone;
+    address: Address;
+    id: Id;
+  }
+
   export type Id = number;
   export type Location = string;
   export type Url = string;
@@ -226,6 +262,25 @@ namespace IApi {
     receive_code: ReceiveCode;
   }
 
+  export type Code = number;
+  export type Data = AddressOut[] | AddressOut[][];
+  export type Name = string;
+  export type Phone = string;
+  export type Address = string;
+  export type Id = number;
+  export type UpdateTime = string;
+  export type Total = number;
+  export type Msg = string;
+
+  /**
+   * 结果数据模型
+   */
+  export interface ResultSchemaListSchemasAddressAddressOut {
+    code: Code;
+    data?: Data;
+    total?: Total;
+    msg?: Msg;
+  }
   export type Code = number;
   export type Data = BannerBase[] | BannerBase[][];
   export type Id = number;
@@ -536,6 +591,98 @@ namespace IApi {
   export type BannerDeleteFileApiWechatbannerPc_DeleteResponses = ResultSchema;
   export type Code = number;
   export type Data = unknown[];
+  export type Total = number;
+  export type Msg = string;
+
+  /**
+   * 结果数据模型
+   */
+  export type BannerGetBannersApiWechatbanner_GetResponses =
+    ResultSchemaListSchemasBannerBannerBase;
+  export type Code = number;
+  export type Data = BannerBase[] | BannerBase[][];
+  export type Id = number;
+  export type Location = string;
+  export type Url = string;
+  export type Path = string;
+  export type Total = number;
+  export type Msg = string;
+
+  /**
+   * 结果数据模型
+   */
+  export type AddressCreateAddressApiWechataddressPcAddressPostBody =
+    AddressBase;
+  export type Name = string;
+  export type Phone = string;
+  export type Address = string;
+
+  export type AddressCreateAddressApiWechataddressPcAddressPostResponses =
+    ResultSchema;
+  export type Code = number;
+  export type Data = unknown[];
+  export type Total = number;
+  export type Msg = string;
+
+  /**
+   * 结果数据模型
+   */
+  export type Id = number;
+
+  export interface AddressDeleteAddressApiWechataddressPcAddressDeleteParams {
+    id?: Id;
+  }
+
+  export type AddressDeleteAddressApiWechataddressPcAddressDeleteResponses =
+    ResultSchema;
+  export type Code = number;
+  export type Data = unknown[];
+  export type Total = number;
+  export type Msg = string;
+
+  /**
+   * 结果数据模型
+   */
+  export type AddressUpdateAddressApiWechataddressPcAddressPatchBody =
+    AddressUpdate;
+  export type Name = string;
+  export type Phone = string;
+  export type Address = string;
+  export type Id = string;
+
+  export type AddressUpdateAddressApiWechataddressPcAddressPatchResponses =
+    ResultSchema;
+  export type Code = number;
+  export type Data = unknown[];
+  export type Total = number;
+  export type Msg = string;
+
+  /**
+   * 结果数据模型
+   */
+  export type Name = string;
+  export type Phone = string;
+  export type Address = string;
+  export type Page = number;
+  export type PageSize = number;
+
+  export interface AddressGetAddressesApiWechataddressPcAddressesGetParams {
+    name?: Name;
+    phone?: Phone;
+    address?: Address;
+    page?: Page;
+    page_size?: PageSize;
+  }
+
+  export type AddressGetAddressesApiWechataddressPcAddressesGetResponses =
+    ResultSchemaListSchemasAddressAddressOut;
+  export type Code = number;
+  export type Data = AddressOut[] | AddressOut[][];
+  export type Name = string;
+  export type Phone = string;
+  export type Address = string;
+  export type Id = number;
+  export type UpdateTime = string;
   export type Total = number;
   export type Msg = string;
 
