@@ -1,35 +1,23 @@
-import type { ProColumns } from '@ant-design/pro-components';
+import {
+  create_address_api_wechataddress_pc_address_post,
+  delete_address_api_wechataddress_pc_address_delete,
+  get_addresses_api_wechataddress_pc_addresses_get,
+  update_address_api_wechataddress_pc_address_patch,
+} from '@/request-apis/sneaker-service/Address';
+import type { ActionType, ProColumns } from '@ant-design/pro-components';
 import { ProTable } from '@ant-design/pro-components';
-import { Button, Form, Input, Modal } from 'antd';
-import { useState } from 'react';
+import { Button, Form, Input, message, Modal, Popconfirm } from 'antd';
+import { useForm } from 'antd/es/form/Form';
+import { useRef, useState } from 'react';
 
 const { TextArea } = Input;
 
-export type TableListItem = {
-  key: number;
-  date: number;
-  name: string;
-  phone: string;
-  address: string;
-};
-const tableListDataSource: TableListItem[] = [];
-
-for (let i = 0; i < 5; i += 1) {
-  tableListDataSource.push({
-    key: i,
-    date: Date.now(),
-    name: '倪明晨',
-    phone: '17345899634',
-    address: i % 2 === 1 ? '黑龙江省伊春市伊春区新立小区' : '简短备注文案',
-  });
-}
-
 export default () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalId, setModalId] = useState('');
-  const [addressInfo, setAddressInfo] = useState('');
-
-  const columns: ProColumns<TableListItem>[] = [
+  const [addressInfo, setAddressInfo] = useState<Partial<IApi.AddressOut>>({});
+  const actionRef = useRef<ActionType>(null);
+  const [from] = useForm();
+  const columns: ProColumns<IApi.AddressOut>[] = [
     {
       title: '姓名',
       dataIndex: 'name',
@@ -57,39 +45,90 @@ export default () => {
       render: (_, item) => [
         <a
           onClick={() => {
-            setAddressInfo(item.address);
-            setModalId('modalId');
+            setAddressInfo(item);
             setIsModalOpen(true);
           }}
           key="link2"
         >
           修改
         </a>,
-        <a key="link">删除</a>,
+        <Popconfirm
+          title="删除"
+          description="确认要删除该地址么?"
+          onConfirm={() =>
+            delete_address_api_wechataddress_pc_address_delete({
+              params: {
+                id: item.id,
+              },
+            })
+              .then((res) => {
+                // @ts-ignore
+                if (res.code === 1) {
+                  message.success('删除成功');
+                  actionRef.current?.reload();
+                } else {
+                  message.error(res.msg);
+                }
+              })
+              .catch(() => {
+                message.error('请重新尝试');
+              })
+          }
+          okText="删除"
+          cancelText="取消"
+        >
+          <a key="link">删除</a>
+        </Popconfirm>,
       ],
     },
   ];
   return (
     <>
-      <ProTable<TableListItem>
+      <ProTable<IApi.AddressOut>
+        actionRef={actionRef}
         columns={columns}
-        request={(params, sorter, filter) => {
-          // 表单搜索项会从 params 传入，传递给后端接口。
-          console.log(params, sorter, filter);
-          return Promise.resolve({
-            data: tableListDataSource,
-            success: true,
+        pagination={{ pageSize: 10 }}
+        request={(params) => {
+          return new Promise((resolve) => {
+            const { current: page, pageSize: page_size, ...rest } = params;
+            get_addresses_api_wechataddress_pc_addresses_get({
+              params: {
+                page,
+                page_size,
+                ...rest,
+              },
+            })
+              .then((res) => {
+                // @ts-ignore
+                if (res.code === 1) {
+                  resolve({
+                    data: res.data as any,
+                    total: res.total,
+                    success: true,
+                  });
+                } else {
+                  message.error(res.msg);
+                  resolve({
+                    success: false,
+                  });
+                }
+              })
+              .catch(() => {
+                message.error('请刷新尝试');
+                resolve({
+                  success: false,
+                });
+              });
           });
         }}
-        rowKey="key"
+        rowKey="id"
         dateFormatter="string"
         toolBarRender={() => [
           <Button
             type="primary"
             key="primary"
             onClick={() => {
-              setModalId('');
-              setAddressInfo('');
+              setAddressInfo({});
               setIsModalOpen(true);
             }}
           >
@@ -98,18 +137,46 @@ export default () => {
         ]}
       />
       <Modal
-        title={modalId ? '修改地址' : '创建地址'}
+        title={addressInfo.id ? '修改地址' : '创建地址'}
         open={isModalOpen}
-        onOk={() => {}}
+        onOk={() => from.submit?.()}
         onCancel={() => setIsModalOpen(false)}
       >
-        <Form
+        <Form<IApi.AddressBase>
           name="basic"
+          form={from}
           labelCol={{ span: 5 }}
           wrapperCol={{ span: 19 }}
           style={{ maxWidth: 600 }}
           initialValues={{ remember: true }}
           autoComplete="off"
+          onFinish={(data) => {
+            const promiseFetch = addressInfo.id
+              ? update_address_api_wechataddress_pc_address_patch
+              : create_address_api_wechataddress_pc_address_post;
+            promiseFetch({
+              data: {
+                // @ts-ignore
+                id: addressInfo.id,
+                ...data,
+              },
+            })
+              .then((res) => {
+                // @ts-ignore
+                if (res.code === 1) {
+                  message.success('成功');
+                  actionRef.current?.reload();
+                } else {
+                  message.error(res.msg);
+                }
+              })
+              .catch(() => {
+                message.error('请重新尝试');
+              })
+              .finally(() => {
+                setIsModalOpen(false);
+              });
+          }}
         >
           <Form.Item
             label="姓名"
