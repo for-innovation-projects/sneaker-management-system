@@ -1,4 +1,5 @@
 import { getJWT } from '@/utils/storage';
+import { history } from '@umijs/max';
 import axios, { AxiosRequestConfig } from 'axios';
 const request = axios.create({
   baseURL: 'http://89ipri.natappfree.cc/',
@@ -22,6 +23,14 @@ request.interceptors.response.use(
     return response.data; // 必须返回 config 对象
   },
   function (error) {
+    try {
+      if (error?.response?.status === 401) {
+        history.replace('/login');
+      }
+    } catch (err) {
+      console.log(err);
+    }
+
     // 对请求错误做些什么
     return Promise.reject(error);
   },
