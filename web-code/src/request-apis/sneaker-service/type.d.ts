@@ -1,9 +1,21 @@
 /* 代码为自动生成、请勿手动修改 */
 
 namespace IApi {
+  export type Id = number;
+  export type Location = string;
+  export type Url = string;
+  export type Path = string;
+
+  export interface BannerBase {
+    id: Id;
+    location: Location;
+    url: Url;
+    path: Path;
+  }
+
   export type File = string;
 
-  export interface BodyUploadFileApiBannerPcUploadPost {
+  export interface BodyUploadFileApiWechatbannerPcUploadPost {
     file: File;
   }
 
@@ -215,56 +227,29 @@ namespace IApi {
   }
 
   export type Code = number;
-  export type Data = SysLogOut[] | SysLogOut[][];
-  export type Url = string;
-  export type Method = string;
-  export type Ip = string;
-  export type Params = string;
-  export type SpendTime = string;
-  export type CreateTime = string;
+  export type Data = BannerBase[] | BannerBase[][];
   export type Id = number;
+  export type Location = string;
+  export type Url = string;
+  export type Path = string;
   export type Total = number;
   export type Msg = string;
 
   /**
    * 结果数据模型
    */
-  export interface ResultSchemaListSchemasSysLogSysLogOut {
+  export interface ResultSchemaListSchemasBannerBannerBase {
     code: Code;
     data?: Data;
     total?: Total;
     msg?: Msg;
   }
-  /**
-   * 查询数据的数据模型
-   */
-  export interface SysLogOut {
-    url: Url;
-    method: Method;
-    ip: Ip;
-    params?: Params;
-    spend_time?: SpendTime;
-    create_time?: CreateTime;
-    id: Id;
-  }
-
   export type PhoneNumber = string;
 
   export interface SendCodeRequest {
     phone_number: PhoneNumber;
   }
 
-  export type Url = string;
-  export type Method = string;
-  export type Ip = string;
-  export type Params = string;
-  export type SpendTime = string;
-  export type CreateTime = string;
-  export type Id = number;
-
-  /**
-   * 查询数据的数据模型
-   */
   export type Username = string;
   export type Password = string;
 
@@ -518,32 +503,37 @@ namespace IApi {
   /**
    * 结果数据模型
    */
-  export type Page = number;
-  export type PageSize = number;
-
-  export interface LogRootApiLogListGetParams {
-    page?: Page;
-    page_size?: PageSize;
-  }
-
-  export type LogRootApiLogListGetResponses =
-    ResultSchemaListSchemasSysLogSysLogOut;
+  export type BannerUploadFileApiWechatbannerPcUploadPostResponses =
+    ResultSchema;
   export type Code = number;
-  export type Data = SysLogOut[] | SysLogOut[][];
-  export type Url = string;
-  export type Method = string;
-  export type Ip = string;
-  export type Params = string;
-  export type SpendTime = string;
-  export type CreateTime = string;
-  export type Id = number;
+  export type Data = unknown[];
   export type Total = number;
   export type Msg = string;
 
   /**
    * 结果数据模型
    */
-  export type UploadUploadFileApiBannerPcUploadPostResponses = ResultSchema;
+  export type BannerGetBannersApiWechatbannerPc_GetResponses =
+    ResultSchemaListSchemasBannerBannerBase;
+  export type Code = number;
+  export type Data = BannerBase[] | BannerBase[][];
+  export type Id = number;
+  export type Location = string;
+  export type Url = string;
+  export type Path = string;
+  export type Total = number;
+  export type Msg = string;
+
+  /**
+   * 结果数据模型
+   */
+  export type FileId = number;
+
+  export interface BannerDeleteFileApiWechatbannerPc_DeleteParams {
+    file_id?: FileId;
+  }
+
+  export type BannerDeleteFileApiWechatbannerPc_DeleteResponses = ResultSchema;
   export type Code = number;
   export type Data = unknown[];
   export type Total = number;
