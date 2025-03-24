@@ -1,7 +1,7 @@
 import { getJWT } from '@/utils/storage';
 import axios, { AxiosRequestConfig } from 'axios';
 const request = axios.create({
-  baseURL: 'http://28ag3r.natappfree.cc',
+  baseURL: 'http://89ipri.natappfree.cc/',
 });
 request.interceptors.request.use(
   function (config) {
