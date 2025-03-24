@@ -1,8 +1,12 @@
 import { upload_file_api_banner_pc_upload_post } from '@/request-apis/customUpload';
+import {
+  delete_file_api_wechatbanner_pc__delete,
+  get_banners_api_wechatbanner_pc__get,
+} from '@/request-apis/sneaker-service/Banner';
 import { PlusOutlined } from '@ant-design/icons';
 import type { GetProp, UploadFile, UploadProps } from 'antd';
-import { Button, Card, Image, message, Upload } from 'antd';
-import React, { useState } from 'react';
+import { Card, Image, Upload } from 'antd';
+import React, { useEffect, useState } from 'react';
 
 type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
 
@@ -17,50 +21,28 @@ const getBase64 = (file: FileType): Promise<string> =>
 const MiniConfig: React.FC = () => {
   const [previewOpen, setPreviewOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState('');
-  const [fileList, setFileList] = useState<UploadFile[]>([
-    {
-      uid: '-1',
-      name: 'image.png',
-      status: 'done',
-      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-    },
-    {
-      uid: '-2',
-      name: 'image.png',
-      status: 'done',
-      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-    },
-    {
-      uid: '-3',
-      name: 'image.png',
-      status: 'done',
-      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-    },
-    {
-      uid: '-4',
-      name: 'image.png',
-      status: 'done',
-      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-    },
-    {
-      uid: '-xxx',
-      percent: 50,
-      name: 'image.png',
-      status: 'uploading',
-      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-    },
-    {
-      uid: '-5',
-      name: 'image.png',
-      status: 'error',
-    },
-  ]);
-
+  const [fileList, setFileList] = useState<UploadFile[]>([]);
+  useEffect(() => {
+    get_banners_api_wechatbanner_pc__get().then((res) => {
+      // @ts-ignore
+      if (res.code === 1) {
+        const result: UploadFile[] =
+          res.data?.map((item: any) => {
+            return {
+              uid: item.id,
+              name: 'image.png',
+              status: 'done',
+              url: item.url,
+            };
+          }) || [];
+        setFileList(result);
+      }
+    });
+  }, []);
   const handlePreview = async (file: UploadFile) => {
     if (!file.url && !file.preview) {
       file.preview = await getBase64(file.originFileObj as FileType);
     }
-
     setPreviewImage(file.url || (file.preview as string));
     setPreviewOpen(true);
   };
@@ -68,34 +50,33 @@ const MiniConfig: React.FC = () => {
   const handleChange: UploadProps['onChange'] = ({ fileList: newFileList }) => {
     setFileList(newFileList);
   };
-  const saveAction = () => {
-    const isError = fileList.some((item) => item.status === 'error');
-    if (isError) {
-      message.error('有上传失败的图片，请删除重新上传');
-      return;
-    }
-    const isUploading = fileList.some((item) => item.status === 'uploading');
-    if (isUploading) {
-      message.error('有上传中的图片，请等待上传完成');
-      return;
-    }
-  };
 
   return (
-    <Card
-      title="首页图片配置"
-      extra={
-        <Button color="default" variant="solid" onClick={saveAction}>
-          保存
-        </Button>
-      }
-    >
+    <Card title="首页图片配置">
       <Upload
         action="*"
         accept=".png,.jpg,.jpeg"
+        onRemove={(file) => {
+          return new Promise((resolve) => {
+            delete_file_api_wechatbanner_pc__delete({
+              params: {
+                file_id: file?.response?.id ?? Number(file.uid),
+              },
+            })
+              .then((res) => {
+                // @ts-ignore
+                if (res.code === 1) {
+                  resolve(true);
+                } else {
+                  resolve(false);
+                }
+              })
+              .catch(() => {
+                resolve(false);
+              });
+          });
+        }}
         customRequest={(options) => {
-          console.log(options, 'xxx');
-          // options.onProgress()
           const data = new FormData();
           data.append('file', options.file);
           upload_file_api_banner_pc_upload_post(data, {
@@ -107,6 +88,11 @@ const MiniConfig: React.FC = () => {
             },
           })
             .then((res) => {
+              // @ts-ignore
+              if (res.code === 1) {
+                const { url, file_id } = res.data as any;
+                options.onSuccess?.({ url, id: file_id });
+              }
               console.log(res);
             })
             .catch((err) => {
