@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/access/index",
     "pages/order/index",
     "pages/my/index",
     "pages/my/collection-information/index",
@@ -11,7 +12,7 @@
     "pages/register/index"
   ],
   "window": {
-    "backgroundTextStyle": "light",
+    "backgroundTextStyle": "light",Ï
     "navigationBarBackgroundColor": "#f6f6f6",
     "backgroundColor": "#f6f6f6",
     "navigationBarTitleText": "球鞋",
