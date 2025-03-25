@@ -54,6 +54,7 @@ export default () => {
       dataIndex: 'money',
       ellipsis: true,
       copyable: true,
+      search: false,
     },
     {
       title: '订单状态',
@@ -68,6 +69,7 @@ export default () => {
       title: '创建时间',
       dataIndex: 'date',
       valueType: 'dateTime',
+      search: false,
     },
     {
       title: '操作',
