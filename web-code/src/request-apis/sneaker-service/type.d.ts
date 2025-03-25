@@ -3,37 +3,37 @@
 namespace IApi {
   export type Name = string;
   export type Phone = string;
-  export type Address = string;
+  export type Detail = string;
 
   export interface AddressBase {
     name: Name;
     phone: Phone;
-    address: Address;
+    detail: Detail;
   }
 
   export type Name = string;
   export type Phone = string;
-  export type Address = string;
+  export type Detail = string;
   export type Id = number;
   export type UpdateTime = string;
 
   export interface AddressOut {
     name: Name;
     phone: Phone;
-    detail: Address;
+    detail: Detail;
     id: Id;
-    update_time?: UpdateTime;
+    update_time: UpdateTime;
   }
 
   export type Name = string;
   export type Phone = string;
-  export type Address = string;
+  export type Detail = string;
   export type Id = string;
 
   export interface AddressUpdate {
     name: Name;
     phone: Phone;
-    address: Address;
+    detail: Detail;
     id: Id;
   }
 
@@ -241,6 +241,7 @@ namespace IApi {
   export type Balance = string;
   export type ReceiveName = string;
   export type ReceiveCode = string;
+  export type Phone = string;
   export type Total = number;
   export type Msg = string;
 
@@ -258,15 +259,16 @@ namespace IApi {
     name: Name;
     id_code: IdCode;
     balance: Balance;
-    receive_name: ReceiveName;
-    receive_code: ReceiveCode;
+    receive_name?: ReceiveName;
+    receive_code?: ReceiveCode;
+    phone: Phone;
   }
 
   export type Code = number;
   export type Data = AddressOut[] | AddressOut[][];
   export type Name = string;
   export type Phone = string;
-  export type Address = string;
+  export type Detail = string;
   export type Id = number;
   export type UpdateTime = string;
   export type Total = number;
@@ -299,6 +301,43 @@ namespace IApi {
     total?: Total;
     msg?: Msg;
   }
+  export type Code = number;
+  export type Data = WeChatUserInformationOut[] | WeChatUserInformationOut[][];
+  export type Openid = string;
+  export type Name = string;
+  export type IdCode = string;
+  export type Balance = string;
+  export type ReceiveName = string;
+  export type ReceiveCode = string;
+  export type Phone = string;
+  export type Id = number;
+  export type CreateTime = string;
+  export type IsDeleted = number;
+  export type Total = number;
+  export type Msg = string;
+
+  /**
+   * 结果数据模型
+   */
+  export interface ResultSchemaListSchemasUserWeChatUserInformationOut {
+    code: Code;
+    data?: Data;
+    total?: Total;
+    msg?: Msg;
+  }
+  export interface WeChatUserInformationOut {
+    openid: Openid;
+    name: Name;
+    id_code: IdCode;
+    balance: Balance;
+    receive_name?: ReceiveName;
+    receive_code?: ReceiveCode;
+    phone: Phone;
+    id: Id;
+    create_time: CreateTime;
+    is_deleted: IsDeleted;
+  }
+
   export type PhoneNumber = string;
 
   export interface SendCodeRequest {
@@ -366,6 +405,18 @@ namespace IApi {
   export type Balance = string;
   export type ReceiveName = string;
   export type ReceiveCode = string;
+  export type Phone = string;
+
+  export type Openid = string;
+  export type Name = string;
+  export type IdCode = string;
+  export type Balance = string;
+  export type ReceiveName = string;
+  export type ReceiveCode = string;
+  export type Phone = string;
+  export type Id = number;
+  export type CreateTime = string;
+  export type IsDeleted = number;
 
   export type UserLoginForAccessTokenApiWechatuserPcLoginPostBody = UserLogin;
   export type Username = string;
@@ -380,6 +431,92 @@ namespace IApi {
   export type Data = UserLoginResponse | UserLoginResponse[];
   export type AccessToken = string;
   export type TokenType = string;
+  export type Total = number;
+  export type Msg = string;
+
+  /**
+   * 结果数据模型
+   */
+  export type Name = string;
+  export type Phone = string;
+  export type IdCode = string;
+  export type IsDeleted = number;
+  export type Page = number;
+  export type PageSize = number;
+
+  export interface UserGetUsersApiWechatuserPcWechatGetParams {
+    name?: Name;
+    phone?: Phone;
+    id_code?: IdCode;
+    is_deleted?: IsDeleted;
+    page?: Page;
+    page_size?: PageSize;
+  }
+
+  export type UserGetUsersApiWechatuserPcWechatGetResponses =
+    ResultSchemaListSchemasUserWeChatUserInformationOut;
+  export type Code = number;
+  export type Data = WeChatUserInformationOut[] | WeChatUserInformationOut[][];
+  export type Openid = string;
+  export type Name = string;
+  export type IdCode = string;
+  export type Balance = string;
+  export type ReceiveName = string;
+  export type ReceiveCode = string;
+  export type Phone = string;
+  export type Id = number;
+  export type CreateTime = string;
+  export type IsDeleted = number;
+  export type Total = number;
+  export type Msg = string;
+
+  /**
+   * 结果数据模型
+   */
+  export type Id = number;
+
+  export interface UserUnbanWechatUserApiWechatuserPcWechatPostParams {
+    id?: Id;
+  }
+
+  export type UserUnbanWechatUserApiWechatuserPcWechatPostResponses =
+    ResultSchema;
+  export type Code = number;
+  export type Data = unknown[];
+  export type Total = number;
+  export type Msg = string;
+
+  /**
+   * 结果数据模型
+   */
+  export type Id = number;
+
+  export interface UserBanWechatUserApiWechatuserPcWechatDeleteParams {
+    id?: Id;
+  }
+
+  export type UserBanWechatUserApiWechatuserPcWechatDeleteResponses =
+    ResultSchema;
+  export type Code = number;
+  export type Data = unknown[];
+  export type Total = number;
+  export type Msg = string;
+
+  /**
+   * 结果数据模型
+   */
+  export type Id = number;
+  export type Balance = string;
+
+  export interface UserModifyBalanceApiWechatuserPcWechatPatchParams {
+    id?: Id;
+    balance?: Balance;
+  }
+
+  export type UserModifyBalanceApiWechatuserPcWechatPatchResponses =
+    ResultSchema;
+  export type Code = number;
+  export type Data = unknown[];
   export type Total = number;
   export type Msg = string;
 
@@ -465,6 +602,7 @@ namespace IApi {
   export type Balance = string;
   export type ReceiveName = string;
   export type ReceiveCode = string;
+  export type Phone = string;
   export type Total = number;
   export type Msg = string;
 
@@ -615,7 +753,7 @@ namespace IApi {
     AddressBase;
   export type Name = string;
   export type Phone = string;
-  export type Address = string;
+  export type Detail = string;
 
   export type AddressCreateAddressApiWechataddressPcAddressPostResponses =
     ResultSchema;
@@ -647,7 +785,7 @@ namespace IApi {
     AddressUpdate;
   export type Name = string;
   export type Phone = string;
-  export type Address = string;
+  export type Detail = string;
   export type Id = string;
 
   export type AddressUpdateAddressApiWechataddressPcAddressPatchResponses =
@@ -680,7 +818,7 @@ namespace IApi {
   export type Data = AddressOut[] | AddressOut[][];
   export type Name = string;
   export type Phone = string;
-  export type Address = string;
+  export type Detail = string;
   export type Id = number;
   export type UpdateTime = string;
   export type Total = number;
