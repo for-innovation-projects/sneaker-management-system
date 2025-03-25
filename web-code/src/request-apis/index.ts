@@ -3,7 +3,7 @@ import { history } from '@umijs/max';
 import { message } from 'antd';
 import axios, { AxiosRequestConfig } from 'axios';
 const request = axios.create({
-  baseURL: 'http://89ipri.natappfree.cc/',
+  baseURL: 'http://5arbvb.natappfree.cc/',
 });
 request.interceptors.request.use(
   function (config) {
