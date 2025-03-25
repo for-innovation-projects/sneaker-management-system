@@ -20,7 +20,7 @@ namespace IApi {
   export interface AddressOut {
     name: Name;
     phone: Phone;
-    address: Address;
+    detail: Address;
     id: Id;
     update_time?: UpdateTime;
   }
