@@ -1,0 +1,27 @@
+<view class="container">
+  <view class="empty-state">
+    <view class="illustration">
+      <!-- 消息气泡 -->
+      <view class="message-bubble">
+        <view class="dot dot-1"></view>
+        <view class="dot dot-2"></view>
+        <view class="dot dot-3"></view>
+      </view>
+
+      <!-- 飘动的叶子 -->
+      <view class="leaf leaf-1"></view>
+      <view class="leaf leaf-2"></view>
+
+      <!-- 人物 -->
+      <view class="person">
+        <view class="head"></view>
+        <view class="body"></view>
+        <view class="arm"></view>
+        <view class="leg leg-left"></view>
+        <view class="leg leg-right"></view>
+      </view>
+    </view>
+
+    <text class="empty-text">暂无权限、请联系管理员</text>
+  </view>
+</view>
