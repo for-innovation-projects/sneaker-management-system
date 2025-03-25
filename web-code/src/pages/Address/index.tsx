@@ -28,13 +28,13 @@ export default () => {
     },
     {
       title: '地址信息',
-      dataIndex: 'address',
+      dataIndex: 'detail',
       ellipsis: true,
       copyable: true,
     },
     {
       title: '更新时间',
-      dataIndex: 'date',
+      dataIndex: 'update_time',
       valueType: 'dateTime',
     },
     {
@@ -45,6 +45,7 @@ export default () => {
       render: (_, item) => [
         <a
           onClick={() => {
+            from.setFieldsValue(item);
             setAddressInfo(item);
             setIsModalOpen(true);
           }}
@@ -191,7 +192,7 @@ export default () => {
 
           <Form.Item
             label="地址"
-            name="address"
+            name="detail"
             rules={[{ required: true, message: '请输入地址信息' }]}
           >
             <TextArea rows={4} />
