@@ -4,10 +4,20 @@ import {
   modify_balance_api_wechatuser_pc_wechat_patch,
   unban_wechat_user_api_wechatuser_pc_wechat_post,
 } from '@/request-apis/sneaker-service/User';
+import { get_withdrawal_api_wechatwithdrawal_pc_withdrawal__user_id__get } from '@/request-apis/sneaker-service/Withdrawal';
 import { CopyOutlined } from '@ant-design/icons';
 import type { ActionType, ProColumns } from '@ant-design/pro-components';
 import { ProTable } from '@ant-design/pro-components';
-import { Input, InputNumber, message, Modal, Popconfirm, Timeline } from 'antd';
+import {
+  Empty,
+  Input,
+  InputNumber,
+  message,
+  Modal,
+  Popconfirm,
+  Timeline,
+} from 'antd';
+import dayjs from 'dayjs';
 import { useRef, useState } from 'react';
 
 const { TextArea } = Input;
@@ -15,6 +25,9 @@ const { TextArea } = Input;
 export default () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalOpenMoney, setIsModalOpenMoney] = useState(false);
+  const [moneyRecord, setMoneyRecord] = useState<Partial<IApi.WithdrawalOut[]>>(
+    [],
+  );
   const [modalRemainingMoney, setModalRemainingMoney] = useState<
     Partial<IApi.WeChatUserInformationOut>
   >({});
@@ -122,7 +135,27 @@ export default () => {
         >
           <a key="link2">{item.is_deleted === 0 ? '封禁' : '解封'}</a>
         </Popconfirm>,
-        <a key="link3" onClick={() => setIsModalOpen(true)}>
+        <a
+          key="link3"
+          onClick={() => {
+            get_withdrawal_api_wechatwithdrawal_pc_withdrawal__user_id__get(
+              String(item.id),
+              {
+                params: {
+                  page: 1,
+                  page_size: 50,
+                },
+              },
+            ).then((res) => {
+              // @ts-ignore
+              if (res.code === 1) {
+                setIsModalOpen(true);
+                // @ts-ignore
+                setMoneyRecord(res.data || []);
+              }
+            });
+          }}
+        >
           提现记录
         </a>,
         <a
@@ -221,56 +254,31 @@ export default () => {
       <Modal
         title="提现记录"
         open={isModalOpen}
-        onOk={() => {}}
-        onCancel={() => setIsModalOpen(false)}
+        onOk={() => {
+          setIsModalOpen(false);
+          setMoneyRecord([]);
+        }}
+        onCancel={() => {
+          setIsModalOpen(false);
+          setMoneyRecord([]);
+        }}
       >
-        <Timeline
-          style={{ marginTop: '25px' }}
-          items={[
-            {
-              children: '提现50元 2015-09-01 12:12:10',
-            },
-            {
-              children: '提现20元 2015-09-01 12:12:10',
-            },
-            {
-              children: '提现5元 2015-09-01 12:12:10',
-            },
-            {
-              children: '提现30元 2015-09-01 12:12:10',
-            },
-            {
-              children: '提现30元 2015-09-01 12:12:10',
-            },
-            {
-              children: '提现30元 2015-09-01 12:12:10',
-            },
-            {
-              children: '提现30元 2015-09-01 12:12:10',
-            },
-            {
-              children: '提现30元 2015-09-01 12:12:10',
-            },
-            {
-              children: '提现30元 2015-09-01 12:12:10',
-            },
-            {
-              children: '提现30元 2015-09-01 12:12:10',
-            },
-            {
-              children: '提现30元 2015-09-01 12:12:10',
-            },
-            {
-              children: '提现30元 2015-09-01 12:12:10',
-            },
-            {
-              children: '提现30元 2015-09-01 12:12:10',
-            },
-            {
-              children: '提现30元 2015-09-01 12:12:10',
-            },
-          ]}
-        />
+        {moneyRecord.length ? (
+          <Timeline
+            style={{ marginTop: '25px' }}
+            items={moneyRecord.map((item) => {
+              return {
+                children: `提现${item?.withdrawal_money}元 ${dayjs(
+                  item?.create_time,
+                ).format('YYYY-MM-DD HH:mm:ss')} ${
+                  item?.status === 1 ? '已打款' : '未打款'
+                }`,
+              };
+            })}
+          />
+        ) : (
+          <Empty />
+        )}
       </Modal>
     </>
   );
