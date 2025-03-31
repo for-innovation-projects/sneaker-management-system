@@ -1,6 +1,8 @@
-import type { ProColumns } from '@ant-design/pro-components';
+import { get_withdrawal_api_wechatwithdrawal_pc_withdrawal_get } from '@/request-apis/sneaker-service/Withdrawal';
+import type { ActionType, ProColumns } from '@ant-design/pro-components';
 import { ProTable } from '@ant-design/pro-components';
-import { Popconfirm } from 'antd';
+import { Button, message, Popconfirm } from 'antd';
+import { useRef } from 'react';
 
 export type TableListItem = {
   key: number;
@@ -12,23 +14,10 @@ export type TableListItem = {
   zfbNumberr: string;
   money: string;
 };
-const tableListDataSource: TableListItem[] = [];
-
-for (let i = 0; i < 5; i += 1) {
-  tableListDataSource.push({
-    key: i,
-    date: Date.now(),
-    name: '倪明晨',
-    phone: '17345899634',
-    idCard: '2305788998415599784122',
-    zfbNumberr: '17345899634',
-    status: i % 2,
-    money: '20',
-  });
-}
 
 export default () => {
-  const columns: ProColumns<TableListItem>[] = [
+  const actionRef = useRef<ActionType>(null);
+  const columns: ProColumns<IApi.WithdrawalOut>[] = [
     {
       title: '姓名',
       dataIndex: 'name',
@@ -39,25 +28,25 @@ export default () => {
     },
     {
       title: '身份证号',
-      dataIndex: 'idCard',
+      dataIndex: 'id_code',
       ellipsis: true,
       copyable: true,
     },
     {
       title: '支付宝账号',
-      dataIndex: 'zfbNumberr',
+      dataIndex: 'receive_code',
       ellipsis: true,
       copyable: true,
     },
     {
       title: '提现金额',
-      dataIndex: 'money',
+      dataIndex: 'withdrawal_money',
       ellipsis: true,
       copyable: true,
       search: false,
     },
     {
-      title: '订单状态',
+      title: '打款状态',
       dataIndex: 'status',
       valueType: 'select',
       valueEnum: {
@@ -67,7 +56,7 @@ export default () => {
     },
     {
       title: '创建时间',
-      dataIndex: 'date',
+      dataIndex: 'create_time',
       valueType: 'dateTime',
       search: false,
     },
@@ -83,21 +72,48 @@ export default () => {
           okText="确定"
           cancelText="取消"
         >
-          <a key="link">打款</a>
+          <Button type="link" disabled={item.status !== 0}>
+            打款
+          </Button>
         </Popconfirm>,
       ],
     },
   ];
   return (
     <>
-      <ProTable<TableListItem>
+      <ProTable<IApi.WithdrawalOut>
         columns={columns}
-        request={(params, sorter, filter) => {
-          // 表单搜索项会从 params 传入，传递给后端接口。
-          console.log(params, sorter, filter);
-          return Promise.resolve({
-            data: tableListDataSource,
-            success: true,
+        actionRef={actionRef}
+        request={(params) => {
+          return new Promise((resolve) => {
+            const { current: page, pageSize: page_size, ...rest } = params;
+            get_withdrawal_api_wechatwithdrawal_pc_withdrawal_get({
+              params: {
+                page,
+                page_size,
+                ...rest,
+              },
+            })
+              .then((res) => {
+                // @ts-ignore
+                if (res.code === 1) {
+                  resolve({
+                    data: res.data as any,
+                    total: res.total,
+                    success: true,
+                  });
+                } else {
+                  resolve({
+                    success: false,
+                  });
+                }
+              })
+              .catch(() => {
+                message.error('请刷新尝试');
+                resolve({
+                  success: false,
+                });
+              });
           });
         }}
         search={{
