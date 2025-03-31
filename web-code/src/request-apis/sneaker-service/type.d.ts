@@ -338,6 +338,41 @@ namespace IApi {
     is_deleted: IsDeleted;
   }
 
+  export type Code = number;
+  export type Data = WithdrawalOut[] | WithdrawalOut[][];
+  export type Openid = string;
+  export type WithdrawalMoney = string;
+  export type Id = number;
+  export type UserId = number;
+  export type CreateTime = string;
+  export type IdCode = string;
+  export type ReceiveCode = string;
+  export type Status = number;
+  export type Reason = string;
+  export type Total = number;
+  export type Msg = string;
+
+  /**
+   * 结果数据模型
+   */
+  export interface ResultSchemaListSchemasWithdrawalWithdrawalOut {
+    code: Code;
+    data?: Data;
+    total?: Total;
+    msg?: Msg;
+  }
+  export interface WithdrawalOut {
+    openid: Openid;
+    withdrawal_money?: WithdrawalMoney;
+    id: Id;
+    user_id: UserId;
+    create_time: CreateTime;
+    id_code: IdCode;
+    receive_code: ReceiveCode;
+    status: Status;
+    reason?: Reason;
+  }
+
   export type PhoneNumber = string;
 
   export interface SendCodeRequest {
@@ -417,6 +452,24 @@ namespace IApi {
   export type Id = number;
   export type CreateTime = string;
   export type IsDeleted = number;
+
+  export type Openid = string;
+  export type WithdrawalMoney = string;
+
+  export interface WithdrawalCreate {
+    openid: Openid;
+    withdrawal_money?: WithdrawalMoney;
+  }
+
+  export type Openid = string;
+  export type WithdrawalMoney = string;
+  export type Id = number;
+  export type UserId = number;
+  export type CreateTime = string;
+  export type IdCode = string;
+  export type ReceiveCode = string;
+  export type Status = number;
+  export type Reason = string;
 
   export type UserLoginForAccessTokenApiWechatuserPcLoginPostBody = UserLogin;
   export type Username = string;
@@ -821,6 +874,116 @@ namespace IApi {
   export type Detail = string;
   export type Id = number;
   export type UpdateTime = string;
+  export type Total = number;
+  export type Msg = string;
+
+  /**
+   * 结果数据模型
+   */
+  export type Openid = string;
+  export type Page = number;
+  export type PageSize = number;
+
+  export interface WithdrawalGetWithdrawalApiWechatwithdrawalWithdrawalGetParams {
+    openid?: Openid;
+    page?: Page;
+    page_size?: PageSize;
+  }
+
+  export type WithdrawalGetWithdrawalApiWechatwithdrawalWithdrawalGetResponses =
+    ResultSchemaListSchemasWithdrawalWithdrawalOut;
+  export type Code = number;
+  export type Data = WithdrawalOut[] | WithdrawalOut[][];
+  export type Openid = string;
+  export type WithdrawalMoney = string;
+  export type Id = number;
+  export type UserId = number;
+  export type CreateTime = string;
+  export type IdCode = string;
+  export type ReceiveCode = string;
+  export type Status = number;
+  export type Reason = string;
+  export type Total = number;
+  export type Msg = string;
+
+  /**
+   * 结果数据模型
+   */
+  export type WithdrawalCreateWithdrawalApiWechatwithdrawalWithdrawalPostBody =
+    WithdrawalCreate;
+  export type Openid = string;
+  export type WithdrawalMoney = string;
+
+  export type WithdrawalCreateWithdrawalApiWechatwithdrawalWithdrawalPostResponses =
+    ResultSchema;
+  export type Code = number;
+  export type Data = unknown[];
+  export type Total = number;
+  export type Msg = string;
+
+  /**
+   * 结果数据模型
+   */
+  export type Name = string;
+  export type Phone = string;
+  export type IdCode = string;
+  export type ReceiveCode = string;
+  export type Status = number;
+  export type Page = number;
+  export type PageSize = number;
+
+  export interface WithdrawalGetWithdrawalApiWechatwithdrawalPcWithdrawalGetParams {
+    name?: Name;
+    phone?: Phone;
+    id_code?: IdCode;
+    receive_code?: ReceiveCode;
+    status?: Status;
+    page?: Page;
+    page_size?: PageSize;
+  }
+
+  export type WithdrawalGetWithdrawalApiWechatwithdrawalPcWithdrawalGetResponses =
+    ResultSchemaListSchemasWithdrawalWithdrawalOut;
+  export type Code = number;
+  export type Data = WithdrawalOut[] | WithdrawalOut[][];
+  export type Openid = string;
+  export type WithdrawalMoney = string;
+  export type Id = number;
+  export type UserId = number;
+  export type CreateTime = string;
+  export type IdCode = string;
+  export type ReceiveCode = string;
+  export type Status = number;
+  export type Reason = string;
+  export type Total = number;
+  export type Msg = string;
+
+  /**
+   * 结果数据模型
+   */
+  export type UserId = number;
+  export type Page = number;
+  export type PageSize = number;
+
+  export interface WithdrawalGetWithdrawalApiWechatwithdrawalPcWithdrawal_UserId_GetParams {
+    user_id?: UserId;
+    page?: Page;
+    page_size?: PageSize;
+  }
+
+  export type WithdrawalGetWithdrawalApiWechatwithdrawalPcWithdrawal_UserId_GetResponses =
+    ResultSchemaListSchemasWithdrawalWithdrawalOut;
+  export type Code = number;
+  export type Data = WithdrawalOut[] | WithdrawalOut[][];
+  export type Openid = string;
+  export type WithdrawalMoney = string;
+  export type Id = number;
+  export type UserId = number;
+  export type CreateTime = string;
+  export type IdCode = string;
+  export type ReceiveCode = string;
+  export type Status = number;
+  export type Reason = string;
   export type Total = number;
   export type Msg = string;
 
