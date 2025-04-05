@@ -1,3 +1,5 @@
-<view class="page-index" wx:for="{{images}}" wx:key="id">
-  <image style="width: 100%;" src="{{item.url}}" mode="widthFix" />
+<view class="page-root">
+  <view class="page-index" wx:for="{{images}}" wx:key="id">
+    <image style="width: 100%;" src="{{item.url}}" mode="widthFix" />
+  </view>
 </view>

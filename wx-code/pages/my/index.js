@@ -2,6 +2,7 @@ import {
   onShareTimeline,
   onShareAppMessage
 } from '../../utils/share'
+import { api_wechatuser_information_get } from "../../request/sneaker-service/User"
 Page({
   onShareTimeline,
   onShareAppMessage,
@@ -14,8 +15,26 @@ Page({
       phoneNumber: '13438358888',
       gender: 2,
     },
-    remainingSum: "10.00",
-    qrCode: 'https://mp-4a5d90f2-d23e-4d23-8b5c-fe1ebb102bde.cdn.bspapp.com/cloudstorage/31739773342.jpg'
+    remainingSum: "-",
+    qrCode: ''
+  },
+  onGetInfo() {
+    api_wechatuser_information_get({ data: {} }).then(result => {
+      if (result.data.code === 1) {
+        this.setData({
+          userInfo: {
+            ...this.data.userInfo,
+            nickName: result.data.data.name
+          },
+          remainingSum: result.data.data.balance,
+          qrCode: result.data.data.admin_image
+        })
+      }
+    })
+  },
+  onShow() {
+    this.getTabBar().init();
+    this.onGetInfo()
   },
   onQrCodeTab() {
     wx.previewImage({
@@ -37,8 +56,5 @@ Page({
     wx.navigateTo({
       url: '/pages/my/withdrawal-record/index',
     })
-  },
-  onShow() {
-    this.getTabBar().init();
   },
 })

@@ -1,4 +1,4 @@
-import { get_withdrawal_api_wechatwithdrawal_pc_withdrawal_get } from '@/request-apis/sneaker-service/Withdrawal';
+import { get_withdrawal_api_wechatwithdrawal_pc_withdrawal__user_id__get, get_withdrawal_api_wechatwithdrawal_pc_withdrawal_get, update_withdrawal_api_wechatwithdrawal_pc_withdrawal_patch } from '@/request-apis/sneaker-service/Withdrawal';
 import type { ActionType, ProColumns } from '@ant-design/pro-components';
 import { ProTable } from '@ant-design/pro-components';
 import { Button, message, Popconfirm } from 'antd';
@@ -68,7 +68,24 @@ export default () => {
       render: (_, item) => [
         <Popconfirm
           title="确认是否已到账"
-          description="确认后用户会短信收到通知"
+          description="确认后用户提现记录中能看到"
+          onConfirm={() => {
+            update_withdrawal_api_wechatwithdrawal_pc_withdrawal_patch({
+              params: {
+                id: item.id
+              }
+            }).then(res => {
+              // @ts-ignore
+              if (res.code === 1) {
+                message.success("成功")
+                actionRef.current?.reload()
+              } else {
+                message.error("请重新尝试")
+              }
+            }).catch(() => {
+              message.error("请重新尝试")
+            })
+          }}
           okText="确定"
           cancelText="取消"
         >

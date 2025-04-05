@@ -75,3 +75,21 @@ export function verify_code_api_wechatuser_registry_post({
     data: data || {},
   });
 }
+export function api_wechatuser_information_get({
+  data,
+}) {
+  return request({
+    url: `/api/wechatuser/information`,
+    method: 'get',
+    data: data || {},
+  });
+}
+export function api_wechatuser_status_get({
+  data,
+}) {
+  return request({
+    url: `/api/wechatuser/status`,
+    method: 'get',
+    data: data || {},
+  });
+}

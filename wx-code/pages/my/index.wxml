@@ -3,8 +3,8 @@
   <view class="order-group-wrapper">
     <view class="order-title">余额</view>
     <view class="order-content">
-      <view class="order-money"><text>¥</text>10.00</view>
-      <message-btn />
+      <view class="order-money"><text>¥</text>{{remainingSum}}</view>
+      <message-btn bind:reload="onGetInfo" />
     </view>
   </view>
   <view class="order-group-wrapper no-padding">

@@ -1,77 +1,31 @@
 // pages/my/withdrawal-record/index.js
+import { wechat_authentication_api_wechatwithdrawal_withdrawal_get } from "../../../request/sneaker-service/Withdrawal"
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    recordList: [{
-        title: "提现20元 已成功",
-        status: "finish",
-        desc: "2024-10-13 12:00:12"
-      },
-      {
-        title: "提现20元 已成功",
-        status: "finish",
-        desc: "2024-10-13 12:00:12"
-      },
-      {
-        title: "提现50元 审核中",
-        status: "process",
-        desc: " 2024-10-11 12:00:12"
-      }, {
-        title: "提现20元 已成功",
-        status: "finish",
-        desc: "2024-10-13 12:00:12"
-      }, {
-        title: "提现10元 提现失败",
-        status: "error",
-        desc: "不符合提现条件 2024-10-14 12:00:12"
-      },{
-        title: "提现20元 已成功",
-        status: "finish",
-        desc: "2024-10-13 12:00:12"
-      },
-      {
-        title: "提现20元 已成功",
-        status: "finish",
-        desc: "2024-10-13 12:00:12"
-      },
-      {
-        title: "提现50元 审核中",
-        status: "process",
-        desc: " 2024-10-11 12:00:12"
-      }, {
-        title: "提现20元 已成功",
-        status: "finish",
-        desc: "2024-10-13 12:00:12"
-      }, {
-        title: "提现10元 提现失败",
-        status: "error",
-        desc: "不符合提现条件 2024-10-14 12:00:12"
-      },{
-        title: "提现20元 已成功",
-        status: "finish",
-        desc: "2024-10-13 12:00:12"
-      },
-      {
-        title: "提现20元 已成功",
-        status: "finish",
-        desc: "2024-10-13 12:00:12"
-      },
-      {
-        title: "提现50元 审核中",
-        status: "process",
-        desc: " 2024-10-11 12:00:12"
-      }, {
-        title: "提现20元 已成功",
-        status: "finish",
-        desc: "2024-10-13 12:00:12"
-      }, {
-        title: "提现10元 提现失败",
-        status: "error",
-        desc: "不符合提现条件 2024-10-14 12:00:12"
-      }
-    ]
+    recordList: []
   },
+  onLoad() {
+    wechat_authentication_api_wechatwithdrawal_withdrawal_get({
+      data: {
+        page: 1,
+        page_size: 40
+      }
+    }).then(result => {
+      if (result.data.code === 1) {
+        this.setData({
+          recordList: result.data.data.map(item => {
+            return {
+              title: `提现${item.withdrawal_money}元 ${item.status === 1 ? '已成功' : '审核中'}`,
+              status: item.status === 1 ? "success" : "process",
+              desc: item.create_time
+            }
+          })
+        })
+      }
+    })
+  }
 })

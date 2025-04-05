@@ -348,7 +348,9 @@ namespace IApi {
   export type IdCode = string;
   export type ReceiveCode = string;
   export type Status = number;
+  export type Name = string;
   export type Reason = string;
+  export type Phone = string;
   export type Total = number;
   export type Msg = string;
 
@@ -368,9 +370,11 @@ namespace IApi {
     user_id: UserId;
     create_time: CreateTime;
     id_code: IdCode;
-    receive_code: ReceiveCode;
+    receive_code?: ReceiveCode;
     status: Status;
+    name?: Name;
     reason?: Reason;
+    phone?: Phone;
   }
 
   export type PhoneNumber = string;
@@ -429,12 +433,6 @@ namespace IApi {
   export type SessionKey = string;
 
   export type Openid = string;
-
-  export interface WeChatUserBase {
-    openid: Openid;
-  }
-
-  export type Openid = string;
   export type Name = string;
   export type IdCode = string;
   export type Balance = string;
@@ -469,7 +467,9 @@ namespace IApi {
   export type IdCode = string;
   export type ReceiveCode = string;
   export type Status = number;
+  export type Name = string;
   export type Reason = string;
+  export type Phone = string;
 
   export type UserLoginForAccessTokenApiWechatuserPcLoginPostBody = UserLogin;
   export type Username = string;
@@ -641,9 +641,11 @@ namespace IApi {
   /**
    * 结果数据模型
    */
-  export type UserWechatAuthenticationApiWechatuserInformationGetBody =
-    WeChatUserBase;
   export type Openid = string;
+
+  export interface UserWechatAuthenticationApiWechatuserInformationGetParams {
+    openid?: Openid;
+  }
 
   export type UserWechatAuthenticationApiWechatuserInformationGetResponses =
     ResultSchemaWeChatUserInformation;
@@ -902,7 +904,9 @@ namespace IApi {
   export type IdCode = string;
   export type ReceiveCode = string;
   export type Status = number;
+  export type Name = string;
   export type Reason = string;
+  export type Phone = string;
   export type Total = number;
   export type Msg = string;
 
@@ -954,7 +958,25 @@ namespace IApi {
   export type IdCode = string;
   export type ReceiveCode = string;
   export type Status = number;
+  export type Name = string;
   export type Reason = string;
+  export type Phone = string;
+  export type Total = number;
+  export type Msg = string;
+
+  /**
+   * 结果数据模型
+   */
+  export type Id = number;
+
+  export interface WithdrawalUpdateWithdrawalApiWechatwithdrawalPcWithdrawalPatchParams {
+    id?: Id;
+  }
+
+  export type WithdrawalUpdateWithdrawalApiWechatwithdrawalPcWithdrawalPatchResponses =
+    ResultSchema;
+  export type Code = number;
+  export type Data = unknown[];
   export type Total = number;
   export type Msg = string;
 
@@ -983,7 +1005,9 @@ namespace IApi {
   export type IdCode = string;
   export type ReceiveCode = string;
   export type Status = number;
+  export type Name = string;
   export type Reason = string;
+  export type Phone = string;
   export type Total = number;
   export type Msg = string;
 

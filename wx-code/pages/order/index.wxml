@@ -17,7 +17,7 @@
 <floating-ball>
   <view class="ball-content">
     <view class="ball-action" catch:tap="onCreateOrder">
-      <t-icon style="margin-top: 1rpx;" size="35rpx" name="add" />创建订单
+      <t-icon style="margin-top: 1rpx;" size="35rpx" name="add" />添加商品
     </view>
     <view class="ball-action" catch:tap="onBatchSend">批量审核</view>
   </view>

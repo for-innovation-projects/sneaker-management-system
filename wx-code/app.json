@@ -3,6 +3,7 @@
     "pages/index/index",
     "pages/access/index",
     "pages/order/index",
+    "pages/order-batch/index",
     "pages/my/index",
     "pages/my/collection-information/index",
     "pages/my/withdrawal-record/index",
@@ -32,6 +33,10 @@
       {
         "pagePath": "pages/order/index",
         "text": "订单"
+      },
+      {
+        "pagePath": "pages/order-batch/index",
+        "text": "批量订单"
       },
       {
         "pagePath": "pages/my/index",

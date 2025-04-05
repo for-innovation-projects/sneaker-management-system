@@ -31,11 +31,13 @@ export default () => {
       dataIndex: 'detail',
       ellipsis: true,
       copyable: true,
+      search: false
     },
     {
       title: '更新时间',
       dataIndex: 'update_time',
       valueType: 'dateTime',
+      search: false
     },
     {
       title: '操作',

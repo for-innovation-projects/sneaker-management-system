@@ -1,0 +1,6 @@
+<view class="order-group-wrapper">
+  <view class="order-title">批量咨询</view>
+  <view class="order-content-image">
+    <image src="{{qrCode}}" mode="aspectFill" bind:tap="onQrCodeTab" />
+  </view>
+</view>

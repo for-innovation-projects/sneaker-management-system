@@ -12,6 +12,19 @@ export function get_withdrawal_api_wechatwithdrawal_pc_withdrawal_get({
     },
   );
 }
+export function update_withdrawal_api_wechatwithdrawal_pc_withdrawal_patch({
+  params,
+}: {
+  params?: IApi.WithdrawalUpdateWithdrawalApiWechatwithdrawalPcWithdrawalPatchParams;
+} = {}) {
+  return request<IApi.WithdrawalUpdateWithdrawalApiWechatwithdrawalPcWithdrawalPatchResponses>(
+    {
+      url: `/api/wechatwithdrawal/pc/withdrawal`,
+      method: "patch",
+      params: params || {},
+    },
+  );
+}
 export function get_withdrawal_api_wechatwithdrawal_pc_withdrawal__user_id__get(
   user_id: string,
   {

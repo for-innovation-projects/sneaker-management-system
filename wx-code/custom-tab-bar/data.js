@@ -9,6 +9,11 @@ export default [{
     "text": "订单"
   },
   {
+    icon: 'cart',
+    "pagePath": "pages/order-batch/index",
+    "text": "批量订单"
+  },
+  {
     icon: 'person',
     "pagePath": "pages/my/index",
     "text": "我的"

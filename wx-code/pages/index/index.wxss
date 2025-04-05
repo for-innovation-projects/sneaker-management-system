@@ -1,7 +1,13 @@
+.page-root {
+  padding-bottom: 160rpx;
+  width: 100%;
+}
+
 .page-index {
   width: 100%;
 }
-.page-index image{
+
+.page-index image {
   width: 100%;
   height: auto;
   display: block;
