@@ -1,5 +1,6 @@
 // pages/order/create/index.js
 import Toast from 'tdesign-miniprogram/toast/index';
+import { add_products_api_wechatorder_products_post, add_products_api_wechatorder_upload_batch } from "../../../request/sneaker-service/Order"
 Page({
 
   /**
@@ -129,8 +130,8 @@ Page({
       value = ''
     } = e.detail;
     this.setData({
-        [`formData.${item}`]: value,
-      },
+      [`formData.${item}`]: value,
+    },
       () => {
         const {
           isLegal,
@@ -172,7 +173,7 @@ Page({
       tips: '',
     };
   },
-  formSubmit() {
+  async formSubmit() {
     const {
       submitActive
     } = this.data;
@@ -180,26 +181,47 @@ Page({
       this.showToast(this.privateData.verifyTips)
       return;
     }
-    wx.showModal({
-      title: '添加成功',
-      content: '是否继续添加',
-      cancelText: "返回",
-      complete: (res) => {
-        if (res.cancel) {
-          wx.navigateBack();
-        }
-        if (res.confirm) {
-          this.setData({
-            formData: {
-              shopName: "",
-              shopNo: "",
-              sizeAndNumber: [],
-              originFiles: []
-            }
-          })
-        }
+    const { shopName, shopNo, sizeAndNumber, desc, originFiles } = this.data.formData
+    let product_urls = []
+    if (originFiles.length) {
+      product_urls = await add_products_api_wechatorder_upload_batch(originFiles.map(item => item.url))
+    }
+    const res = await add_products_api_wechatorder_products_post({
+      data: {
+        product_name: shopName,
+        product_code: shopNo,
+        description: desc,
+        product_infos: sizeAndNumber.map(i => ({ ...i, size: i.size.toString() })),
+        product_urls: product_urls.map(item => item.data)
       }
     })
+    if (res.data.code === 1) {
+      wx.showModal({
+        title: '添加成功',
+        content: '是否继续添加',
+        cancelText: "返回",
+        complete: (res) => {
+          if (res.cancel) {
+            wx.navigateBack();
+          }
+          if (res.confirm) {
+            this.setData({
+              formData: {
+                shopName: "",
+                shopNo: "",
+                sizeAndNumber: [],
+                originFiles: []
+              }
+            })
+          }
+        }
+      })
+    } else {
+      wx.showToast({
+        title: res.data.msg || "请稍后重试",
+        icon: 'none'
+      })
+    }
   },
   onPreview(e) {
     const {
