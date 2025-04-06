@@ -2,7 +2,7 @@ export const ORDER_STATUS = {
   /** 当前订单 */
   curOrder: 'curOrder',
   /** 审核中 */
-  process: 'process',
+  process: 1,
   /** 待确认 */
   beConfirmed: 'beConfirmed',
   /** 退货订单 */
@@ -10,3 +10,4 @@ export const ORDER_STATUS = {
   /** 已完成 */
   finish: 'finish',
 }
+

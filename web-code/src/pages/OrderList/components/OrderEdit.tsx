@@ -1,78 +1,79 @@
 import type { ProColumns } from '@ant-design/pro-components';
 import { ProTable } from '@ant-design/pro-components';
 import { Image, Modal, Space, Typography } from 'antd';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import ExpandedRowRender from './ExpandedRowRender';
 
-export interface TableListItemInfo {
-  size: string;
-  number: number;
-  desc: string;
-  money: string;
-  status: number;
-  sure: boolean;
-}
+// export interface TableListItemInfo {
+//   size: string;
+//   number: number;
+//   desc: string;
+//   money: string;
+//   status: number;
+//   sure: boolean;
+// }
 
-export type TableListItem = {
-  key: number;
-  shopName: string;
-  noNumber: string;
-  info?: TableListItemInfo[];
-  imageList: string[];
-  desc?: string;
-  date: number;
-};
-const tableListDataSource: TableListItem[] = [];
+// export type TableListItem = {
+//   key: number;
+//   shopName: string;
+//   noNumber: string;
+//   info?: TableListItemInfo[];
+//   imageList: string[];
+//   desc?: string;
+//   date: number;
+// };
+// const tableListDataSource: TableListItem[] = [];
 
-for (let i = 0; i < 4; i += 1) {
-  const arr: any[] = [1];
-  for (let j = 0; j < i; j++) {
-    arr.push(j);
-  }
-  tableListDataSource.push({
-    key: i,
-    shopName: '品牌A' + i,
-    noNumber: 'D-aaxx-ss' + i,
-    info: arr.map((_, j) => {
-      return {
-        size: '35.5',
-        number: 10,
-        money: '15',
-        desc: '15*10',
-        status: j,
-        sure: i === 2 && j === 2,
-      };
-    }),
-    imageList: [],
-    date: Date.now(),
-  });
-}
+// for (let i = 0; i < 4; i += 1) {
+//   const arr: any[] = [1];
+//   for (let j = 0; j < i; j++) {
+//     arr.push(j);
+//   }
+//   tableListDataSource.push({
+//     key: i,
+//     shopName: '品牌A' + i,
+//     noNumber: 'D-aaxx-ss' + i,
+//     info: arr.map((_, j) => {
+//       return {
+//         size: '35.5',
+//         number: 10,
+//         money: '15',
+//         desc: '15*10',
+//         status: j,
+//         sure: i === 2 && j === 2,
+//       };
+//     }),
+//     imageList: [],
+//     date: Date.now(),
+//   });
+// }
 
-export default () => {
+const OrderEdit: React.FC<{ itemInfo: IApi.Products }> = (props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [curItem, setCurItem] = useState<IApi.ProductResponse>()
 
-  const columns: ProColumns<TableListItem>[] = [
+  const columns: ProColumns<IApi.ProductResponse>[] = [
     {
       title: '品牌名',
-      dataIndex: 'shopName',
+      dataIndex: 'product_name',
       ellipsis: true,
       copyable: true,
     },
     {
       title: '货号',
-      dataIndex: 'noNumber',
+      dataIndex: 'product_code',
       ellipsis: true,
       copyable: true,
     },
     {
       title: '更新时间',
-      dataIndex: 'date',
+      dataIndex: 'update_time',
       valueType: 'dateTime',
       search: false,
     },
     {
       title: '创建时间',
-      dataIndex: 'date',
+      dataIndex: 'create_time',
       valueType: 'dateTime',
       search: false,
     },
@@ -83,7 +84,10 @@ export default () => {
       valueType: 'option',
       render: (_, item) => {
         return [
-          <a key="link2" onClick={() => setIsModalOpen(true)}>
+          <a key="link2" onClick={() => {
+            setIsModalOpen(true)
+            setCurItem(item)
+          }}>
             图片查看
           </a>,
         ];
@@ -95,7 +99,7 @@ export default () => {
   };
   return (
     <>
-      <ProTable<TableListItem>
+      <ProTable<IApi.ProductResponse>
         pagination={false}
         columns={columns}
         scroll={{
@@ -105,15 +109,21 @@ export default () => {
           style: { display: 'none' },
         }}
         size="small"
-        request={(params, sorter, filter) => {
+        request={(params) => {
+          let data = props.itemInfo
+          if (params.product_name) {
+            data = data.filter(item => item.product_name.includes(params.product_name))
+          }
+          if (params.product_code) {
+            data = data.filter(item => item.product_code.includes(params.product_code))
+          }
           // 表单搜索项会从 params 传入，传递给后端接口。
-          console.log(params, sorter, filter);
           return Promise.resolve({
-            data: tableListDataSource,
+            data,
             success: true,
           });
         }}
-        rowKey="key"
+        rowKey="id"
         dateFormatter="string"
         search={{
           collapsed: false,
@@ -130,26 +140,20 @@ export default () => {
       >
         <Space direction="vertical" size="middle" style={{ display: 'flex' }}>
           <Typography.Paragraph>
-            {'缺陷1xxx缺陷2xxx'.repeat(
-              20,
-            )}
+            {curItem?.description}
           </Typography.Paragraph>
           <Space wrap>
-            <Image
-              width={200}
-              src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-            />
-            <Image
-              width={200}
-              src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-            />
-            <Image
-              width={200}
-              src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-            />
+            {curItem?.product_urls?.map(item => {
+              return <Image
+                width={200}
+                src={item.url}
+              />
+            })}
           </Space>
         </Space>
       </Modal>
     </>
   );
 };
+
+export default OrderEdit

@@ -2,20 +2,18 @@
 <view class="shop-item">
   <view class="shop-cell" bind:tap="onClick">
     <t-checkbox wx:if="{{selectStatus}}" checked="{{checked}}" class="checkbox" block="{{false}}" />
-    <t-cell title="商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称" align="top" image="https://tdesign.gtimg.com/mobile/demos/avatar1.png" bordered="{{false}}">
+    <t-cell title="{{itemInfo.product_name}}" align="top" image="https://tdesign.gtimg.com/mobile/demos/avatar1.png" bordered="{{false}}">
       <view class="desc-content" slot="description">
-        <text class="shop-num">AGCU026</text>
-        <t-tag class="tag" variant="light">39x1</t-tag>
-        <t-tag class="tag" variant="light">38x3</t-tag>
-        <t-tag class="tag" variant="light">36.5x3</t-tag>
+        <text class="shop-num">{{itemInfo.product_code}}</text>
+        <t-tag class="tag" variant="light" wx:for="{{product_infos}}">{{item.size}}*{{item.number}}</t-tag>
       </view>
     </t-cell>
   </view>
   <view class="bottom-area">
-    <view class="desc">创建时间：2025-02-19 12:15:00</view>
+    <view class="desc">创建时间：{{itemInfo.create_time}}</view>
     <view class="action-area" wx:if="{{status === ORDER_STATUS.curOrder}}">
       <t-button theme="danger" class="btn" size="small" bind:tap="onDelete" variant="outline">删除</t-button>
-      <t-button theme="primary" class="btn" size="small" variant="outline">审核</t-button>
+      <t-button theme="primary" class="btn" size="small" variant="outline" bind:tap="onOrder">审核</t-button>
     </view>
   </view>
 </view>

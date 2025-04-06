@@ -1,6 +1,6 @@
 function includesList(list, key) {
   for (var i = 0; i < list.length; i++) {
-    if (list[i] === key) {
+    if (list[i] == key) {
       return true;
     }
   }
@@ -9,7 +9,7 @@ function includesList(list, key) {
 
 function checkedAll(shopList, checkedList) {
   for (var i = 0; i < shopList.length; i++) {
-    var value = shopList[i].value;
+    var value = shopList[i].id;
     if (!includesList(checkedList, value)) {
       return false;
     }

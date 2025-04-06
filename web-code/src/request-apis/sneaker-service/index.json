@@ -6,6 +6,7 @@
     "/api/wechatuser/pc/wechat",
     "/api/wechatwithdrawal/pc/withdrawal",
     "/api/wechatwithdrawal/pc/withdrawal/*",
+    "/api/wechatorder/pc/orders",
     "/api/wechatbanner/pc/"
   ],
   "importStr": "import request from '../index';"

@@ -1,7 +1,9 @@
 {
-    "usingComponents": {
-      "t-button": "tdesign-miniprogram/button/button",
-      "t-checkbox": "tdesign-miniprogram/checkbox/checkbox",
-      "shop-item": "../components/shop-item/index"
-    }
+  "usingComponents": {
+    "t-button": "tdesign-miniprogram/button/button",
+    "t-checkbox": "tdesign-miniprogram/checkbox/checkbox",
+    "t-dialog": "tdesign-miniprogram/dialog/dialog",
+    "t-input": "tdesign-miniprogram/input/input",
+    "shop-item": "../components/shop-item/index"
+  }
 }

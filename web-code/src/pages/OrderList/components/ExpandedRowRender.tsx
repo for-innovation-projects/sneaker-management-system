@@ -1,15 +1,24 @@
 import { Badge, Space, Table, TableColumnsType } from 'antd';
-import { TableListItem, TableListItemInfo } from './OrderEdit';
 
-const expandColumns: TableColumnsType<TableListItemInfo> = [
+const expandColumns: TableColumnsType<IApi.ProductInfoResponse> = [
   { title: '尺码', dataIndex: 'size', key: 'size' },
   { title: '数量', dataIndex: 'number', key: 'number' },
   { title: '单价（用户不会看到）', dataIndex: 'money', key: 'money' },
-  { title: '用户描述', dataIndex: 'desc', key: 'desc' },
   {
     title: '状态',
     key: 'status',
-    render: () => <Badge status="success" text="Finished" />,
+    render: (item) => {
+      if (item.status === 1) {
+        return <Badge status="success" text="正常" />
+      }
+      if (item.status === 2) {
+        return <Badge status="warning" text="取消" />
+      }
+      if (item.status === 3) {
+        return <Badge status="error" text="退货" />
+      }
+      return <Badge status="error" text="未知" />
+    },
   },
   {
     title: '操作',
@@ -24,12 +33,12 @@ const expandColumns: TableColumnsType<TableListItemInfo> = [
   },
 ];
 
-const ExpandedRowRender: React.FC<TableListItem> = (props) => {
+const ExpandedRowRender: React.FC<IApi.ProductResponse> = (props) => {
   return (
-    <Table<TableListItemInfo>
+    <Table<IApi.ProductInfoResponse>
       columns={expandColumns}
       rowKey="size"
-      dataSource={props.info}
+      dataSource={props.product_infos || []}
       pagination={false}
     />
   );

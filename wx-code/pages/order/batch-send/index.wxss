@@ -19,3 +19,60 @@
   padding-bottom: constant(safe-area-inset-bottom);
   padding-bottom: env(safe-area-inset-bottom);
 }
+
+.top-content {
+  padding: 20rpx;
+  background-color: #f0f0f0;
+  border-radius: 10rpx;
+}
+
+.top-content .title {
+  font-weight: bolder;
+  display: flex;
+  align-items: center;
+}
+
+.top-content .title .copy {
+  font-weight: normal;
+  margin-left: 20rpx;
+  padding-left: 20rpx;
+  border-left: 1px solid #000;
+  line-height: 30rpx;
+  color: green;
+}
+
+.top-content .desc {
+  margin-top: 20rpx;
+  color: rgb(46, 46, 46);
+}
+
+.t-input {
+  padding: 20rpx 0 !important;
+}
+
+.border-input {
+  padding: 0 10rpx;
+  border: 1px solid #f0f0f0;
+  border-radius: 5rpx;
+  margin-top: 20rpx;
+}
+
+.t-input__label text {
+  white-space: nowrap !important;
+}
+
+.action {
+  color: rgb(46, 46, 46);
+  margin-top: 20rpx;
+}
+.action .lable{
+  font-weight: bolder;
+  margin-bottom: 25rpx;
+}
+.action .selectBtn {
+  margin-top: 20rpx;
+  float: right;
+}
+.t-dialog__footer--full{
+  padding-top: 40rpx !important;
+}

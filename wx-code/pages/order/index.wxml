@@ -4,13 +4,10 @@
 <swiper current="{{current}}" class="tab-content" bind:change="onChangeSwiper">
   <swiper-item wx:for="{{tabsList}}" wx:key="index">
     <view wx:if="{{item.value === ORDER_STATUS.curOrder}}" class="item-content">
-      <shop-item wx:for="{{4}}" status="{{ORDER_STATUS.curOrder}}"></shop-item>
+      <shop-item bind:reload="getCurShopData" wx:for="{{shopItemList}}" itemInfo="{{item}}" status="{{ORDER_STATUS.curOrder}}"></shop-item>
     </view>
     <view wx:else>
-      <order-item status="{{item.value}}"></order-item>
-      <order-item status="{{item.value}}"></order-item>
-      <order-item status="{{item.value}}"></order-item>
-      <order-item status="{{item.value}}"></order-item>
+      <order-item wx:for="{{item.data}}" status="{{item.value}}" wx:for-item="itemInfo" orderId="{{itemInfo.id}}" time="{{itemInfo.create_time}}"></order-item>
     </view>
   </swiper-item>
 </swiper>

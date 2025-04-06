@@ -5,7 +5,9 @@ Component({
    * 组件的属性列表
    */
   properties: {
-    status: ''
+    status: '',
+    orderId: '',
+    time: ''
   },
 
   /**
@@ -20,8 +22,9 @@ Component({
    */
   methods: {
     onShopList() {
+      console.log(this.properties.status)
       wx.navigateTo({
-        url: '/pages/order/batch-send/index?orderStatus=' + this.properties.status,
+        url: '/pages/order/batch-send/index?orderStatus=' + this.properties.status + '&orderId=' + this.properties.orderId,
       })
     }
   }

@@ -1,12 +1,34 @@
 <wxs module="utils" src="./utils.wxs"></wxs>
 <view class="batch-send">
-  <shop-item wx:for="{{shopList}}" wx:key="{{item.value}}" checked="{{utils.includesList(checkedList,item.value)}}" selectStatus="{{utils.showSelect(ORDER_STATUS,status)}}" value="{{item.value}}" bind:change="onChange"></shop-item>
+  <shop-item wx:for="{{shopList}}" wx:key="id" itemInfo="{{item}}" checked="{{utils.includesList(checkedList,item.id)}}" selectStatus="{{utils.showSelect(ORDER_STATUS,status)}}" value="{{item.id}}" bind:change="onChange"></shop-item>
   <view class="bottom-action" wx:if="{{ORDER_STATUS.beConfirmed === status}}">
     <t-checkbox checked="{{utils.checkedAll(shopList,checkedList)}}" borderless="{{true}}" label="已选{{checkedList.length}}个商品" class="checkbox" bind:change="onChangeAll" block="{{false}}" />
-    <t-button content="发货" style="margin:0 25rpx 0 0;color: #fff;"></t-button>
+    <t-button content="发货" bind:tap="onSendShop" style="margin:0 25rpx 0 0;color: #fff;"></t-button>
   </view>
+  <t-dialog visible="{{sendShopDialog}}" title=" " confirm-btn="发货" cancel-btn="取消" bind:confirm="closeDialog" bind:cancel="closeDialog">
+    <view slot="content">
+      <view class="top-content">
+        <view class="title">
+          100分球鞋 5122333444
+          <view class="copy" bind:tap="onCopyAddress">复制</view>
+        </view>
+        <view class="desc">惺惺惜惺惺</view>
+      </view>
+      <view class="border-input">
+        <t-input value="{{formData.addessOrder}}" bind:change="onInputValue" data-item="addessOrder" placeholder="请输入快递单号" borderless="{{true}}" />
+      </view>
+      <t-input value="{{formData.addessType}}" label="物流商" placeholder="请输入物流商" align="right" bind:change="onInputValue" data-item="addessType" />
+      <t-input value="{{formData.name}}" label="发货人姓名" placeholder="请输入姓名" align="right" bind:change="onInputValue" data-item="name" />
+      <t-input value="{{formData.phone}}" label="发货人手机号" placeholder="请输入手机号" align="right" bind:change="onInputValue" data-item="phone" />
+      <view class="action">
+        <view class="lable">回寄地址</view>
+        {{formData.selectAddressData}}
+        <t-button class="selectBtn" size="small" variant="outline" bind:tap="onSelectAddress">选择地址</t-button>
+      </view>
+    </view>
+  </t-dialog>
   <view class="bottom-action" wx:if="{{ORDER_STATUS.curOrder === status}}">
     <t-checkbox checked="{{utils.checkedAll(shopList,checkedList)}}" borderless="{{true}}" label="已选{{checkedList.length}}个商品" class="checkbox" bind:change="onChangeAll" block="{{false}}" />
-    <t-button content="去审核" style="margin:0 25rpx 0 0;color: #fff;"></t-button>
+    <t-button content="去审核" style="margin:0 25rpx 0 0;color: #fff;" bind:tap="onOders"></t-button>
   </view>
 </view>

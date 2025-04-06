@@ -2,6 +2,7 @@
 import {
   ORDER_STATUS
 } from "../../../../common/index"
+import { add_products_api_wechatorder_products_delete, add_products_api_wechatorder_orders_post } from "../../../../request/sneaker-service/Order"
 Component({
 
   /**
@@ -11,7 +12,8 @@ Component({
     status: "",
     selectStatus: false,
     checked: false,
-    value: ""
+    value: "",
+    itemInfo: {}
   },
 
   /**
@@ -46,13 +48,53 @@ Component({
         title: '删除',
         content: '确定要删除么',
         complete: (res) => {
-          if (res.cancel) {
-
-          }
           if (res.confirm) {
-
+            add_products_api_wechatorder_products_delete(this.properties.itemInfo.id).then(res => {
+              if (res.data.code === 1) {
+                wx.showToast({
+                  title: '删除成功',
+                  icon: 'none'
+                })
+                this.triggerEvent('reload')
+              } else {
+                wx.showToast({
+                  title: res.data.msg || '删除失败',
+                  icon: 'none'
+                })
+              }
+            }).catch(() => {
+              wx.showToast({
+                title: '删除失败',
+                icon: 'none'
+              })
+            })
           }
         }
+      })
+    },
+    onOrder() {
+      add_products_api_wechatorder_orders_post({
+        data: {
+          product_ids: [this.properties.itemInfo.id]
+        }
+      }).then(res => {
+        if (res.data.code === 1) {
+          wx.showToast({
+            title: '审核中，请耐心等待',
+            icon: 'none'
+          })
+          this.triggerEvent('reload')
+        } else {
+          wx.showToast({
+            title: res.data.msg || "失败",
+            icon: 'none'
+          })
+        }
+      }).catch(() => {
+        wx.showToast({
+          title: '请重新尝试',
+          icon: 'none'
+        })
       })
     }
   }

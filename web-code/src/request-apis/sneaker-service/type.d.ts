@@ -55,6 +55,12 @@ namespace IApi {
     file: File;
   }
 
+  export type File = string;
+
+  export interface BodyUploadFileApiWechatorderUploadPost {
+    file: File;
+  }
+
   export type Location = (string | number)[];
   export type Message = string;
   export type ErrorType = string;
@@ -69,98 +75,183 @@ namespace IApi {
     type: ErrorType;
   }
 
+  export type Openid = string;
+  export type ProductIds = number[];
+
+  export interface OrderCreate {
+    openid: Openid;
+    product_ids: ProductIds;
+  }
+
+  export type Id = number;
+  export type UserId = number;
+  export type Status = number;
+  export type DeliverySite = string;
+  export type TrackingCode = string;
+  export type AddressId = number;
+  export type FinallyCost = number;
+  export type CreateTime = string;
+  export type UpdateTime = string;
+  export type Id1 = number;
+  export type UserId1 = number;
   export type ProductName = string;
   export type ProductCode = string;
-  /**
-   * Product ID
-   */
-  export type ProductId = number;
-  /**
-   * Size of the product
-   */
-  export type Size = string;
-  /**
-   * Number of the product
-   */
-  export type Number = number;
-  /**
-   * Status of the product
-   */
-  export type Status = number;
-  /**
-   * Price of the product
-   */
-  export type Price = string;
-  /**
-   * 报价描述
-   */
   export type Description = string;
-  /**
-   * 最终单价
-   */
-  export type FinallyPrice = string;
-  /**
-   * 实物不符合原因
-   */
+  export type CreateTime1 = string;
+  export type UpdateTime1 = string;
+  export type Size = string;
+  export type Number = number;
+  export type Status1 = number;
+  export type Price = number;
+  export type Description1 = string;
+  export type FinallyPrice = number;
   export type Reason = string;
-  /**
-   * 产品信息
-   */
-  export type ProductInfos = ProductInfoBase[];
-  /**
-   * 产品链接
-   */
-  export type ProductUrls = string[];
+  export type ProductInfos = ProductInfoResponse[];
+  export type Url = string;
+  export type ProductUrls = ProductUrlResponse[];
+  export type Products = ProductResponse[];
 
-  export interface ProductCreateReq {
+  export interface OrderDetailResponse {
+    id: Id;
+    user_id: UserId;
+    status: Status;
+    delivery_site?: DeliverySite;
+    tracking_code?: TrackingCode;
+    address_id?: AddressId;
+    finally_cost?: FinallyCost;
+    create_time: CreateTime;
+    update_time: UpdateTime;
+    products: Products;
+  }
+  export interface ProductResponse {
+    id: Id1;
+    user_id: UserId1;
     product_name: ProductName;
     product_code: ProductCode;
-    product_infos: ProductInfos;
-    product_urls: ProductUrls;
+    description?: Description;
+    create_time: CreateTime1;
+    update_time?: UpdateTime1;
+    product_infos?: ProductInfos;
+    product_urls?: ProductUrls;
   }
-  export interface ProductInfoBase {
-    product_id: ProductId;
+  export interface ProductInfoResponse {
     size: Size;
     number: Number;
-    status: Status;
+    status: Status1;
     price: Price;
-    description: Description;
+    description?: Description1;
     finally_price: FinallyPrice;
-    reason: Reason;
+    reason?: Reason;
+  }
+  export interface ProductUrlResponse {
+    url: Url;
   }
 
+  export type UserId = number;
   /**
-   * Product ID
+   * openid
    */
-  export type ProductId = number;
+  export type Openid = string;
   /**
-   * Size of the product
+   * 产品名称
    */
-  export type Size = string;
+  export type ProductName = string;
   /**
-   * Number of the product
+   * 货号
    */
-  export type Number = number;
+  export type ProductCode = string;
   /**
-   * Status of the product
-   */
-  export type Status = number;
-  /**
-   * Price of the product
-   */
-  export type Price = string;
-  /**
-   * 报价描述
+   * 瑕疵描述
    */
   export type Description = string;
   /**
-   * 最终单价
+   * 产品尺寸
    */
-  export type FinallyPrice = string;
+  export type Size = string;
   /**
-   * 实物不符合原因
+   * 产品数量
    */
+  export type Number = number;
+  /**
+   * 产品信息列表
+   */
+  export type ProductInfos = ProductInfoCreate[];
+  /**
+   * 产品图片链接
+   */
+  export type Url = string;
+  /**
+   * 图片路径
+   */
+  export type Path = string;
+  /**
+   * 产品链接列表
+   */
+  export type ProductUrls = ProductUrlCreate[];
+
+  export interface ProductCreate {
+    user_id?: UserId;
+    openid: Openid;
+    product_name: ProductName;
+    product_code: ProductCode;
+    description?: Description;
+    product_infos: ProductInfos;
+    product_urls?: ProductUrls;
+  }
+  export interface ProductInfoCreate {
+    size: Size;
+    number: Number;
+  }
+  export interface ProductUrlCreate {
+    url: Url;
+    path: Path;
+  }
+
+  /**
+   * 产品尺寸
+   */
+  export type Size = string;
+  /**
+   * 产品数量
+   */
+  export type Number = number;
+
+  export type Size = string;
+  export type Number = number;
+  export type Status = number;
+  export type Price = number;
+  export type Description = string;
+  export type FinallyPrice = number;
   export type Reason = string;
+
+  export type Id = number;
+  export type UserId = number;
+  export type ProductName = string;
+  export type ProductCode = string;
+  export type Description = string;
+  export type CreateTime = string;
+  export type UpdateTime = string;
+  export type Size = string;
+  export type Number = number;
+  export type Status = number;
+  export type Price = number;
+  export type Description1 = string;
+  export type FinallyPrice = number;
+  export type Reason = string;
+  export type ProductInfos = ProductInfoResponse[];
+  export type Url = string;
+  export type ProductUrls = ProductUrlResponse[];
+
+  /**
+   * 产品图片链接
+   */
+  export type Url = string;
+  /**
+   * 图片路径
+   */
+  export type Path = string;
+
+  export type Url = string;
 
   export type Code = string;
   export type Name = string;
@@ -215,7 +306,6 @@ namespace IApi {
   export type Code = number;
   export type Data = WeChatLoginResponse | WeChatLoginResponse[];
   export type Openid = string;
-  export type SessionKey = string;
   export type Total = number;
   export type Msg = string;
 
@@ -230,11 +320,10 @@ namespace IApi {
   }
   export interface WeChatLoginResponse {
     openid: Openid;
-    session_key: SessionKey;
   }
 
   export type Code = number;
-  export type Data = WeChatUserInformation | WeChatUserInformation[];
+  export type Data = WeChatUserInformationOut | WeChatUserInformationOut[];
   export type Openid = string;
   export type Name = string;
   export type IdCode = string;
@@ -242,19 +331,23 @@ namespace IApi {
   export type ReceiveName = string;
   export type ReceiveCode = string;
   export type Phone = string;
+  export type Id = number;
+  export type CreateTime = string;
+  export type IsDeleted = number;
+  export type AdminImage = string;
   export type Total = number;
   export type Msg = string;
 
   /**
    * 结果数据模型
    */
-  export interface ResultSchemaWeChatUserInformation {
+  export interface ResultSchemaWeChatUserInformationOut {
     code: Code;
     data?: Data;
     total?: Total;
     msg?: Msg;
   }
-  export interface WeChatUserInformation {
+  export interface WeChatUserInformationOut {
     openid: Openid;
     name: Name;
     id_code: IdCode;
@@ -262,6 +355,40 @@ namespace IApi {
     receive_name?: ReceiveName;
     receive_code?: ReceiveCode;
     phone: Phone;
+    id: Id;
+    create_time: CreateTime;
+    is_deleted: IsDeleted;
+    admin_image?: AdminImage;
+  }
+
+  export type Code = number;
+  export type Data = boolean | boolean[];
+  export type Total = number;
+  export type Msg = string;
+
+  /**
+   * 结果数据模型
+   */
+  export interface ResultSchemaBool {
+    code: Code;
+    data?: Data;
+    total?: Total;
+    msg?: Msg;
+  }
+
+  export type Code = number;
+  export type Data = unknown[] | unknown[][];
+  export type Total = number;
+  export type Msg = string;
+
+  /**
+   * 结果数据模型
+   */
+  export interface ResultSchemaListT {
+    code: Code;
+    data?: Data;
+    total?: Total;
+    msg?: Msg;
   }
 
   export type Code = number;
@@ -302,6 +429,47 @@ namespace IApi {
     msg?: Msg;
   }
   export type Code = number;
+  export type Data = OrderDetailResponse[] | OrderDetailResponse[][];
+  export type Id = number;
+  export type UserId = number;
+  export type Status = number;
+  export type DeliverySite = string;
+  export type TrackingCode = string;
+  export type AddressId = number;
+  export type FinallyCost = number;
+  export type CreateTime = string;
+  export type UpdateTime = string;
+  export type Id1 = number;
+  export type UserId1 = number;
+  export type ProductName = string;
+  export type ProductCode = string;
+  export type Description = string;
+  export type CreateTime1 = string;
+  export type UpdateTime1 = string;
+  export type Size = string;
+  export type Number = number;
+  export type Status1 = number;
+  export type Price = number;
+  export type Description1 = string;
+  export type FinallyPrice = number;
+  export type Reason = string;
+  export type ProductInfos = ProductInfoResponse[];
+  export type Url = string;
+  export type ProductUrls = ProductUrlResponse[];
+  export type Products = ProductResponse[];
+  export type Total = number;
+  export type Msg = string;
+
+  /**
+   * 结果数据模型
+   */
+  export interface ResultSchemaListSchemasOrderOrderDetailResponse {
+    code: Code;
+    data?: Data;
+    total?: Total;
+    msg?: Msg;
+  }
+  export type Code = number;
   export type Data = WeChatUserInformationOut[] | WeChatUserInformationOut[][];
   export type Openid = string;
   export type Name = string;
@@ -313,6 +481,7 @@ namespace IApi {
   export type Id = number;
   export type CreateTime = string;
   export type IsDeleted = number;
+  export type AdminImage = string;
   export type Total = number;
   export type Msg = string;
 
@@ -325,19 +494,6 @@ namespace IApi {
     total?: Total;
     msg?: Msg;
   }
-  export interface WeChatUserInformationOut {
-    openid: Openid;
-    name: Name;
-    id_code: IdCode;
-    balance: Balance;
-    receive_name?: ReceiveName;
-    receive_code?: ReceiveCode;
-    phone: Phone;
-    id: Id;
-    create_time: CreateTime;
-    is_deleted: IsDeleted;
-  }
-
   export type Code = number;
   export type Data = WithdrawalOut[] | WithdrawalOut[][];
   export type Openid = string;
@@ -430,15 +586,6 @@ namespace IApi {
   }
 
   export type Openid = string;
-  export type SessionKey = string;
-
-  export type Openid = string;
-  export type Name = string;
-  export type IdCode = string;
-  export type Balance = string;
-  export type ReceiveName = string;
-  export type ReceiveCode = string;
-  export type Phone = string;
 
   export type Openid = string;
   export type Name = string;
@@ -450,6 +597,7 @@ namespace IApi {
   export type Id = number;
   export type CreateTime = string;
   export type IsDeleted = number;
+  export type AdminImage = string;
 
   export type Openid = string;
   export type WithdrawalMoney = string;
@@ -520,6 +668,7 @@ namespace IApi {
   export type Id = number;
   export type CreateTime = string;
   export type IsDeleted = number;
+  export type AdminImage = string;
   export type Total = number;
   export type Msg = string;
 
@@ -586,7 +735,6 @@ namespace IApi {
   export type Code = number;
   export type Data = WeChatLoginResponse | WeChatLoginResponse[];
   export type Openid = string;
-  export type SessionKey = string;
   export type Total = number;
   export type Msg = string;
 
@@ -643,14 +791,30 @@ namespace IApi {
    */
   export type Openid = string;
 
+  export interface UserWechatAuthenticationApiWechatuserStatusGetParams {
+    openid?: Openid;
+  }
+
+  export type UserWechatAuthenticationApiWechatuserStatusGetResponses =
+    ResultSchemaBool;
+  export type Code = number;
+  export type Data = boolean | boolean[];
+  export type Total = number;
+  export type Msg = string;
+
+  /**
+   * 结果数据模型
+   */
+  export type Openid = string;
+
   export interface UserWechatAuthenticationApiWechatuserInformationGetParams {
     openid?: Openid;
   }
 
   export type UserWechatAuthenticationApiWechatuserInformationGetResponses =
-    ResultSchemaWeChatUserInformation;
+    ResultSchemaWeChatUserInformationOut;
   export type Code = number;
-  export type Data = WeChatUserInformation | WeChatUserInformation[];
+  export type Data = WeChatUserInformationOut | WeChatUserInformationOut[];
   export type Openid = string;
   export type Name = string;
   export type IdCode = string;
@@ -658,6 +822,10 @@ namespace IApi {
   export type ReceiveName = string;
   export type ReceiveCode = string;
   export type Phone = string;
+  export type Id = number;
+  export type CreateTime = string;
+  export type IsDeleted = number;
+  export type AdminImage = string;
   export type Total = number;
   export type Msg = string;
 
@@ -697,54 +865,166 @@ namespace IApi {
     [k: string]: unknown;
   }
 
-  export type OrderAddProductsApiWechatorderProductsPostBody = ProductCreateReq;
+  export type OrderUploadFileApiWechatorderUploadPostResponses = ResultSchema;
+  export type Code = number;
+  export type Data = unknown[];
+  export type Total = number;
+  export type Msg = string;
+
+  /**
+   * 结果数据模型
+   */
+  export type Openid = string;
+  export type OrderId = number;
+  export type Page = number;
+  export type PageSize = number;
+
+  export interface OrderGetProductsApiWechatorderProductsGetParams {
+    openid?: Openid;
+    order_id?: OrderId;
+    page?: Page;
+    page_size?: PageSize;
+  }
+
+  export type OrderGetProductsApiWechatorderProductsGetResponses =
+    ResultSchemaListT;
+  export type Code = number;
+  export type Data = unknown[] | unknown[][];
+  export type Total = number;
+  export type Msg = string;
+
+  /**
+   * 结果数据模型
+   */
+  export type OrderAddProductsApiWechatorderProductsPostBody = ProductCreate;
+  export type UserId = number;
+  /**
+   * openid
+   */
+  export type Openid = string;
+  /**
+   * 产品名称
+   */
   export type ProductName = string;
+  /**
+   * 货号
+   */
   export type ProductCode = string;
   /**
-   * Product ID
-   */
-  export type ProductId = number;
-  /**
-   * Size of the product
-   */
-  export type Size = string;
-  /**
-   * Number of the product
-   */
-  export type Number = number;
-  /**
-   * Status of the product
-   */
-  export type Status = number;
-  /**
-   * Price of the product
-   */
-  export type Price = string;
-  /**
-   * 报价描述
+   * 瑕疵描述
    */
   export type Description = string;
   /**
-   * 最终单价
+   * 产品尺寸
    */
-  export type FinallyPrice = string;
+  export type Size = string;
   /**
-   * 实物不符合原因
+   * 产品数量
    */
-  export type Reason = string;
+  export type Number = number;
   /**
-   * 产品信息
+   * 产品信息列表
    */
-  export type ProductInfos = ProductInfoBase[];
+  export type ProductInfos = ProductInfoCreate[];
   /**
-   * 产品链接
+   * 产品图片链接
    */
-  export type ProductUrls = string[];
+  export type Url = string;
+  /**
+   * 图片路径
+   */
+  export type Path = string;
+  /**
+   * 产品链接列表
+   */
+  export type ProductUrls = ProductUrlCreate[];
 
   export type OrderAddProductsApiWechatorderProductsPostResponses =
     ResultSchema;
   export type Code = number;
   export type Data = unknown[];
+  export type Total = number;
+  export type Msg = string;
+
+  /**
+   * 结果数据模型
+   */
+  export type ProductId = number;
+
+  export interface OrderDeleteProductsApiWechatorderProducts_ProductId_DeleteParams {
+    product_id?: ProductId;
+  }
+
+  export type OrderDeleteProductsApiWechatorderProducts_ProductId_DeleteResponses =
+    ResultSchema;
+  export type Code = number;
+  export type Data = unknown[];
+  export type Total = number;
+  export type Msg = string;
+
+  /**
+   * 结果数据模型
+   */
+  export type OrderAddOrdersApiWechatorderOrdersPostBody = OrderCreate;
+  export type Openid = string;
+  export type ProductIds = number[];
+
+  export type OrderAddOrdersApiWechatorderOrdersPostResponses = ResultSchema;
+  export type Code = number;
+  export type Data = unknown[];
+  export type Total = number;
+  export type Msg = string;
+
+  /**
+   * 结果数据模型
+   */
+  export type OrderId = number;
+  export type Name = string;
+  export type Phone = string;
+  export type Status = number;
+  export type Page = number;
+  export type PageSize = number;
+
+  export interface OrderGetOrdersPcApiWechatorderPcOrdersGetParams {
+    order_id?: OrderId;
+    name?: Name;
+    phone?: Phone;
+    status?: Status;
+    page?: Page;
+    page_size?: PageSize;
+  }
+
+  export type OrderGetOrdersPcApiWechatorderPcOrdersGetResponses =
+    ResultSchemaListSchemasOrderOrderDetailResponse;
+  export type Code = number;
+  export type Data = OrderDetailResponse[] | OrderDetailResponse[][];
+  export type Id = number;
+  export type UserId = number;
+  export type Status = number;
+  export type DeliverySite = string;
+  export type TrackingCode = string;
+  export type AddressId = number;
+  export type FinallyCost = number;
+  export type CreateTime = string;
+  export type UpdateTime = string;
+  export type Id1 = number;
+  export type UserId1 = number;
+  export type ProductName = string;
+  export type ProductCode = string;
+  export type Description = string;
+  export type CreateTime1 = string;
+  export type UpdateTime1 = string;
+  export type Size = string;
+  export type Number = number;
+  export type Status1 = number;
+  export type Price = number;
+  export type Description1 = string;
+  export type FinallyPrice = number;
+  export type Reason = string;
+  export type ProductInfos = ProductInfoResponse[];
+  export type Url = string;
+  export type ProductUrls = ProductUrlResponse[];
+  export type Products = ProductResponse[];
   export type Total = number;
   export type Msg = string;
 
