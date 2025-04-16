@@ -6,20 +6,25 @@ import {
   Form,
   Input,
   InputNumber,
+  message,
   Modal,
   Popconfirm,
   Popover,
 } from 'antd';
 import { useMemo, useRef, useState } from 'react';
 import OrderEdit from './components/OrderEdit';
-import { get_orders_pc_api_wechatorder_pc_orders_get } from '@/request-apis/sneaker-service/Order';
+import { get_orders_pc_api_wechatorder_pc_orders_get, update_orders_pc_api_wechatorder_pc_orders_patch } from '@/request-apis/sneaker-service/Order';
 
 const { TextArea } = Input;
 
 export default () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [productInfo, setProductInfo] = useState<IApi.Products>([]);
+  const [orderId, setOrderId] = useState<number>(0);
+  const [allPrice, setAllPrice] = useState<number>(0);
+  const [loading, setLoading] = useState(false);
   const actionRef = useRef<ActionType>(null);
+
   const okText = useMemo(() => {
     // if (orderId === 0) {
     //   return <>报价完成</>;
@@ -140,6 +145,7 @@ export default () => {
             key="link2"
             type="link"
             onClick={() => {
+              setOrderId(item.id)
               setProductInfo(item.products);
               setIsModalOpen(true);
             }}
@@ -211,13 +217,46 @@ export default () => {
         title={'处理订单'}
         open={isModalOpen}
         width="80vw"
+        loading={loading}
         okText={okText}
-        onOk={() => { }}
+        onOk={() => {
+          setLoading(true);
+          update_orders_pc_api_wechatorder_pc_orders_patch({
+            params: {
+              order_id: orderId,
+            },
+            data: {
+              finally_cost: allPrice,
+            }
+          }).then(res => {
+            // @ts-ignore
+            if (res.code === 1) {
+              setIsModalOpen(false);
+              actionRef.current?.reloadAndRest?.();
+              message.success('设置成功');
+            } else {
+              message.error(res.msg || '设置失败');
+            }
+          }).finally(() => {
+            setLoading(false);
+          })
+        }}
         onCancel={() => setIsModalOpen(false)}
         destroyOnClose
       >
         <>
-          <OrderEdit itemInfo={productInfo}></OrderEdit>
+          <OrderEdit orderId={orderId} itemInfo={productInfo} reload={() => {
+            actionRef.current?.reloadAndRest?.();
+          }}></OrderEdit>
+          <div style={{ display: 'flex', justifyContent: 'right' }}>
+            <InputNumber
+              value={allPrice}
+              onChange={(value) => setAllPrice(value || 0)}
+              addonBefore="总价："
+              precision={2}
+              style={{ width: '20%' }}
+              step="0.01" />
+          </div>
         </>
       </Modal>
     </>

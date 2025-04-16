@@ -8,3 +8,33 @@ export function get_orders_pc_api_wechatorder_pc_orders_get({
     params: params || {},
   });
 }
+export function update_orders_pc_api_wechatorder_pc_orders_patch({
+  params,
+  data,
+}: {
+  params?: IApi.OrderUpdateOrdersPcApiWechatorderPcOrdersPatchParams;
+  data?: IApi.OrderUpdateOrdersPcApiWechatorderPcOrdersPatchBody;
+} = {}) {
+  return request<IApi.OrderUpdateOrdersPcApiWechatorderPcOrdersPatchResponses>({
+    url: `/api/wechatorder/pc/orders`,
+    method: "patch",
+    params: params || {},
+    data: data || {},
+  });
+}
+export function update_products_pc_api_wechatorder_pc_products_patch({
+  params,
+  data,
+}: {
+  params?: IApi.OrderUpdateProductsPcApiWechatorderPcProductsPatchParams;
+  data?: IApi.OrderUpdateProductsPcApiWechatorderPcProductsPatchBody;
+} = {}) {
+  return request<IApi.OrderUpdateProductsPcApiWechatorderPcProductsPatchResponses>(
+    {
+      url: `/api/wechatorder/pc/products`,
+      method: "patch",
+      params: params || {},
+      data: data || {},
+    },
+  );
+}

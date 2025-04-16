@@ -1,54 +1,10 @@
 import type { ProColumns } from '@ant-design/pro-components';
 import { ProTable } from '@ant-design/pro-components';
-import { Image, Modal, Space, Typography } from 'antd';
+import { Image, InputNumber, Modal, Space, Typography } from 'antd';
 import React, { useState } from 'react';
 import ExpandedRowRender from './ExpandedRowRender';
 
-// export interface TableListItemInfo {
-//   size: string;
-//   number: number;
-//   desc: string;
-//   money: string;
-//   status: number;
-//   sure: boolean;
-// }
-
-// export type TableListItem = {
-//   key: number;
-//   shopName: string;
-//   noNumber: string;
-//   info?: TableListItemInfo[];
-//   imageList: string[];
-//   desc?: string;
-//   date: number;
-// };
-// const tableListDataSource: TableListItem[] = [];
-
-// for (let i = 0; i < 4; i += 1) {
-//   const arr: any[] = [1];
-//   for (let j = 0; j < i; j++) {
-//     arr.push(j);
-//   }
-//   tableListDataSource.push({
-//     key: i,
-//     shopName: '品牌A' + i,
-//     noNumber: 'D-aaxx-ss' + i,
-//     info: arr.map((_, j) => {
-//       return {
-//         size: '35.5',
-//         number: 10,
-//         money: '15',
-//         desc: '15*10',
-//         status: j,
-//         sure: i === 2 && j === 2,
-//       };
-//     }),
-//     imageList: [],
-//     date: Date.now(),
-//   });
-// }
-
-const OrderEdit: React.FC<{ itemInfo: IApi.Products }> = (props) => {
+const OrderEdit: React.FC<{ itemInfo: IApi.Products, orderId: number, reload?: () => void }> = (props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [curItem, setCurItem] = useState<IApi.ProductResponse>()
 
@@ -128,7 +84,11 @@ const OrderEdit: React.FC<{ itemInfo: IApi.Products }> = (props) => {
         search={{
           collapsed: false,
         }}
-        expandable={{ expandedRowRender: ExpandedRowRender }}
+        expandable={{
+          expandedRowRender: (item) => <ExpandedRowRender {...item} orderId={props.orderId} reload={() => {
+            props.reload?.()
+          }}></ExpandedRowRender>
+        }}
       />
       <Modal
         title="瑕疵和图片"

@@ -1,7 +1,7 @@
 import {
   getOpenId
 } from "../utils/store"
-const baseUrl = "http://192.168.2.51:8000"
+const baseUrl = "http://uckqi4.natappfree.cc"
 export const request = (params = {}) => {
   const {
     url,

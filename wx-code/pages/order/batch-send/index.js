@@ -31,7 +31,7 @@ Page({
   getData(orderId) {
     add_products_api_wechatorder_products_get({
       data: {
-        order_id: orderId
+        order_id: orderId ?? ""
       }
     }).then(res => {
       if (res.data.code === 1) {
