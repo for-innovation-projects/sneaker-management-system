@@ -28,6 +28,11 @@ Page({
     })
     this.getData(query.orderId)
   },
+  onToAddress() {
+    this.setData({
+      sendShopDialog: true
+    })
+  },
   getData(orderId) {
     add_products_api_wechatorder_products_get({
       data: {

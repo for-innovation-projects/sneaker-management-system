@@ -22,7 +22,6 @@ Component({
    */
   methods: {
     onShopList() {
-      console.log(this.properties.status)
       wx.navigateTo({
         url: '/pages/order/batch-send/index?orderStatus=' + this.properties.status + '&orderId=' + this.properties.orderId,
       })

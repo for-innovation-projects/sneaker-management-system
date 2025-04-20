@@ -27,8 +27,12 @@
       </view>
     </view>
   </t-dialog>
-  <view class="bottom-action" wx:if="{{ORDER_STATUS.curOrder === status}}">
+  <view class="bottom-action" wx:if="{{ORDER_STATUS.curOrder == status}}">
     <t-checkbox checked="{{utils.checkedAll(shopList,checkedList)}}" borderless="{{true}}" label="已选{{checkedList.length}}个商品" class="checkbox" bind:change="onChangeAll" block="{{false}}" />
     <t-button content="去审核" style="margin:0 25rpx 0 0;color: #fff;" bind:tap="onOders"></t-button>
+  </view>
+  <view class="bottom-action" wx:if="{{ORDER_STATUS.beConfirmed == status}}">
+    <t-checkbox checked="{{utils.checkedAll(shopList,checkedList)}}" borderless="{{true}}" label="已选{{checkedList.length}}个商品" class="checkbox" bind:change="onChangeAll" block="{{false}}" />
+    <t-button content="去发货" style="margin:0 25rpx 0 0;color: #fff;" bind:tap="onToAddress"></t-button>
   </view>
 </view>
