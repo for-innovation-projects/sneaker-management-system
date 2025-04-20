@@ -1,10 +1,10 @@
-import request from "../index";
+import request from '../index';
 export function get_orders_pc_api_wechatorder_pc_orders_get({
   params,
 }: { params?: IApi.OrderGetOrdersPcApiWechatorderPcOrdersGetParams } = {}) {
   return request<IApi.OrderGetOrdersPcApiWechatorderPcOrdersGetResponses>({
     url: `/api/wechatorder/pc/orders`,
-    method: "get",
+    method: 'get',
     params: params || {},
   });
 }
@@ -17,7 +17,7 @@ export function update_orders_pc_api_wechatorder_pc_orders_patch({
 } = {}) {
   return request<IApi.OrderUpdateOrdersPcApiWechatorderPcOrdersPatchResponses>({
     url: `/api/wechatorder/pc/orders`,
-    method: "patch",
+    method: 'patch',
     params: params || {},
     data: data || {},
   });
@@ -32,7 +32,7 @@ export function update_products_pc_api_wechatorder_pc_products_patch({
   return request<IApi.OrderUpdateProductsPcApiWechatorderPcProductsPatchResponses>(
     {
       url: `/api/wechatorder/pc/products`,
-      method: "patch",
+      method: 'patch',
       params: params || {},
       data: data || {},
     },

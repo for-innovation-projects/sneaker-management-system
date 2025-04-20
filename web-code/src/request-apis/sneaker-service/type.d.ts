@@ -157,6 +157,8 @@ namespace IApi {
 
   export interface OrderUpdate {
     finally_cost?: FinallyCost;
+    status?: number;
+    address_id?: number;
   }
 
   export type UserId = number;

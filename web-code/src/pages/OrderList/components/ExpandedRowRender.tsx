@@ -2,9 +2,13 @@ import { Badge, Space, Table, TableColumnsType } from 'antd';
 import React from 'react';
 import ItemBtn from './ItemBtn';
 
-
-
-const ExpandedRowRender: React.FC<IApi.ProductResponse & { orderId: number, reload?: () => void }> = (props) => {
+const ExpandedRowRender: React.FC<
+  IApi.ProductResponse & {
+    orderId: number;
+    orderStatus: number;
+    reload?: () => void;
+  }
+> = (props) => {
   const expandColumns: TableColumnsType<IApi.ProductInfoResponse> = [
     { title: '尺码', dataIndex: 'size', key: 'size' },
     { title: '数量', dataIndex: 'number', key: 'number' },
@@ -14,15 +18,15 @@ const ExpandedRowRender: React.FC<IApi.ProductResponse & { orderId: number, relo
       key: 'status',
       render: (item) => {
         if (item.status === 1) {
-          return <Badge status="success" text="正常" />
+          return <Badge status="success" text="正常" />;
         }
         if (item.status === 2) {
-          return <Badge status="warning" text="取消" />
+          return <Badge status="warning" text="取消" />;
         }
         if (item.status === 3) {
-          return <Badge status="error" text="退货" />
+          return <Badge status="error" text="退货" />;
         }
-        return <Badge status="error" text="未知" />
+        return <Badge status="error" text="未知" />;
       },
     },
     {
@@ -30,11 +34,25 @@ const ExpandedRowRender: React.FC<IApi.ProductResponse & { orderId: number, relo
       key: 'operation',
       render: (item) => (
         <Space size="middle">
-          <ItemBtn order_id={props.orderId} product_info_id={item.id} product_id={props.id} reload={props.reload}></ItemBtn>
-          <a onClick={() => {
-            console.log(item, props)
-          }}>实物不符</a>
-          <a>退货</a>
+          <ItemBtn
+            defaultValue={item.price}
+            order_id={props.orderId}
+            product_info_id={item.id}
+            product_id={props.id}
+            reload={props.reload}
+          ></ItemBtn>
+          {props.orderStatus === 3 && (
+            <>
+              <a
+                onClick={() => {
+                  console.log(item, props);
+                }}
+              >
+                实物不符
+              </a>
+              <a>退货</a>
+            </>
+          )}
         </Space>
       ),
     },

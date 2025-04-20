@@ -1,34 +1,61 @@
-import VerificationCodeFormItem from '@/components/VerificationCodeFormItem';
+import { get_addresses_api_wechataddress_pc_addresses_get } from '@/request-apis/sneaker-service/Address';
+import {
+  get_orders_pc_api_wechatorder_pc_orders_get,
+  update_orders_pc_api_wechatorder_pc_orders_patch,
+} from '@/request-apis/sneaker-service/Order';
 import type { ActionType, ProColumns } from '@ant-design/pro-components';
 import { ProTable } from '@ant-design/pro-components';
 import {
   Button,
-  Form,
   Input,
   InputNumber,
   message,
   Modal,
   Popconfirm,
-  Popover,
+  Select,
+  Space,
 } from 'antd';
-import { useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import OrderEdit from './components/OrderEdit';
-import { get_orders_pc_api_wechatorder_pc_orders_get, update_orders_pc_api_wechatorder_pc_orders_patch } from '@/request-apis/sneaker-service/Order';
 
 const { TextArea } = Input;
 
 export default () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [productInfo, setProductInfo] = useState<IApi.Products>([]);
-  const [orderId, setOrderId] = useState<number>(0);
+  const [productInfo, setProductInfo] = useState<IApi.OrderDetailResponse>();
   const [allPrice, setAllPrice] = useState<number>(0);
   const [loading, setLoading] = useState(false);
+  const [optionsAddress, setOptionsAddress] = useState<IApi.AddressOut[]>([]);
+  const [addressId, setAddressId] = useState<number>();
   const actionRef = useRef<ActionType>(null);
 
+  useEffect(() => {
+    get_addresses_api_wechataddress_pc_addresses_get({
+      params: {
+        page: 1,
+        page_size: 500,
+      },
+    }).then((res) => {
+      // @ts-ignore
+      if (res.code === 1) {
+        setOptionsAddress(
+          // @ts-ignore
+          res.data.map((item: IApi.AddressOut) => {
+            return {
+              value: item.id,
+              ...item,
+            };
+          }) || [],
+        );
+      } else {
+        message.error(res.msg || '获取地址失败');
+      }
+    });
+  }, []);
   const okText = useMemo(() => {
-    // if (orderId === 0) {
-    //   return <>报价完成</>;
-    // }
+    if (productInfo?.status === 1) {
+      return <>报价完成</>;
+    }
     // if (orderId === 3 || orderId === 2) {
     //   return (
     //     <Popover
@@ -125,8 +152,8 @@ export default () => {
             <Popconfirm
               title="关闭订单"
               description="关闭后订单将立刻结束"
-              onConfirm={() => { }}
-              onCancel={() => { }}
+              onConfirm={() => {}}
+              onCancel={() => {}}
               okText="确认"
               cancelText="取消"
             >
@@ -145,8 +172,9 @@ export default () => {
             key="link2"
             type="link"
             onClick={() => {
-              setOrderId(item.id)
-              setProductInfo(item.products);
+              setProductInfo(item);
+              setAllPrice(item.finally_cost || 0);
+              setAddressId(item.address_id);
               setIsModalOpen(true);
             }}
           >
@@ -155,8 +183,8 @@ export default () => {
           <Popconfirm
             title="关闭订单"
             description="关闭后订单将立刻结束"
-            onConfirm={() => { }}
-            onCancel={() => { }}
+            onConfirm={() => {}}
+            onCancel={() => {}}
             okText="确认"
             cancelText="取消"
           >
@@ -187,25 +215,30 @@ export default () => {
                 order_id: id,
                 ...rest,
               },
-            }).then((res) => {
-              //@ts-ignore
-              if (res.code === 1) {
-                resolve({
-                  data: (res.data?.map((i: any) => ({ ...i, id: i.id.toString() })) as any) || [],
-                  success: true,
-                });
-              } else {
-                resolve({
-                  success: false,
-                });
-              }
             })
+              .then((res) => {
+                //@ts-ignore
+                if (res.code === 1) {
+                  resolve({
+                    data:
+                      (res.data?.map((i: any) => ({
+                        ...i,
+                        id: i.id.toString(),
+                      })) as any) || [],
+                    success: true,
+                  });
+                } else {
+                  resolve({
+                    success: false,
+                  });
+                }
+              })
               .catch(() => {
                 resolve({
                   success: false,
                 });
               });
-          })
+          });
         }}
         rowKey="id"
         dateFormatter="string"
@@ -220,43 +253,71 @@ export default () => {
         loading={loading}
         okText={okText}
         onOk={() => {
-          setLoading(true);
-          update_orders_pc_api_wechatorder_pc_orders_patch({
-            params: {
-              order_id: orderId,
-            },
-            data: {
-              finally_cost: allPrice,
-            }
-          }).then(res => {
-            // @ts-ignore
-            if (res.code === 1) {
-              setIsModalOpen(false);
-              actionRef.current?.reloadAndRest?.();
-              message.success('设置成功');
-            } else {
-              message.error(res.msg || '设置失败');
-            }
-          }).finally(() => {
-            setLoading(false);
-          })
+          if (productInfo?.status === 1) {
+            setLoading(true);
+            update_orders_pc_api_wechatorder_pc_orders_patch({
+              params: {
+                order_id: productInfo?.id,
+              },
+              data: {
+                finally_cost: allPrice,
+                status: 2,
+                address_id: addressId,
+              },
+            })
+              .then((res) => {
+                // @ts-ignore
+                if (res.code === 1) {
+                  setIsModalOpen(false);
+                  actionRef.current?.reloadAndRest?.();
+                  message.success('设置成功');
+                } else {
+                  message.error(res.msg || '设置失败');
+                }
+              })
+              .finally(() => {
+                setLoading(false);
+              });
+          }
         }}
         onCancel={() => setIsModalOpen(false)}
         destroyOnClose
       >
         <>
-          <OrderEdit orderId={orderId} itemInfo={productInfo} reload={() => {
-            actionRef.current?.reloadAndRest?.();
-          }}></OrderEdit>
-          <div style={{ display: 'flex', justifyContent: 'right' }}>
+          <OrderEdit
+            fatherItem={productInfo}
+            orderId={productInfo?.id || 0}
+            itemInfo={productInfo?.products || []}
+            reload={() => {
+              actionRef.current?.reloadAndRest?.();
+            }}
+          ></OrderEdit>
+          <Space style={{ display: 'flex', justifyContent: 'right' }}>
+            <Select
+              style={{ width: 300 }}
+              value={addressId}
+              placeholder="请选择发货地址"
+              onChange={(_, option) => {
+                setAddressId((option as IApi.AddressOut).id);
+              }}
+              options={optionsAddress}
+              optionLabelProp="detail"
+              optionRender={(option) => (
+                <div>
+                  <div>姓名： {option.data.name}</div>
+                  <div>电话：{option.data.phone}</div>
+                  <div>详细地址：{option.data.detail}</div>
+                </div>
+              )}
+            />
             <InputNumber
               value={allPrice}
               onChange={(value) => setAllPrice(value || 0)}
               addonBefore="总价："
               precision={2}
-              style={{ width: '20%' }}
-              step="0.01" />
-          </div>
+              step="0.01"
+            />
+          </Space>
         </>
       </Modal>
     </>
