@@ -7,7 +7,7 @@
       <shop-item bind:reload="getCurShopData" wx:for="{{shopItemList}}" itemInfo="{{item}}" status="{{ORDER_STATUS.curOrder}}"></shop-item>
     </view>
     <view wx:else>
-      <order-item wx:for="{{item.data}}" status="{{item.value}}" wx:for-item="itemInfo" orderId="{{itemInfo.id}}" time="{{itemInfo.create_time}}"></order-item>
+      <order-item wx:for="{{item.data}}" status="{{item.value}}" wx:for-item="itemInfo" orderId="{{itemInfo.id}}" time="{{itemInfo.create_time}}" finallyCost="{{itemInfo.finally_cost}}"></order-item>
     </view>
   </swiper-item>
 </swiper>
