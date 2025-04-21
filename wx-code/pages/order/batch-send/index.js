@@ -2,7 +2,10 @@
 import {
   ORDER_STATUS
 } from "../../../common/index"
-import { add_products_api_wechatorder_products_get, add_products_api_wechatorder_orders_post } from "../../../request/sneaker-service/Order"
+import {
+  add_products_api_wechatorder_products_get,
+  add_products_api_wechatorder_orders_post
+} from "../../../request/sneaker-service/Order"
 Page({
 
   /**
@@ -20,11 +23,13 @@ Page({
       phone: "",
       name: "",
       selectAddressData: "",
+      finallyCost: ""
     }
   },
   onLoad(query) {
     this.setData({
-      status: query.orderStatus || ""
+      status: query.orderStatus || "",
+      finallyCost: query.finallyCost || ""
     })
     this.getData(query.orderId)
   },
@@ -32,6 +37,14 @@ Page({
     this.setData({
       sendShopDialog: true
     })
+  },
+  onAllAddress() {
+    this.onChangeAll({
+      detail: {
+        checked: true
+      }
+    })
+    this.onToAddress()
   },
   getData(orderId) {
     add_products_api_wechatorder_products_get({
