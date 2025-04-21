@@ -7,6 +7,7 @@ Component({
   properties: {
     status: '',
     orderId: '',
+    finallyCost: '',
     time: ''
   },
 
@@ -23,7 +24,7 @@ Component({
   methods: {
     onShopList() {
       wx.navigateTo({
-        url: '/pages/order/batch-send/index?orderStatus=' + this.properties.status + '&orderId=' + this.properties.orderId,
+        url: '/pages/order/batch-send/index?orderStatus=' + this.properties.status + '&orderId=' + this.properties.orderId + '&finallyCost=' + this.properties.finallyCost,
       })
     }
   }
