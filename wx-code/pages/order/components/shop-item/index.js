@@ -29,9 +29,9 @@ Component({
   methods: {
     onClick() {
       if (!this.data.selectStatus) {
-        wx.navigateTo({
-          url: '/pages/order/create/index',
-        })
+        // wx.navigateTo({
+        //   url: '/pages/order/create/index',
+        // })
         return
       }
       this.triggerEvent('change', {

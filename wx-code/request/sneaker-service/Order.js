@@ -53,3 +53,11 @@ export function add_products_api_wechatorder_orders_get({
     data: data || {},
   });
 }
+
+export function add_products_api_wechatorder_orders_delivery(data) {
+  return request({
+    url: `/api/wechatorder/orders/delivery`,
+    method: "post",
+    data: data || {},
+  });
+}

@@ -4,8 +4,10 @@
     <t-checkbox wx:if="{{selectStatus}}" checked="{{checked}}" class="checkbox" block="{{false}}" />
     <t-cell title="{{itemInfo.product_name}}" align="top" image="https://tdesign.gtimg.com/mobile/demos/avatar1.png" bordered="{{false}}">
       <view class="desc-content" slot="description">
-        <text class="shop-num">{{itemInfo.product_code}}</text>
-        <t-tag class="tag" variant="light" wx:for="{{product_infos}}">{{item.size}}*{{item.number}}</t-tag>
+        <view class="tag-content">
+          <t-tag class="tag" variant="light" wx:for="{{itemInfo.product_infos}}">{{item.size}}*{{item.number}}<text style="color: red;" wx:if="{{item.price}}">（单价：{{item.price}}）</text>
+          </t-tag>
+        </view>
       </view>
     </t-cell>
   </view>

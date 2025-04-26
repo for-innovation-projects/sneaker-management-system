@@ -17,13 +17,17 @@ const ExpandedRowRender: React.FC<
       title: '状态',
       key: 'status',
       render: (item) => {
+        console.log(item, 'xxxzx');
         if (item.status === 1) {
-          return <Badge status="success" text="正常" />;
+          return <Badge status="success" text="未发货" />;
         }
         if (item.status === 2) {
-          return <Badge status="warning" text="取消" />;
+          return <Badge status="warning" text="发货中" />;
         }
         if (item.status === 3) {
+          return <Badge status="error" text="不发货" />;
+        }
+        if (item.status === 4) {
           return <Badge status="error" text="退货" />;
         }
         return <Badge status="error" text="未知" />;

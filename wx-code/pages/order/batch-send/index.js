@@ -4,7 +4,8 @@ import {
 } from "../../../common/index"
 import {
   add_products_api_wechatorder_products_get,
-  add_products_api_wechatorder_orders_post
+  add_products_api_wechatorder_orders_post,
+  add_products_api_wechatorder_orders_delivery
 } from "../../../request/sneaker-service/Order"
 Page({
 
@@ -12,11 +13,17 @@ Page({
    * 页面的初始数据
    */
   data: {
+    orderId: "",
     sendShopDialog: false,
     ORDER_STATUS,
     shopList: [],
     checkedList: [],
     status: "",
+    addressInfo: {
+      detail: "",
+      name: "",
+      phone: ""
+    },
     formData: {
       addessOrder: "",
       addessType: "",
@@ -28,6 +35,7 @@ Page({
   },
   onLoad(query) {
     this.setData({
+      orderId: query.orderId,
       status: query.orderStatus || "",
       finallyCost: query.finallyCost || ""
     })
@@ -54,7 +62,8 @@ Page({
     }).then(res => {
       if (res.data.code === 1) {
         this.setData({
-          shopList: res.data.data
+          shopList: res.data.data.products,
+          addressInfo: res.data.data.address
         })
       }
     })
@@ -84,6 +93,49 @@ Page({
       checkedList: newCheckedList
     })
   },
+  closConfirm() {
+    const { checkedList, orderId, formData, shopList } = this.data
+    const { addessOrder, addessType, selectAddressData, name, phone } = formData
+    if (!checkedList.length) {
+      wx.showToast({
+        title: '请选择发货商品',
+      })
+      return
+    }
+    if (!addessOrder || !selectAddressData || !addessType || !name || !phone) {
+      wx.showToast({
+        title: '请输入详细信息',
+      })
+      return
+    }
+    const update_product = [];
+    for (let i = 0; i < shopList.length; i++) {
+      const item = shopList[i];
+      if (checkedList.includes(item.id)) {
+        update_product.push({
+          product_id: item.id,
+          product_info_ids: item.product_infos.map(j => j.id),
+          un_product_info_ids: []
+        })
+      }
+    }
+    add_products_api_wechatorder_orders_delivery({
+      order_id: orderId,
+      update_product,
+      delivery_site: addessType,
+      tracking_code: addessOrder,
+      delivery_name: name,
+      delivery_phone: phone,
+      return_address: selectAddressData
+    }).then(res => {
+      if (res.data.code === 1) {
+        wx.showToast({
+          title: '发货成功，请耐心等待',
+        })
+        wx.navigateBack()
+      }
+    })
+  },
   closeDialog() {
     this.setData({
       sendShopDialog: false
@@ -95,8 +147,9 @@ Page({
     })
   },
   onCopyAddress() {
+    const { name, phone, detail } = this.data.addressInfo
     wx.setClipboardData({
-      data: '谢谢谢谢',
+      data: `姓名:${name}\n电话：${phone}\n地址：${detail}`,
       success() {
         wx.showToast({
           title: '复制成功',

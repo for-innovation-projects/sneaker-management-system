@@ -5,14 +5,14 @@
     <t-checkbox checked="{{utils.checkedAll(shopList,checkedList)}}" borderless="{{true}}" label="已选{{checkedList.length}}个商品" class="checkbox" bind:change="onChangeAll" block="{{false}}" />
     <t-button content="发货" bind:tap="onSendShop" style="margin:0 25rpx 0 0;color: #fff;"></t-button>
   </view>
-  <t-dialog visible="{{sendShopDialog}}" title=" " confirm-btn="发货" cancel-btn="取消" bind:confirm="closeDialog" bind:cancel="closeDialog">
+  <t-dialog visible="{{sendShopDialog}}" title=" " confirm-btn="发货" cancel-btn="取消" bind:confirm="closConfirm" bind:cancel="closeDialog">
     <view slot="content">
       <view class="top-content">
         <view class="title">
-          100分球鞋 5122333444
+          {{addressInfo.name}} {{addressInfo.phone}}
           <view class="copy" bind:tap="onCopyAddress">复制</view>
         </view>
-        <view class="desc">惺惺惜惺惺</view>
+        <view class="desc">{{addressInfo.detail}}</view>
       </view>
       <view class="border-input">
         <t-input value="{{formData.addessOrder}}" bind:change="onInputValue" data-item="addessOrder" placeholder="请输入快递单号" borderless="{{true}}" />

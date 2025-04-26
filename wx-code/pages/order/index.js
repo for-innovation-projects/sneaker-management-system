@@ -64,7 +64,7 @@ Page({
     }).then(res => {
       if (res.data.code === 1) {
         this.setData({
-          shopItemList: res.data.data
+          shopItemList: res.data.data.products
         })
       }
     })

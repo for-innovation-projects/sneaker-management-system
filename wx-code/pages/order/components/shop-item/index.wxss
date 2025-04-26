@@ -20,13 +20,21 @@
   align-items: center;
   flex-wrap: wrap;
 }
-.shop-item .desc-content .shop-num{
+
+.shop-item .desc-content .shop-num {
   margin-top: 10rpx;
 }
-.shop-item .desc-content .tag {
+
+.tag-content {
+  margin-top: 5px;
+  display: flex;
+  gap: 8px;
+}
+
+/* .shop-item .desc-content .tag {
   margin-left: 15rpx;
   margin-top: 15rpx;
-}
+} */
 
 .shop-item .bottom-area {
   display: flex;
