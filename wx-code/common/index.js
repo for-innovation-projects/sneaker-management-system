@@ -5,6 +5,8 @@ export const ORDER_STATUS = {
   process: 1,
   /** 待确认 */
   beConfirmed: 2,
+  /** 发货中 */
+  sending: 3,
   /** 退货订单 */
   returnGood: 'returnGood',
   /** 已完成 */
