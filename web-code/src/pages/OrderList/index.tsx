@@ -1,3 +1,4 @@
+import VerificationCodeFormItem from '@/components/VerificationCodeFormItem';
 import { get_addresses_api_wechataddress_pc_addresses_get } from '@/request-apis/sneaker-service/Address';
 import {
   get_orders_pc_api_wechatorder_pc_orders_get,
@@ -7,11 +8,13 @@ import type { ActionType, ProColumns } from '@ant-design/pro-components';
 import { ProTable } from '@ant-design/pro-components';
 import {
   Button,
+  Form,
   Input,
   InputNumber,
   message,
   Modal,
   Popconfirm,
+  Popover,
   Select,
   Space,
 } from 'antd';
@@ -56,44 +59,49 @@ export default () => {
     if (productInfo?.status === 1) {
       return <>报价完成</>;
     }
-    // if (orderId === 3 || orderId === 2) {
-    //   return (
-    //     <Popover
-    //       title="打钱"
-    //       trigger="click"
-    //       content={
-    //         <Form size="small" name="optionForm" autoComplete="off">
-    //           <Form.Item
-    //             label="金额"
-    //             name="username"
-    //             rules={[{ required: true, message: '必须输入' }]}
-    //           >
-    //             <InputNumber />
-    //           </Form.Item>
-    //           <Form.Item
-    //             label="验证码"
-    //             name="password"
-    //             rules={[
-    //               {
-    //                 required: true,
-    //                 message: '必须输入',
-    //               },
-    //             ]}
-    //           >
-    //             <VerificationCodeFormItem />
-    //           </Form.Item>
-    //           <Form.Item label={null}>
-    //             <Button type="primary" htmlType="submit">
-    //               打钱
-    //             </Button>
-    //           </Form.Item>
-    //         </Form>
-    //       }
-    //     >
-    //       完成订单（打钱）
-    //     </Popover>
-    //   );
-    // }
+    if (productInfo?.status === 3 || productInfo?.status === 4) {
+      return (
+        <Popover
+          title="打钱"
+          trigger="click"
+          content={
+            <Form
+              size="small"
+              name="optionForm"
+              autoComplete="off"
+              onFinish={() => {}}
+            >
+              <Form.Item
+                label="金额"
+                name="username"
+                rules={[{ required: true, message: '必须输入' }]}
+              >
+                <InputNumber />
+              </Form.Item>
+              <Form.Item
+                label="验证码"
+                name="password"
+                rules={[
+                  {
+                    required: true,
+                    message: '必须输入',
+                  },
+                ]}
+              >
+                <VerificationCodeFormItem />
+              </Form.Item>
+              <Form.Item label={null}>
+                <Button type="primary" htmlType="submit">
+                  打钱
+                </Button>
+              </Form.Item>
+            </Form>
+          }
+        >
+          完成订单（打钱）
+        </Popover>
+      );
+    }
     return <>确定</>;
   }, [productInfo]);
   const columns: ProColumns<IApi.OrderDetailResponse>[] = [
@@ -219,12 +227,23 @@ export default () => {
               .then((res) => {
                 //@ts-ignore
                 if (res.code === 1) {
-                  resolve({
-                    data:
-                      (res.data?.map((i: any) => ({
+                  const dataInfo =
+                    (res.data?.map((i: any) => {
+                      return {
                         ...i,
                         id: i.id.toString(),
-                      })) as any) || [],
+                      };
+                    }) as any) || [];
+                  if (isModalOpen && productInfo?.id) {
+                    const findData = dataInfo.find(
+                      (i: IApi.OrderDetailResponse) => i.id === productInfo.id,
+                    );
+                    if (findData) {
+                      setProductInfo(findData);
+                    }
+                  }
+                  resolve({
+                    data: dataInfo,
                     success: true,
                   });
                 } else {
@@ -288,8 +307,8 @@ export default () => {
             fatherItem={productInfo}
             orderId={productInfo?.id || 0}
             itemInfo={productInfo?.products || []}
-            reload={() => {
-              actionRef.current?.reloadAndRest?.();
+            reload={async () => {
+              await actionRef.current?.reloadAndRest?.();
             }}
           ></OrderEdit>
           <Space style={{ display: 'flex', justifyContent: 'right' }}>
