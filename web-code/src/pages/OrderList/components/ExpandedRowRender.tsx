@@ -1,4 +1,16 @@
-import { Badge, Space, Table, TableColumnsType } from 'antd';
+import { CopyOutlined } from '@ant-design/icons';
+import {
+  Badge,
+  Button,
+  Card,
+  Form,
+  Input,
+  message,
+  Popover,
+  Space,
+  Table,
+  TableColumnsType,
+} from 'antd';
 import React from 'react';
 import ItemBtn from './ItemBtn';
 
@@ -17,7 +29,6 @@ const ExpandedRowRender: React.FC<
       title: '状态',
       key: 'status',
       render: (item) => {
-        console.log(item, 'xxxzx');
         if (item.status === 1) {
           return <Badge status="success" text="未发货" />;
         }
@@ -46,16 +57,68 @@ const ExpandedRowRender: React.FC<
             reload={props.reload}
           ></ItemBtn>
           {props.orderStatus === 3 && (
-            <>
-              <a
-                onClick={() => {
-                  console.log(item, props);
-                }}
-              >
-                实物不符
-              </a>
+            <Popover
+              title={null}
+              trigger="click"
+              content={
+                <>
+                  <Card
+                    title="退货地址"
+                    size="small"
+                    extra={
+                      <CopyOutlined
+                        style={{
+                          marginLeft: 4,
+                          cursor: 'pointer',
+                          color: '#1677ff',
+                        }}
+                        onClick={(e) => {
+                          navigator.clipboard
+                            .writeText(item.id_code)
+                            .then(() => {
+                              message.success('复制成功');
+                            });
+                        }}
+                      />
+                    }
+                    style={{ width: 300 }}
+                  >
+                    <p>姓名：xxx</p>
+                    <p>手机号：xxx</p>
+                    <p>详细地址：xxxxx</p>
+                  </Card>
+                  <Form
+                    style={{ marginTop: '20px' }}
+                    size="small"
+                    name="expandForm"
+                    autoComplete="off"
+                    onFinish={() => {}}
+                  >
+                    <Form.Item
+                      label="物流商"
+                      name="username"
+                      rules={[{ required: true, message: '必须输入' }]}
+                    >
+                      <Input />
+                    </Form.Item>
+                    <Form.Item
+                      label="快递单号"
+                      name="password"
+                      rules={[{ required: true, message: '必须输入' }]}
+                    >
+                      <Input />
+                    </Form.Item>
+                    <Form.Item label={null}>
+                      <Button type="primary" htmlType="submit">
+                        退货
+                      </Button>
+                    </Form.Item>
+                  </Form>
+                </>
+              }
+            >
               <a>退货</a>
-            </>
+            </Popover>
           )}
         </Space>
       ),
