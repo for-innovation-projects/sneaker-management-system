@@ -1,7 +1,7 @@
-import type { ProColumns } from '@ant-design/pro-components';
+import type { ActionType, ProColumns } from '@ant-design/pro-components';
 import { ProTable } from '@ant-design/pro-components';
 import { Image, Modal, Space, Typography } from 'antd';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import ExpandedRowRender from './ExpandedRowRender';
 
 const OrderEdit: React.FC<{
@@ -12,6 +12,7 @@ const OrderEdit: React.FC<{
 }> = (props) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [curItem, setCurItem] = useState<IApi.ProductResponse>();
+  const actionRef = useRef<ActionType>(null);
 
   const columns: ProColumns<IApi.ProductResponse>[] = [
     {
@@ -64,6 +65,7 @@ const OrderEdit: React.FC<{
   return (
     <>
       <ProTable<IApi.ProductResponse>
+        actionRef={actionRef}
         pagination={false}
         columns={columns}
         scroll={{
@@ -102,8 +104,9 @@ const OrderEdit: React.FC<{
               {...item}
               orderStatus={props.fatherItem?.status || 0}
               orderId={props.orderId}
-              reload={() => {
-                props.reload?.();
+              reload={async () => {
+                await props.reload?.();
+                actionRef.current?.reloadAndRest?.();
               }}
             ></ExpandedRowRender>
           ),
