@@ -1,7 +1,7 @@
 import {
   getOpenId
 } from "../utils/store"
-const baseUrl = "http://gs7ssr.natappfree.cc"
+const baseUrl = "http://k8ad8b.natappfree.cc"
 export const request = (params = {}) => {
   const {
     url,
