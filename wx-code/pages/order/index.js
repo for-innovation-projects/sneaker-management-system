@@ -5,7 +5,10 @@ import {
 import {
   ORDER_STATUS
 } from '../../common/index'
-import { add_products_api_wechatorder_products_get, add_products_api_wechatorder_orders_get } from "../../request/sneaker-service/Order"
+import {
+  add_products_api_wechatorder_products_get,
+  add_products_api_wechatorder_orders_get
+} from "../../request/sneaker-service/Order"
 Page({
   onShareTimeline,
   onShareAppMessage,
@@ -24,6 +27,10 @@ Page({
     }, {
       label: "待确认",
       value: ORDER_STATUS.beConfirmed,
+      data: []
+    }, {
+      label: "验货中",
+      value: ORDER_STATUS.sending,
       data: []
     }, {
       label: "退货订单",
@@ -49,7 +56,9 @@ Page({
     const status = this.data.value
     const current = this.data.current
     add_products_api_wechatorder_orders_get({
-      data: { status }
+      data: {
+        status
+      }
     }).then(res => {
       if (res.data.code === 1) {
         this.setData({
