@@ -36,4 +36,7 @@
     <t-button wx:if="{{finallyCost}}" size="small" content="全部发货（{{finallyCost}} 元）" style="margin:0 20rpx 0 0;color: #fff;" bind:tap="onAllAddress"></t-button>
     <t-button content="去发货" size="small" style="margin:0 25rpx 0 0;color: #fff;" bind:tap="onToAddress"></t-button>
   </view>
+  <view class="bottom-action" wx:if="{{ORDER_STATUS.sending == status}}">
+    <view wx:if="{{finallyCost && finallyCost !== '0'}}" style="margin-left: auto;padding-right: 30rpx;">总价：{{finallyCost}}</view>
+  </view>
 </view>
