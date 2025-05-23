@@ -8,6 +8,7 @@
     "/api/wechatwithdrawal/pc/withdrawal/*",
     "/api/wechatorder/pc/orders",
     "/api/wechatorder/pc/products",
+    "/api/wechatorder/pc/return",
     "/api/wechatbanner/pc/"
   ],
   "importStr": "import request from '../index';"
