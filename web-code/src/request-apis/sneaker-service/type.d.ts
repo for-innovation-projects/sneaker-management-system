@@ -133,9 +133,6 @@ namespace IApi {
     delivery_phone?: DeliveryPhone;
     return_address?: ReturnAddress;
     name?: Name;
-    delivery_name: string;
-    delivery_phone: string;
-    return_address: string;
     phone?: Phone;
   }
   export interface ProductResponse {
@@ -586,6 +583,20 @@ namespace IApi {
     name?: Name;
     reason?: Reason;
     phone?: Phone;
+  }
+
+  export type ProductId = number;
+  export type ProductInfoId = number;
+  export type OrderId = number;
+  export type ReturnDeliverySite = string;
+  export type ReturnTrackingCode = string;
+
+  export interface ReturnGoodsAdd {
+    product_id: ProductId;
+    product_info_id: ProductInfoId;
+    order_id: OrderId;
+    return_delivery_site: ReturnDeliverySite;
+    return_tracking_code: ReturnTrackingCode;
   }
 
   export type PhoneNumber = string;
@@ -1227,17 +1238,13 @@ namespace IApi {
   /**
    * 结果数据模型
    */
+  export type OrderAddReturnGoodsApiWechatorderPcReturnPostBody =
+    ReturnGoodsAdd;
   export type ProductId = number;
+  export type ProductInfoId = number;
   export type OrderId = number;
   export type ReturnDeliverySite = string;
   export type ReturnTrackingCode = string;
-
-  export interface OrderAddReturnGoodsApiWechatorderPcReturnPostParams {
-    product_id?: ProductId;
-    order_id?: OrderId;
-    return_delivery_site?: ReturnDeliverySite;
-    return_tracking_code?: ReturnTrackingCode;
-  }
 
   export type OrderAddReturnGoodsApiWechatorderPcReturnPostResponses =
     ResultSchema;

@@ -1,19 +1,7 @@
-import { CopyOutlined } from '@ant-design/icons';
-import {
-  Badge,
-  Button,
-  Card,
-  Form,
-  Input,
-  message,
-  Popover,
-  Space,
-  Table,
-  TableColumnsType,
-} from 'antd';
+import { Badge, Space, Table, TableColumnsType } from 'antd';
 import React from 'react';
 import ItemBtn from './ItemBtn';
-import { add_return_goods_api_wechatorder_pc_return_post } from '@/request-apis/sneaker-service/Order'
+import PopoverReturn from './PopoverReturn';
 
 const ExpandedRowRender: React.FC<
   IApi.ProductResponse & {
@@ -55,91 +43,17 @@ const ExpandedRowRender: React.FC<
       key: 'operation',
       render: (item) => (
         <Space size="middle">
-          <ItemBtn
-            defaultValue={item.price}
-            order_id={props.orderId}
-            product_info_id={item.id}
-            product_id={props.id}
-            reload={props.reload}
-          ></ItemBtn>
-          {props.orderStatus === 3 && (
-            <Popover
-              title={null}
-              trigger="click"
-              content={
-                <>
-                  <Card
-                    title="退货地址"
-                    size="small"
-                    extra={
-                      <CopyOutlined
-                        style={{
-                          marginLeft: 4,
-                          cursor: 'pointer',
-                          color: '#1677ff',
-                        }}
-                        onClick={(e) => {
-                          navigator.clipboard
-                            .writeText(
-                              `姓名：${props.addressInfo.delivery_name}\n手机号：${props.addressInfo.delivery_phone}\n详细地址：${props.addressInfo.return_address}`,
-                            )
-                            .then(() => {
-                              message.success('复制成功');
-                            });
-                        }}
-                      />
-                    }
-                    style={{ width: 300 }}
-                  >
-                    <p>姓名：{props.addressInfo.delivery_name}</p>
-                    <p>手机号：{props.addressInfo.delivery_phone}</p>
-                    <p>详细地址：{props.addressInfo.return_address}</p>
-                  </Card>
-                   <Form
-                    style={{ marginTop: '20px' }}
-                    size="small"
-                    name="expandForm"
-                    autoComplete="off"
-                    onFinish={(formData) => {
-                      add_return_goods_api_wechatorder_pc_return_post({
-                        params: {
-                          product_id: props.id,
-                          order_id: props.orderId,
-                          ...formData,
-                        },
-                      }).then((res) => {
-                        // @ts-ignore
-                        if (res.code === 1) {
-                          props.reload?.();
-                        }
-                      });
-                    }}
-                  >
-                    <Form.Item
-                      label="物流商"
-                      name="return_delivery_site"
-                      rules={[{ required: true, message: '必须输入' }]}
-                    >
-                      <Input />
-                    </Form.Item>
-                    <Form.Item
-                      label="快递单号"
-                      name="return_tracking_code"
-                      rules={[{ required: true, message: '必须输入' }]}
-                    >
-                      <Input />
-                    </Form.Item>
-                    <Form.Item label={null}>
-                      <Button type="primary" htmlType="submit">
-                        退货
-                      </Button>
-                    </Form.Item>
-                  </Form>
-                </>
-              }
-            >
-              <a>退货</a>
-            </Popover>
+          {item.status !== 4 && (
+            <ItemBtn
+              defaultValue={item.price}
+              order_id={props.orderId}
+              product_info_id={item.id}
+              product_id={props.id}
+              reload={props.reload}
+            ></ItemBtn>
+          )}
+          {props.orderStatus === 3 && item.status !== 4 && (
+            <PopoverReturn {...props} item={item}></PopoverReturn>
           )}
         </Space>
       ),

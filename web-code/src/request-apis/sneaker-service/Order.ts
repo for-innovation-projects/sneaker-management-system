@@ -23,12 +23,13 @@ export function update_orders_pc_api_wechatorder_pc_orders_patch({
   });
 }
 export function add_return_goods_api_wechatorder_pc_return_post({
-  params,
-}: { params?: IApi.OrderAddReturnGoodsApiWechatorderPcReturnPostParams } = {}) {
+  data,
+}: { data?: IApi.OrderAddReturnGoodsApiWechatorderPcReturnPostBody } = {}) {
   return request<IApi.OrderAddReturnGoodsApiWechatorderPcReturnPostResponses>({
     url: `/api/wechatorder/pc/return`,
     method: "post",
-    params: params || {},
+
+    data: data || {},
   });
 }
 export function update_products_pc_api_wechatorder_pc_products_patch({
