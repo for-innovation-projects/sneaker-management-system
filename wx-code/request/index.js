@@ -18,6 +18,12 @@ export const request = (params = {}) => {
       },
       method,
       success(res) {
+        if (res.data.code !== 1) {
+          wx.showToast({
+            title: res.data.msg || '请重新尝试',
+            icon: 'none'
+          })
+        }
         resolve(res)
       },
       fail(err) {

@@ -126,6 +126,9 @@ namespace IApi {
     update_time?: UpdateTime;
     products: Products;
     name?: Name;
+    delivery_name: string;
+    delivery_phone: string;
+    return_address: string;
     phone?: Phone;
   }
   export interface ProductResponse {

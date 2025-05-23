@@ -18,6 +18,11 @@ const ExpandedRowRender: React.FC<
   IApi.ProductResponse & {
     orderId: number;
     orderStatus: number;
+    addressInfo: {
+      delivery_name?: string;
+      delivery_phone?: string;
+      return_address?: string;
+    };
     reload?: () => void;
   }
 > = (props) => {
@@ -74,7 +79,9 @@ const ExpandedRowRender: React.FC<
                         }}
                         onClick={(e) => {
                           navigator.clipboard
-                            .writeText(item.id_code)
+                            .writeText(
+                              `姓名：${props.addressInfo.delivery_name}\n手机号：${props.addressInfo.delivery_phone}\n详细地址：${props.addressInfo.return_address}`,
+                            )
                             .then(() => {
                               message.success('复制成功');
                             });
@@ -83,9 +90,9 @@ const ExpandedRowRender: React.FC<
                     }
                     style={{ width: 300 }}
                   >
-                    <p>姓名：xxx</p>
-                    <p>手机号：xxx</p>
-                    <p>详细地址：xxxxx</p>
+                    <p>姓名：{props.addressInfo.delivery_name}</p>
+                    <p>手机号：{props.addressInfo.delivery_phone}</p>
+                    <p>详细地址：{props.addressInfo.return_address}</p>
                   </Card>
                   <Form
                     style={{ marginTop: '20px' }}

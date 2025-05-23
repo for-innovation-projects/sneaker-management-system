@@ -21,9 +21,6 @@ request.interceptors.request.use(
 );
 request.interceptors.response.use(
   function (response) {
-    if (response.data.code !== 1) {
-      message.error(response.data.message);
-    }
     return response.data; // 必须返回 config 对象
   },
   function (error) {

@@ -104,6 +104,11 @@ const OrderEdit: React.FC<{
               {...item}
               orderStatus={props.fatherItem?.status || 0}
               orderId={props.orderId}
+              addressInfo={{
+                delivery_name: props.fatherItem?.delivery_name,
+                delivery_phone: props.fatherItem?.delivery_phone,
+                return_address: props.fatherItem?.return_address,
+              }}
               reload={async () => {
                 await props.reload?.();
                 actionRef.current?.reloadAndRest?.();

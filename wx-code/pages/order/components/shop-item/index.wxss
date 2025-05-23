@@ -29,6 +29,7 @@
   margin-top: 5px;
   display: flex;
   gap: 8px;
+  flex-wrap: wrap;
 }
 
 /* .shop-item .desc-content .tag {
