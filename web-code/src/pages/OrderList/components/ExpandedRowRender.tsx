@@ -87,23 +87,36 @@ const ExpandedRowRender: React.FC<
                     <p>手机号：xxx</p>
                     <p>详细地址：xxxxx</p>
                   </Card>
-                  <Form
+                   <Form
                     style={{ marginTop: '20px' }}
                     size="small"
                     name="expandForm"
                     autoComplete="off"
-                    onFinish={() => {}}
+                    onFinish={(formData) => {
+                      add_return_goods_api_wechatorder_pc_return_post({
+                        params: {
+                          product_id: props.id,
+                          order_id: props.orderId,
+                          ...formData,
+                        },
+                      }).then((res) => {
+                        // @ts-ignore
+                        if (res.code === 1) {
+                          props.reload?.();
+                        }
+                      });
+                    }}
                   >
                     <Form.Item
                       label="物流商"
-                      name="username"
+                      name="return_delivery_site"
                       rules={[{ required: true, message: '必须输入' }]}
                     >
                       <Input />
                     </Form.Item>
                     <Form.Item
                       label="快递单号"
-                      name="password"
+                      name="return_tracking_code"
                       rules={[{ required: true, message: '必须输入' }]}
                     >
                       <Input />
