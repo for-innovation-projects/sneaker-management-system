@@ -1067,14 +1067,14 @@ namespace IApi {
   export type Page = number;
   export type PageSize = number;
 
-  export interface OrderGetOrdersPcApiWechatorderOrdersGetParams {
+  export interface OrderGetOrdersWxApiWechatorderOrdersGetParams {
     openid?: Openid;
     status?: Status;
     page?: Page;
     page_size?: PageSize;
   }
 
-  export type OrderGetOrdersPcApiWechatorderOrdersGetResponses =
+  export type OrderGetOrdersWxApiWechatorderOrdersGetResponses =
     ResultSchemaListT;
   export type Code = number;
   export type Data = unknown[] | unknown[][];
