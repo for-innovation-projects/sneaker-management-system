@@ -3,6 +3,7 @@
   <view class="shop-cell" bind:tap="onClick">
     <t-checkbox wx:if="{{selectStatus}}" checked="{{checked}}" class="checkbox" block="{{false}}" />
     <t-cell title="{{itemInfo.product_name}}" align="top" image="https://tdesign.gtimg.com/mobile/demos/avatar1.png" bordered="{{false}}">
+      <t-tag wx:if="{{itemInfo.status === ORDER_STATUS.returnGood}}" variant="outline" theme="success" slot="note">已退货</t-tag>
       <view class="desc-content" slot="description">
         <view class="tag-content">
           <t-tag class="tag" variant="light" wx:for="{{itemInfo.product_infos}}">{{item.size}}*{{item.number}}<text style="color: red;" wx:if="{{item.price}}">（单价：{{item.price}}）</text>
