@@ -169,6 +169,7 @@ namespace IApi {
     finally_cost?: FinallyCost;
     status: Status;
     address_id?: AddressId;
+    money_to_user?: number;
   }
 
   export type UserId = number;

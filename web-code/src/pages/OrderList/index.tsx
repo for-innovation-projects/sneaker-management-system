@@ -70,18 +70,46 @@ export default () => {
               size="small"
               name="optionForm"
               autoComplete="off"
-              onFinish={() => {}}
+              onFinish={(formData) => {
+                if (productInfo?.status === 3) {
+                  setLoading(true);
+                  update_orders_pc_api_wechatorder_pc_orders_patch({
+                    params: {
+                      order_id: productInfo?.id,
+                    },
+                    data: {
+                      finally_cost: allPrice,
+                      status: 5,
+                      address_id: addressId,
+                      ...formData,
+                    },
+                  })
+                    .then((res) => {
+                      // @ts-ignore
+                      if (res.code === 1) {
+                        setIsModalOpen(false);
+                        actionRef.current?.reloadAndRest?.();
+                        message.success('设置成功');
+                      } else {
+                        message.error(res.msg || '设置失败');
+                      }
+                    })
+                    .finally(() => {
+                      setLoading(false);
+                    });
+                }
+              }}
             >
               <Form.Item
                 label="金额"
-                name="username"
+                name="money_to_user"
                 rules={[{ required: true, message: '必须输入' }]}
               >
                 <InputNumber />
               </Form.Item>
               <Form.Item
                 label="验证码"
-                name="password"
+                name="code"
                 rules={[
                   {
                     required: true,
