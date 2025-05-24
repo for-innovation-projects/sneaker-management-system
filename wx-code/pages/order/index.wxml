@@ -3,12 +3,15 @@
 </t-tabs>
 <swiper current="{{current}}" class="tab-content" bind:change="onChangeSwiper">
   <swiper-item wx:for="{{tabsList}}" wx:key="index">
-    <view wx:if="{{item.value === ORDER_STATUS.curOrder}}" class="item-content">
-      <shop-item bind:reload="getCurShopData" wx:for="{{shopItemList}}" itemInfo="{{item}}" status="{{ORDER_STATUS.curOrder}}"></shop-item>
+    <view style="height: 100%;overflow-y: auto;">
+      <view wx:if="{{item.value === ORDER_STATUS.curOrder}}" class="item-content">
+        <shop-item bind:reload="getCurShopData" wx:for="{{shopItemList}}" itemInfo="{{item}}" status="{{ORDER_STATUS.curOrder}}"></shop-item>
+      </view>
+      <view wx:else>
+        <order-item wx:for="{{item.data}}" status="{{item.value}}" wx:for-item="itemInfo" orderId="{{itemInfo.id}}" time="{{itemInfo.create_time}}" finallyCost="{{itemInfo.finally_cost}}"></order-item>
+      </view>
     </view>
-    <view wx:else>
-      <order-item wx:for="{{item.data}}" status="{{item.value}}" wx:for-item="itemInfo" orderId="{{itemInfo.id}}" time="{{itemInfo.create_time}}" finallyCost="{{itemInfo.finally_cost}}"></order-item>
-    </view>
+
   </swiper-item>
 </swiper>
 <floating-ball>

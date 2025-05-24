@@ -39,7 +39,7 @@ Page({
       status: query.orderStatus || "",
       finallyCost: query.finallyCost || ""
     })
-    this.getData(query.orderId)
+    this.getData(query.orderId, { orderStatus: query.orderStatus })
   },
   onToAddress() {
     this.setData({
@@ -54,11 +54,15 @@ Page({
     })
     this.onToAddress()
   },
-  getData(orderId) {
+  getData(orderId, { orderStatus }) {
+    const data = {
+      order_id: orderId ?? "",
+    }
+    if (orderStatus == 4) {
+      data.status = 4
+    }
     add_products_api_wechatorder_products_get({
-      data: {
-        order_id: orderId ?? ""
-      }
+      data
     }).then(res => {
       if (res.data.code === 1) {
         this.setData({
