@@ -22,6 +22,19 @@ export function update_orders_pc_api_wechatorder_pc_orders_patch({
     data: data || {},
   });
 }
+export function update_orders_status_pc_api_wechatorder_pc_orders_status_patch({
+  params,
+}: {
+  params?: IApi.OrderUpdateOrdersStatusPcApiWechatorderPcOrdersStatusPatchParams;
+} = {}) {
+  return request<IApi.OrderUpdateOrdersStatusPcApiWechatorderPcOrdersStatusPatchResponses>(
+    {
+      url: `/api/wechatorder/pc/orders/status`,
+      method: "patch",
+      params: params || {},
+    },
+  );
+}
 export function add_return_goods_api_wechatorder_pc_return_post({
   data,
 }: { data?: IApi.OrderAddReturnGoodsApiWechatorderPcReturnPostBody } = {}) {
