@@ -3,6 +3,7 @@ import { get_addresses_api_wechataddress_pc_addresses_get } from '@/request-apis
 import {
   get_orders_pc_api_wechatorder_pc_orders_get,
   update_orders_pc_api_wechatorder_pc_orders_patch,
+  update_orders_status_pc_api_wechatorder_pc_orders_status_patch,
 } from '@/request-apis/sneaker-service/Order';
 import type { ActionType, ProColumns } from '@ant-design/pro-components';
 import { ProTable } from '@ant-design/pro-components';
@@ -191,7 +192,22 @@ export default () => {
           <Popconfirm
             title="关闭订单"
             description="关闭后订单将立刻结束"
-            onConfirm={() => {}}
+            onConfirm={() => {
+              update_orders_status_pc_api_wechatorder_pc_orders_status_patch({
+                params: {
+                  order_id: item.id,
+                  status: 5,
+                },
+              }).then((res) => {
+                // @ts-ignore
+                if (res.code === 1) {
+                  actionRef.current?.reloadAndRest?.();
+                  message.success('关闭成功');
+                } else {
+                  message.error(res.msg || '关闭失败');
+                }
+              });
+            }}
             onCancel={() => {}}
             okText="确认"
             cancelText="取消"
