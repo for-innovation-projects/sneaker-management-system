@@ -9,6 +9,7 @@
     "/api/wechatorder/pc/orders",
     "/api/wechatorder/pc/products",
     "/api/wechatorder/pc/return",
+    "/api/wechatorder/pc/orders/status",
     "/api/wechatbanner/pc/"
   ],
   "importStr": "import request from '../index';"
